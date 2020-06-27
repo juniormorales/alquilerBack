@@ -22,19 +22,36 @@ public class Usuario {
 	@Column( nullable = false, length = 55, unique=true)
 	private String username;
 
-	@Column(name = "password", nullable = false, length = 100)
+	@Column( nullable = false, length = 100)
 	private String password;
 
-	@Column(name = "email", nullable = false, length = 100, unique=true)
+	@Column(nullable = false, length = 100, unique=true)
 	private String email;
 	
-	@Column(name = "estado", nullable = false)
+	@Column(nullable = false)
 	private Boolean estado;
 	
 	@Column(name="src_foto", nullable=true)
 	private String foto;
 	
-	//@JsonIgnore
+	@Column(nullable=false)
+	private String nombres;
+	
+	@Column(nullable=false)
+	private String apellidos;
+	
+	@Column(nullable=false)
+	private String dni;
+	
+	@Column
+	private String telefono;
+	
+	@Column(length = 9)
+	private String nroCel;
+	
+	@Column(nullable=false)
+	private String tipoUsuario;
+	
 	@ManyToOne
 	@JoinColumn(name="id_perfil",nullable=false)
 	private Perfil perfil;
@@ -94,9 +111,53 @@ public class Usuario {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
-	
-	
 
-	
+	public String getNombres() {
+		return nombres;
+	}
 
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getNroCel() {
+		return nroCel;
+	}
+
+	public void setNroCel(String nroCel) {
+		this.nroCel = nroCel;
+	}
+
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+	
 }

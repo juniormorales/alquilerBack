@@ -19,7 +19,6 @@ import com.back.alquiler.models.Perfil;
 import com.back.alquiler.models.Usuario;
 import com.back.alquiler.service.UtilitarioService;
 
-
 @RestController
 @RequestMapping("/api/utilitario")
 public class UtilitarioController {
@@ -36,17 +35,28 @@ public class UtilitarioController {
 		try {
 			List<String> messages = new ArrayList<>();
 			List<Modulo> tmp_modulo = new ArrayList<>();
-			Modulo modGestionCuentas = this.CrearModulo(null, "tim-icons icon-key-25", false, 1, "/administracion/cuentas", "Gestion de cuentas", "link");
-			Modulo modVerSoliAcep = this.CrearModulo(null, "tim-icons icon-email-85", false, 2, "/administracion/ver-sol", "Solicitudes Pendientes", "link");
-			Modulo modDash  = this.CrearModulo(null, "tim-icons icon-chart-pie-36", false, 1, "/arrendero/dashboard", "Dashboard", "link");
-			Modulo modGestionProp = this.CrearModulo("prop", "mdi mdi-home-modern", true, 2, "/arrendero/", "Propiedades", "sub");
-			Modulo modGestInqui = this.CrearModulo("inquilinos", "mdi mdi-emoticon-cool", true, 3, "/arrendero/", "Inquilinos", "sub");
-			Modulo modCondicionPago = this.CrearModulo(null, "tim-icons icon-coins", false, 5, "/arrendero/condicion-pago", "Condicion Pago", "link");
-			Modulo modGestSolici = this.CrearModulo(null, "mdi mdi-eye", false, 6, "/arrendero/solicitudes", "Solicitudes", "link");
-			Modulo modGestDoc = this.CrearModulo("doc", "tim-icons icon-single-copy-04", true, 4 , "/arrendero/", "Documentos", "sub");
-			Modulo modPresentacion = this.CrearModulo(null, "mdi mdi-map-marker-radius", false, 1, "/arrendatario/buscar", "Buscar Propiedades", "link");
-			Modulo modHistorialUsu = this.CrearModulo(null, "mdi mdi-library", true, 2, "/arrendatario/", "Historiales", "sub");
-			Modulo modDeudas = this.CrearModulo("deudas", "tim-icons icon-paper", true, 3, "/arrendatario/", "Pagos / Deudas", "sub");
+			Modulo modGestionCuentas = this.CrearModulo(null, "tim-icons icon-key-25", false, 1,
+					"/administracion/cuentas", "Gestion de cuentas", "link");
+			Modulo modVerSoliAcep = this.CrearModulo(null, "tim-icons icon-email-85", false, 2,
+					"/administracion/ver-sol", "Solicitudes Pendientes", "link");
+			Modulo modDash = this.CrearModulo(null, "tim-icons icon-chart-pie-36", false, 1, "/arrendero/dashboard",
+					"Dashboard", "link");
+			Modulo modGestionProp = this.CrearModulo("prop", "mdi mdi-home-modern", true, 2, "/arrendero/",
+					"Propiedades", "sub");
+			Modulo modGestInqui = this.CrearModulo("inquilinos", "mdi mdi-emoticon-cool", true, 3, "/arrendero/",
+					"Inquilinos", "sub");
+			Modulo modCondicionPago = this.CrearModulo(null, "tim-icons icon-coins", false, 5,
+					"/arrendero/condicion-pago", "Condicion Pago", "link");
+			Modulo modGestSolici = this.CrearModulo(null, "mdi mdi-eye", false, 6, "/arrendero/solicitudes",
+					"Solicitudes", "link");
+			Modulo modGestDoc = this.CrearModulo("doc", "tim-icons icon-single-copy-04", true, 4, "/arrendero/",
+					"Documentos", "sub");
+			Modulo modPresentacion = this.CrearModulo(null, "mdi mdi-map-marker-radius", false, 1,
+					"/arrendatario/buscar", "Buscar Propiedades", "link");
+			Modulo modHistorialUsu = this.CrearModulo(null, "mdi mdi-library", true, 2, "/arrendatario/", "Historiales",
+					"sub");
+			Modulo modDeudas = this.CrearModulo("deudas", "tim-icons icon-paper", true, 3, "/arrendatario/",
+					"Pagos / Deudas", "sub");
 			tmp_modulo.add(modGestionCuentas);
 			tmp_modulo.add(modVerSoliAcep);
 			tmp_modulo.add(modDash);
@@ -62,14 +72,17 @@ public class UtilitarioController {
 
 			List<Pagina> tmp_pagina = new ArrayList<>();
 			Pagina pgprop = this.CrearPagina("misprop", "mis-propiedades", "MPROP", "Mis Propiedades", modGestionProp);
-			Pagina pggesinq = this.CrearPagina("gestinq", "gestion-inquilino", "GINQ", "Gestion Inquilino", modGestInqui);
+			Pagina pggesinq = this.CrearPagina("gestinq", "gestion-inquilino", "GINQ", "Gestion Inquilino",
+					modGestInqui);
 			Pagina pgpago = this.CrearPagina("verpago", "pagos", "PAG", "Pagos", modGestInqui);
-			Pagina pgpagoporacept = this.CrearPagina("pagoporacept", "por-aceptar", "PENDI", "Pagos por Confirmar", modGestInqui);
-			Pagina pgcontratopend = this.CrearPagina("contrpend", "contrat-pend", "CNPND", "Contratos pendientes", modGestInqui);
+			Pagina pgpagoporacept = this.CrearPagina("pagoporacept", "por-aceptar", "PENDI", "Pagos por Confirmar",
+					modGestInqui);
+			Pagina pgcontratopend = this.CrearPagina("contrpend", "contrat-pend", "CNPND", "Contratos pendientes",
+					modGestInqui);
 			Pagina pgrecib = this.CrearPagina("recibo", "recibos", "REC", "Recibos", modGestDoc);
-			Pagina pgcontr= this.CrearPagina("contr", "contratos", "CONT", "Contratos", modGestDoc);
-			Pagina pgsol = this.CrearPagina("solicitud", "sol-hechas", "SOL", "Solicitudes Hechas",modHistorialUsu);
-			Pagina pgbol = this.CrearPagina("hboletas", "boletas" , "BOL", "Mis Boletas", modHistorialUsu);
+			Pagina pgcontr = this.CrearPagina("contr", "contratos", "CONT", "Contratos", modGestDoc);
+			Pagina pgsol = this.CrearPagina("solicitud", "sol-hechas", "SOL", "Solicitudes Hechas", modHistorialUsu);
+			Pagina pgbol = this.CrearPagina("hboletas", "boletas", "BOL", "Mis Boletas", modHistorialUsu);
 			Pagina pgveracep = this.CrearPagina("veracep", "sol-aceptadas", "ACEPT", "Sol. Aceptadas", modHistorialUsu);
 			Pagina pgrecordpagos = this.CrearPagina("pagos", "pagos", "PAGO", "Record de Pagos", modDeudas);
 			Pagina pgpagosvencer = this.CrearPagina("pagosven", "por-vencer", "PPV", "Pagos por Vencer", modDeudas);
@@ -87,7 +100,7 @@ public class UtilitarioController {
 			tmp_pagina.add(pgrecordpagos);
 			tmp_pagina.add(pgpagosvencer);
 			tmp_pagina.add(pgpagospend);
-			
+
 			messages.add(service.insertarDatosPagina(tmp_pagina));
 
 			List<Perfil> tmp_perfil = new ArrayList<>();
@@ -99,23 +112,33 @@ public class UtilitarioController {
 			tmp_perfil.add(arrendetario);
 			messages.add(service.insertarDatosPerfil(tmp_perfil));
 
-
 			List<Usuario> tmp_usuarios = new ArrayList<>();
-			Usuario user1 = this.crearUsuario("angel_96vir@hotmail.com", true,
-					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "junior", admi);
-			Usuario user2 = this.crearUsuario("nuevo_correo@gmail.com", true, "$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "yair", arrendero);
-			Usuario user3 = this.crearUsuario("nuevo_correo2@gmail.com", true, "$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user", arrendetario);
+			Usuario user1 = this.crearUsuario("correo1@hotmail.com", true,
+					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "user1", admi);
+			Usuario user2 = this.crearUsuario("correo2@hotmail.com", true,
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user2", arrendero);
+			Usuario user3 = this.crearUsuario("correo3@hotmail.com", true,
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user3", arrendetario);
+			Usuario user4 = this.crearUsuario("correo4@hotmail.com", true,
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user4", arrendero);
+			Usuario user5 = this.crearUsuario("correo5@hotmail.com", true,
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user5", arrendetario);
+			Usuario user6 = this.crearUsuario("correo6@hotmail.com", true,
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user6", arrendero);
 
 			tmp_usuarios.add(user1);
 			tmp_usuarios.add(user2);
 			tmp_usuarios.add(user3);
+			tmp_usuarios.add(user4);
+			tmp_usuarios.add(user5);
+			tmp_usuarios.add(user6);
 			messages.add(service.insertarDatosUsuarios(tmp_usuarios));
 			messages.add(service.insertarDatosPerfilesModulos());
 			messages.add(service.insertarDatosDepartamento());
 			messages.add(service.insertarDatosProvincia());
-			messages.add(service.insertarDatosDistrito());		
+			messages.add(service.insertarDatosDistrito());
 			resp_BD1.put("mensaje", messages);
-	
+
 		} catch (Exception e) {
 
 		}
@@ -123,7 +146,8 @@ public class UtilitarioController {
 
 	}
 
-	private Modulo CrearModulo(String collapse, String icono, Boolean isCollapsed, int orden, String path,String title, String type) {
+	private Modulo CrearModulo(String collapse, String icono, Boolean isCollapsed, int orden, String path, String title,
+			String type) {
 		Modulo modulo = new Modulo();
 		modulo.setCollapse(collapse);
 		modulo.setIcontype(icono);
@@ -155,7 +179,6 @@ public class UtilitarioController {
 		return p;
 	}
 
-
 	private Usuario crearUsuario(String email, Boolean estado, String pass, String username, Perfil perfil) {
 		Usuario u = new Usuario();
 		u.setEmail(email);
@@ -166,5 +189,4 @@ public class UtilitarioController {
 		return u;
 	}
 
-	
 }

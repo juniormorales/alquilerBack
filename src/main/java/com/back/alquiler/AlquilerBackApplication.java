@@ -7,19 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class AlquilerBackApplication implements CommandLineRunner {
+public class AlquilerBackApplication {
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AlquilerBackApplication.class, args);
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		System.out.println(encoder.encode("12345"));
-		
 	}
 
 }

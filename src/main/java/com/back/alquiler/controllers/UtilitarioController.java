@@ -114,17 +114,17 @@ public class UtilitarioController {
 
 			List<Usuario> tmp_usuarios = new ArrayList<>();
 			Usuario user1 = this.crearUsuario("correo1@hotmail.com", true,
-					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "user1", admi);
+					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "user1", admi, "ADMINISTRADOR");
 			Usuario user2 = this.crearUsuario("correo2@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user2", arrendero);
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user2", arrendero,"ARRENDERO");
 			Usuario user3 = this.crearUsuario("correo3@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user3", arrendetario);
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user3", arrendetario,"ARRENDATARIO");
 			Usuario user4 = this.crearUsuario("correo4@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user4", arrendero);
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user4", arrendero,"ARRENDERO");
 			Usuario user5 = this.crearUsuario("correo5@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user5", arrendetario);
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user5", arrendetario,"ARRENDATARIO");
 			Usuario user6 = this.crearUsuario("correo6@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user6", arrendero);
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user6", arrendero,"ARRENDERO");
 
 			tmp_usuarios.add(user1);
 			tmp_usuarios.add(user2);
@@ -179,13 +179,19 @@ public class UtilitarioController {
 		return p;
 	}
 
-	private Usuario crearUsuario(String email, Boolean estado, String pass, String username, Perfil perfil) {
+	private Usuario crearUsuario(String email, Boolean estado, String pass, String username, Perfil perfil, String tipoUsuario) {
 		Usuario u = new Usuario();
 		u.setEmail(email);
 		u.setEstado(estado);
 		u.setUsername(username);
 		u.setPassword(pass);
 		u.setPerfil(perfil);
+		u.setNombres("nombre prueba");
+		u.setApellidos("apellido prueba");
+		u.setDni("99999999");
+		u.setNroCel("951228608");
+		u.setTipoUsuario(tipoUsuario);
+		u.setTelefono("5555555");
 		return u;
 	}
 

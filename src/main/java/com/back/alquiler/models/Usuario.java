@@ -49,7 +49,7 @@ public class Usuario {
 	@Column(length = 9)
 	private String nroCel;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private String tipoUsuario;
 	
 	@ManyToOne

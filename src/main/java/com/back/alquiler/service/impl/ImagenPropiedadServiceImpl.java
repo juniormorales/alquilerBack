@@ -107,4 +107,27 @@ public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 		return true;
 	}
 
+	@Override
+	public Boolean eliminarTodasLasImagenes(Integer id) throws IOException {
+		Propiedad propiedad = new Propiedad();
+		propiedad.setIdPropiedad(id);
+		List<ImagenPropiedad> lsImagenes = repo_imagen_prop.findByPropiedad(propiedad);
+		if(!lsImagenes.isEmpty()) {
+			lsImagenes.forEach(imagen -> {
+				String nombreFotoAnterior = imagen.getNombreFoto();
+				if (nombreFotoAnterior != null) {
+					Path rutaFotoAnterior = Paths.get(Constantes.rutaImagenPropiedad).resolve(nombreFotoAnterior)
+							.toAbsolutePath();
+					File archivoFotoAnterior = rutaFotoAnterior.toFile();
+					if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
+						archivoFotoAnterior.delete();
+					}
+					repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
+				}
+				;
+			});
+		}
+		return true;
+	}
+
 }

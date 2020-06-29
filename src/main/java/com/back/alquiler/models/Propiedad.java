@@ -1,7 +1,9 @@
 package com.back.alquiler.models;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Propiedad {
@@ -59,6 +64,10 @@ public class Propiedad {
 	@ManyToOne
 	@JoinColumn(name="id_arrendero")
 	private Arrendero arrendero;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "propiedad")
+	private List<ImagenPropiedad> lsImagenPropiedad;
 
 	public Integer getIdPropiedad() {
 		return idPropiedad;
@@ -170,6 +179,14 @@ public class Propiedad {
 
 	public void setTieneDanios(Boolean tieneDanios) {
 		this.tieneDanios = tieneDanios;
+	}
+
+	public List<ImagenPropiedad> getLsImagenPropiedad() {
+		return lsImagenPropiedad;
+	}
+
+	public void setLsImagenPropiedad(List<ImagenPropiedad> lsImagenPropiedad) {
+		this.lsImagenPropiedad = lsImagenPropiedad;
 	}
 	
 	

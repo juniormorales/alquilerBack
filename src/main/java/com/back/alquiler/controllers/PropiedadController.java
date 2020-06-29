@@ -1,5 +1,6 @@
 package com.back.alquiler.controllers;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.alquiler.models.Propiedad;
+import com.back.alquiler.service.ImagenPropiedadService;
 import com.back.alquiler.service.PropiedadService;
 import com.back.alquiler.utils.Constantes;
 
@@ -26,6 +28,9 @@ public class PropiedadController {
 
 	@Autowired
 	PropiedadService service_propiedad;
+	
+	@Autowired
+	ImagenPropiedadService service_imagen_prop;
 
 	@PostMapping("/registrar")
 	public ResponseEntity<?> registrarPropiedad(@RequestBody Propiedad propiedad) {
@@ -63,6 +68,11 @@ public class PropiedadController {
 	public ResponseEntity<?> eliminarPropiedad(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
+			try {
+				service_imagen_prop.eliminarTodasLasImagenes(id);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			Boolean resp = service_propiedad.eliminar(id);
 			if (resp) {
 				response.put("titulo", Constantes.tituloOk);

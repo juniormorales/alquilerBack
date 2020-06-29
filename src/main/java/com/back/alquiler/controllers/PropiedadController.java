@@ -80,5 +80,5 @@ public class PropiedadController {
 			response.put("error", e.getMostSpecificCause().getMessage());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
+	}	
 }

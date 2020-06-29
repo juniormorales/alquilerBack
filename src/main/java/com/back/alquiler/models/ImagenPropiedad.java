@@ -16,10 +16,10 @@ public class ImagenPropiedad {
 	private Integer idImagenPropiedad;
 	
 	@Column(nullable=false)
-	private String ruta;
+	private String nombreFoto;
 	
 	@ManyToOne
-	@JoinColumn(name="id_propiedad")
+	@JoinColumn(name="id_propiedad", nullable=false)
 	private Propiedad propiedad;
 
 	public Integer getIdImagenPropiedad() {
@@ -30,12 +30,12 @@ public class ImagenPropiedad {
 		this.idImagenPropiedad = idImagenPropiedad;
 	}
 
-	public String getRuta() {
-		return ruta;
+	public String getNombreFoto() {
+		return nombreFoto;
 	}
 
-	public void setRuta(String ruta) {
-		this.ruta = ruta;
+	public void setNombreFoto(String ruta) {
+		this.nombreFoto = ruta;
 	}
 
 	public Propiedad getPropiedad() {

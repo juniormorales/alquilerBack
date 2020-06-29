@@ -1,5 +1,7 @@
 package com.back.alquiler.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +32,9 @@ public class Usuario {
 	
 	@Column(nullable = false)
 	private Boolean estado;
+	
+	@Column(nullable=true)
+	private Date fechaNacimiento;
 	
 	@Column(name="src_foto", nullable=true)
 	private String foto;
@@ -158,6 +163,14 @@ public class Usuario {
 
 	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 }

@@ -18,7 +18,7 @@ import com.back.alquiler.utils.Constantes;
 
 
 @RestController
-@RequestMapping("/api/departamento")
+@RequestMapping("/public/departamento")
 public class DepartamentoController {
 
 	@Autowired

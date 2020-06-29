@@ -29,7 +29,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/utilitario/llenarBD").permitAll()
-		.antMatchers(HttpMethod.GET,"/api/propiedades/listar").hasAnyRole("ARRENDEDOR")
+		.antMatchers("/public/departamento/**").permitAll()
+		.antMatchers("/public/provincia/**").permitAll()
+		.antMatchers("/public/distrito/**").permitAll()
+		.antMatchers("/api/arrendero/registrar").permitAll()
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource())
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -18,7 +18,7 @@ import com.back.alquiler.service.ProvinciaService;
 import com.back.alquiler.utils.Constantes;
 
 @RestController
-@RequestMapping("/api/provincia")
+@RequestMapping("/public/provincia")
 public class ProvinciaController {
 
 	@Autowired

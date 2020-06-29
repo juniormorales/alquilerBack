@@ -19,7 +19,7 @@ import com.back.alquiler.utils.Constantes;
 
 
 @RestController
-@RequestMapping("/api/distrito")
+@RequestMapping("/public/distrito")
 public class DistritoController {
 
 	@Autowired

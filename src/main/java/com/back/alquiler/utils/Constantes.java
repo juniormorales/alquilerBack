@@ -66,5 +66,22 @@ public class Constantes {
 	public static final String msgEliminarOk = "El registro se ha eliminado correctamente";
 	public static final String msgEliminarError = "El registro que se quiere eliminar no existe o ya ha sido eliminado de la base de datos";
 	public static final String msgEliminarErrorGrave = "No se puede eliminar el registro";
-
+	
+	//Arrendero
+	public static final String msgRegistrarUsuarioOk = "Se ha registrado exitosamente su cuenta"; 
+	public static final String msgRegistrarUsuarioError = "Ocurrio un error al registrar su cuenta en la Base de datos";
+	public static final String msgYaExisteDNI = "Este DNI ya tiene una cuenta asignada";
+	public static final String msgYaExisteEmail = "Este email ya tiene registrado una cuenta";
+	public static final String msgYaExisteUsername = "Este username ya esta en uso, intente con otro";
+	
+	//sweetalert2
+	public static final String tituloOk ="¡HECHO!";
+	public static final String tituloWarn = "¡ADVERTENCIA!";
+	public static final String tituloError = "¡ERROR!";
+	public static final String tituloInfo = "¡ATENCION!";
+	public static final String success = "success";
+	public static final String error = "error";
+	public static final String warning ="warning";
+	public static final String info = "info";
+	
 }

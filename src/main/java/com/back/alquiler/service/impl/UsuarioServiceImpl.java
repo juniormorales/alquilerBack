@@ -7,12 +7,14 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,8 +67,7 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 		}catch(Exception e) {
 			LOG.error(this.getClass().getSimpleName()+" buscarPorUsername. ERROR : "+e.getMessage());
 			throw e;
-		}
-		
+		}	
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 
 	@Override
 	public Usuario registrar(Usuario obj) {
-		try {
+		try {	
 			return repo.save(obj);
 		}catch(Exception e) {
 			LOG.error(this.getClass().getSimpleName()+" registrarUsuario. ERROR : "+e.getMessage());
@@ -137,5 +138,21 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 			throw e;
 		}
 		
+	}
+
+	@Override
+	public Boolean buscarSiExisteEmail(String email) {
+		return repo.existsByEmail(email);
+	}
+
+
+	@Override
+	public Boolean buscarSiExisteUsername(String username) {
+		return repo.existsByUsername(username);
+	}
+
+	@Override
+	public Boolean buscarSiExisteDNI(String dni) {
+		return repo.existsByDni(dni);
 	}
 }

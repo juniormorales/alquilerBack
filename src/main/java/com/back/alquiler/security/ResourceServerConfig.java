@@ -33,6 +33,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		.antMatchers("/public/provincia/**").permitAll()
 		.antMatchers("/public/distrito/**").permitAll()
 		.antMatchers("/api/arrendero/registrar").permitAll()
+		.antMatchers("/api/arrendatario/registrar").permitAll()
 		.anyRequest().authenticated()
 		.and().cors().configurationSource(corsConfigurationSource())
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

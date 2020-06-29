@@ -1,5 +1,7 @@
 package com.back.alquiler.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,9 @@ public class Propiedad {
 	private Integer idPropiedad;
 	
 	@Column(nullable=false)
+	private String alias;
+	
+	@Column(nullable=false)
 	private String descripcionGeneral;
 	
 	@Column(nullable=false)
@@ -27,6 +32,9 @@ public class Propiedad {
 	@Column(nullable=false)
 	private Integer cantidadPisos;
 	
+	@Column(nullable=false)
+	private Date fechaRegistro;
+	
 	//metros cuadrados
 	@Column(nullable=false)
 	private Double tamano;
@@ -37,8 +45,9 @@ public class Propiedad {
 	@Column(nullable=false)
 	private String condicionPropiedad;
 	
+	//0: fuera de servicio, 1: disponible, 2: en mantenimiento , 3: ya ocupado
 	@Column(nullable=false)
-	private Boolean estado;
+	private Integer estado;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_condicion_pago")
@@ -112,14 +121,6 @@ public class Propiedad {
 		this.condicionPropiedad = condicionPropiedad;
 	}
 
-	public Boolean getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Boolean estado) {
-		this.estado = estado;
-	}
-
 	public CondicionPago getCondicionPago() {
 		return condicionPago;
 	}
@@ -135,4 +136,29 @@ public class Propiedad {
 	public void setArrendero(Arrendero arrendero) {
 		this.arrendero = arrendero;
 	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+
+	public Integer getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
+	}
+	
 }

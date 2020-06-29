@@ -21,6 +21,9 @@ public class PropiedadServiceImpl implements PropiedadService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Propiedad registrar(Propiedad obj) {
 		try {
+			if(!obj.getTieneDanios()) {
+				obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
+			}
 			return repo_propiedad.save(obj);
 		} catch (Exception e) {
 			throw e;
@@ -31,6 +34,9 @@ public class PropiedadServiceImpl implements PropiedadService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Propiedad modificar(Propiedad obj) {
 		try {
+			if(!obj.getTieneDanios()) {
+				obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
+			}
 			return repo_propiedad.save(obj);
 		} catch (Exception e) {
 			throw e;

@@ -24,7 +24,7 @@ public class Propiedad {
 	private String descripcionGeneral;
 	
 	@Column(nullable=false)
-	private String descripcionDaños;
+	private String descripcionDanios;
 	
 	@Column(nullable=false)
 	private Integer nroHabitaciones;
@@ -38,6 +38,9 @@ public class Propiedad {
 	//metros cuadrados
 	@Column(nullable=false)
 	private Double tamano;
+	
+	@Column(nullable=false)
+	private Boolean tieneDanios;
 	
 	@Column(nullable=false)
 	private Boolean permiteMascotas;
@@ -71,14 +74,6 @@ public class Propiedad {
 
 	public void setDescripcionGeneral(String descripcionGeneral) {
 		this.descripcionGeneral = descripcionGeneral;
-	}
-
-	public String getDescripcionDaños() {
-		return descripcionDaños;
-	}
-
-	public void setDescripcionDaños(String descripcionDaños) {
-		this.descripcionDaños = descripcionDaños;
 	}
 
 	public Integer getNroHabitaciones() {
@@ -160,5 +155,23 @@ public class Propiedad {
 	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
+
+	public String getDescripcionDanios() {
+		return descripcionDanios;
+	}
+
+	public void setDescripcionDanios(String descripcionDanios) {
+		this.descripcionDanios = descripcionDanios;
+	}
+
+	public Boolean getTieneDanios() {
+		return tieneDanios;
+	}
+
+	public void setTieneDanios(Boolean tieneDanios) {
+		this.tieneDanios = tieneDanios;
+	}
+	
+	
 	
 }

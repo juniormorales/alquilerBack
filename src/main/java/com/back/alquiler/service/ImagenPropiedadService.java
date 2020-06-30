@@ -2,6 +2,7 @@ package com.back.alquiler.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,4 +16,6 @@ public interface ImagenPropiedadService extends ICRUD<ImagenPropiedad> {
 	public Boolean eliminarImagenes(List<Integer> ids) throws IOException;
 	
 	public Boolean eliminarTodasLasImagenes(Integer id) throws IOException;
+	
+	public List<Map<String, Object>> retornarImagenes(Integer id) throws IOException;
 }

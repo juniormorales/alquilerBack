@@ -6,7 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +104,6 @@ public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 				}
 				repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
 			}
-			;
 		});
 		return true;
 	}
@@ -128,6 +129,34 @@ public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 			});
 		}
 		return true;
+	}
+
+	@Override
+	public List<Map<String, Object>> retornarImagenes(Integer id) throws IOException {
+		List<Map<String, Object>> lsMaps  = new ArrayList<>();
+		String directorio = System.getProperty("user.dir");
+		String separador = System.getProperty("file.separator");
+		Propiedad propiedad = new Propiedad();
+		propiedad.setIdPropiedad(id);
+		List<ImagenPropiedad> lsImagen = repo_imagen_prop.findByPropiedad(propiedad);
+		lsImagen.forEach(imagen -> {
+			String ruta = directorio + separador +Constantes.rutaImagenPropiedad + separador + imagen.getNombreFoto();
+			File archivo = new File(ruta);
+			imagen.setPropiedad(null);
+
+			if (archivo.exists()) {
+				try {
+					Map<String, Object> dataImagen = new HashMap<>();
+
+					dataImagen.put("foto", Files.readAllBytes(archivo.toPath()));
+					dataImagen.put("obj", imagen);
+					lsMaps.add(dataImagen);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		return lsMaps;
 	}
 
 }

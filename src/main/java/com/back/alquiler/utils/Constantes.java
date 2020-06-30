@@ -83,7 +83,7 @@ public class Constantes {
 	public static final String msgRegistrarImagenPropiedadError = "Ocurrio un error al intentar subir la imagen";
 	public static final String msgEliminarImagenesPropiedadOk = "Las imagenes seleccionadas se han quitado correctamente";
 	public static final String msgEliminarImagenesPropiedadError = "Ocurrio un error al intentar eliminar las imagenes";
-
+	public static final String msgListarImagenesPropiedadError = "Ocurrio un error al leer las imagenes de la propiedad";
 
 
 	// sweetalert2

@@ -1,5 +1,7 @@
 package com.back.alquiler.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.back.alquiler.models.Perfil;
@@ -16,4 +18,7 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 	public Boolean existsByUsername(String username);
 	
 	public Boolean existsByDni(String dni);
+	
+	public List<Usuario> findByTipoUsuarioAndEstaInhabilitadoAndEstado(String tipoUsuario, Boolean estaInhabilitado, Boolean estado);
+	
 }

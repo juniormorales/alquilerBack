@@ -114,17 +114,17 @@ public class UtilitarioController {
 
 			List<Usuario> tmp_usuarios = new ArrayList<>();
 			Usuario user1 = this.crearUsuario("correo1@hotmail.com", true,
-					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "user1", admi, "ADMINISTRADOR");
+					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "user1", admi, "ADMINISTRADOR",false);
 			Usuario user2 = this.crearUsuario("correo2@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user2", arrendero,"ARRENDERO");
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user2", arrendero,"ARRENDERO",false);
 			Usuario user3 = this.crearUsuario("correo3@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user3", arrendetario,"ARRENDATARIO");
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user3", arrendetario,"ARRENDATARIO",false);
 			Usuario user4 = this.crearUsuario("correo4@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user4", arrendero,"ARRENDERO");
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user4", arrendero,"ARRENDERO",false);
 			Usuario user5 = this.crearUsuario("correo5@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user5", arrendetario,"ARRENDATARIO");
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user5", arrendetario,"ARRENDATARIO",false);
 			Usuario user6 = this.crearUsuario("correo6@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user6", arrendero,"ARRENDERO");
+					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user6", arrendero,"ARRENDERO",false);
 
 			tmp_usuarios.add(user1);
 			tmp_usuarios.add(user2);
@@ -179,7 +179,7 @@ public class UtilitarioController {
 		return p;
 	}
 
-	private Usuario crearUsuario(String email, Boolean estado, String pass, String username, Perfil perfil, String tipoUsuario) {
+	private Usuario crearUsuario(String email, Boolean estado, String pass, String username, Perfil perfil, String tipoUsuario, Boolean isDisabled) {
 		Usuario u = new Usuario();
 		u.setEmail(email);
 		u.setEstado(estado);
@@ -192,6 +192,7 @@ public class UtilitarioController {
 		u.setNroCel("951228608");
 		u.setTipoUsuario(tipoUsuario);
 		u.setTelefono("5555555");
+		u.setEstaInhabilitado(isDisabled);
 		return u;
 	}
 

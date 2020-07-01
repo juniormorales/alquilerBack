@@ -1,25 +1,26 @@
 package com.back.alquiler.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Perfil;
 import com.back.alquiler.models.Usuario;
+import com.back.alquiler.repo.ArrenderoRepo;
 import com.back.alquiler.repo.UsuarioRepo;
 import com.back.alquiler.service.UsuarioService;
 
@@ -31,6 +32,9 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 	
 	@Autowired
 	private UsuarioRepo repo;
+	
+	@Autowired
+	private ArrenderoRepo repo_arrendero;
 	
 	
 	public UsuarioRepo getRepo() {
@@ -83,7 +87,9 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 
 	@Override
 	public Usuario registrar(Usuario obj) {
-		try {	
+		try {
+			obj.setFechaCreacion(new Date());
+			obj.setEstaInhabilitado(false);
 			return repo.save(obj);
 		}catch(Exception e) {
 			LOG.error(this.getClass().getSimpleName()+" registrarUsuario. ERROR : "+e.getMessage());
@@ -154,5 +160,38 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 	@Override
 	public Boolean buscarSiExisteDNI(String dni) {
 		return repo.existsByDni(dni);
+	}
+
+	@Override
+	public Usuario inhabilitarCuenta(Usuario usuario) {
+		usuario.setEstado(true);
+		usuario.setEstaInhabilitado(true);
+		return repo.save(usuario);
+	}
+
+	@Override
+	public List<Arrendero> listarCuentasNoActivadas() {
+		List<Usuario> lsUsu = repo.findByTipoUsuarioAndEstaInhabilitadoAndEstado("ARRENDERO", false, false);
+		List<Arrendero> lsArrendero = new ArrayList<>();
+		lsUsu.forEach( usuario -> {
+			lsArrendero.add(repo_arrendero.findByUsuario(usuario));
+		});
+		return lsArrendero;
+	}
+
+	@Override
+	public Usuario activarCuenta(Usuario usuario) {
+		usuario.setEstado(true);
+		return repo.save(usuario);
+	}
+
+	@Override
+	public Boolean verificarInhabilitado(Usuario usuario) {
+		Usuario user = findbyUsername(usuario.getUsername());
+		if(user.getEstaInhabilitado()) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

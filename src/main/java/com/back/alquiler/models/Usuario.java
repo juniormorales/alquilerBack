@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -23,7 +25,7 @@ public class Usuario {
 
 	@Column( nullable = false, length = 55, unique=true)
 	private String username;
-
+	
 	@Column( nullable = false, length = 100)
 	private String password;
 
@@ -32,6 +34,9 @@ public class Usuario {
 	
 	@Column(nullable = false)
 	private Boolean estado;
+	
+	@Column(nullable=true)
+	private Boolean estaInhabilitado;
 	
 	@Column(nullable=true)
 	private Date fechaNacimiento;
@@ -54,8 +59,11 @@ public class Usuario {
 	@Column(length = 9)
 	private String nroCel;
 	
-	@Column(nullable=true)
+	@Column(nullable=false)
 	private String tipoUsuario;
+	
+	@Column(nullable=true)
+	private Date fechaCreacion;
 	
 	@ManyToOne
 	@JoinColumn(name="id_perfil",nullable=false)
@@ -171,6 +179,22 @@ public class Usuario {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Boolean getEstaInhabilitado() {
+		return estaInhabilitado;
+	}
+
+	public void setEstaInhabilitado(Boolean estaInhabilitado) {
+		this.estaInhabilitado = estaInhabilitado;
 	}
 	
 }

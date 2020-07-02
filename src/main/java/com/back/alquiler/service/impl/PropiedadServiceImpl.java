@@ -54,6 +54,20 @@ public class PropiedadServiceImpl implements PropiedadService {
 			if (!obj.getTieneDanios()) {
 				obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
 			}
+			switch (obj.getEstado()) {
+			case 0:
+				obj.setCondicionPropiedad("Fuera de servicio");
+				break;
+			case 1:
+				obj.setCondicionPropiedad("Disponible");
+				break;
+			case 2:
+				obj.setCondicionPropiedad("En mantenimiento");
+				break;
+			case 3:
+				obj.setCondicionPropiedad("Ya ocupado");
+				break;
+			}
 			return repo_propiedad.save(obj);
 		} catch (Exception e) {
 			throw e;

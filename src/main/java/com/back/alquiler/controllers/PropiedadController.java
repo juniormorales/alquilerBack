@@ -80,6 +80,7 @@ public class PropiedadController {
 		}
 	}
 	
+	
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarPropiedad(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
@@ -103,7 +104,7 @@ public class PropiedadController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 		}catch(DataIntegrityViolationException e) {
 			response.put("mensaje", Constantes.msgEliminarErrorGrave);
-			response.put("error", e.getMostSpecificCause().getMessage());
+			response.put("error", Constantes.msgEliminarErrorGraveDesc);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}	

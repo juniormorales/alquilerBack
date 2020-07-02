@@ -58,11 +58,11 @@ public class Propiedad {
 	private Integer estado;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_condicion_pago")
+	@JoinColumn(name = "id_condicion_pago", nullable=false)
 	private CondicionPago condicionPago;
 	
 	@ManyToOne
-	@JoinColumn(name="id_arrendero")
+	@JoinColumn(name="id_arrendero", nullable=false)
 	private Arrendero arrendero;
 	
 	@JsonIgnore

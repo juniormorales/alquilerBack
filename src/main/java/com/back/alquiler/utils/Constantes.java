@@ -94,7 +94,12 @@ public class Constantes {
 	public static final String msgCuentaInhabilitada = "Su cuenta ha sido inhabilitada por ingresar datos falsos";
 	public static final String msgBuscarUsuarioError = "Ocurrio un error al buscar al usuario en la base de datos";
 
-
+	
+	//Condicion Pago
+	public static final String msgRegistrarCondicionPagoError = "Ocurrio un error al intentar registrar la condición de pago";
+	public static final String msgRegistrarCondicionPagoOk = "Se le ha habilitado el resgistro de la condición de pago";
+	public static final String msgYaExisteCondicionPago = "Este cuenta ya tiene una condición de pago registrada";
+	
 	// sweetalert2
 	public static final String tituloOk = "¡HECHO!";
 	public static final String tituloWarn = "¡ADVERTENCIA!";

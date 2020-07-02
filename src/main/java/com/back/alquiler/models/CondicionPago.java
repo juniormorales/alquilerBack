@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class CondicionPago {
@@ -34,6 +36,10 @@ public class CondicionPago {
 	
 	@Column(nullable=false)
 	private Double tasaRecargo;
+	
+	@ManyToOne
+	@JoinColumn(name="id_arrendero",nullable=false)
+	private Arrendero arrendero;
 
 	public Integer getIdCondicionPago() {
 		return idCondicionPago;
@@ -97,6 +103,14 @@ public class CondicionPago {
 
 	public void setTasaRecargo(Double tasaRecargo) {
 		this.tasaRecargo = tasaRecargo;
+	}
+
+	public Arrendero getArrendero() {
+		return arrendero;
+	}
+
+	public void setArrendero(Arrendero arrendero) {
+		this.arrendero = arrendero;
 	}
 	
 	

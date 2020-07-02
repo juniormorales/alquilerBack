@@ -30,18 +30,13 @@ public class CondicionPagoController {
 	public ResponseEntity<?> registrarCondicion(@RequestBody CondicionPago condicionPago) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			Boolean yaexistecondicionpago = service_condicion_pago.buscarSiExisteCondicionPago(condicionPago);
-			if (yaexistecondicionpago) {
-				response.put("titulo", Constantes.tituloWarn);
-				response.put("mensaje", Constantes.msgYaExisteCondicionPago);
-				response.put("tipo", Constantes.warning);
-			} else {
+	
 				CondicionPago resp = service_condicion_pago.registrar(condicionPago);
-				response.put("titulo", Constantes.msgRegistrarCondicionPagoOk);
+				response.put("titulo", Constantes.tituloOk);
 				response.put("mensaje", Constantes.msgRegistrarCondicionPagoOk);
 				response.put("tipo", Constantes.success);
 				response.put("defaultObj", resp);
-			}
+			
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
 			response.put("mensaje", Constantes.msgRegistrarCondicionPagoError);
@@ -54,5 +49,6 @@ public class CondicionPagoController {
 	public ResponseEntity<?> modificarCondicion(@RequestBody CondicionPago condicionPago) {
 		return null;
 	}
+	
 
 }

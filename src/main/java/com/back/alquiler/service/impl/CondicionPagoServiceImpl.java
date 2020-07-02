@@ -59,10 +59,5 @@ public class CondicionPagoServiceImpl implements CondicionPagoService {
 			return false;
 		}
 	}
-	
-	@Override
-	public Boolean buscarSiExisteCondicionPago(CondicionPago condicionPago) {
-		return repo_condicion_pago.existsById(condicionPago.getIdCondicionPago());
-	}
 
 }

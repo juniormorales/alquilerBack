@@ -17,9 +17,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Perfil;
 import com.back.alquiler.models.Usuario;
+import com.back.alquiler.repo.ArrendatarioRepo;
 import com.back.alquiler.repo.ArrenderoRepo;
 import com.back.alquiler.repo.UsuarioRepo;
 import com.back.alquiler.service.UsuarioService;
@@ -35,6 +37,9 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 	
 	@Autowired
 	private ArrenderoRepo repo_arrendero;
+	
+	@Autowired
+	private ArrendatarioRepo repo_arrendatario;
 	
 	
 	public UsuarioRepo getRepo() {
@@ -192,6 +197,24 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService{
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public Arrendero retornarArrendero(Usuario usuario) {
+		try {
+			return repo_arrendero.findByUsuario(usuario);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public Arrendatario retornarArrendatario(Usuario usuario) {
+		try {
+			return repo_arrendatario.findByUsuario(usuario);
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 }

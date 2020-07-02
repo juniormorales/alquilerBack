@@ -2,6 +2,7 @@ package com.back.alquiler.service;
 
 import java.util.List;
 
+import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Perfil;
 import com.back.alquiler.models.Usuario;
@@ -17,4 +18,6 @@ public interface UsuarioService extends ICRUD<Usuario>{
 	public Usuario activarCuenta(Usuario usuario);
 	public List<Arrendero> listarCuentasNoActivadas();
 	public Boolean verificarInhabilitado(Usuario usuario);
+	public Arrendero retornarArrendero(Usuario usuario);
+	public Arrendatario retornarArrendatario(Usuario usuario);
 }

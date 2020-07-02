@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Usuario;
 import com.back.alquiler.service.UsuarioService;
@@ -83,6 +84,36 @@ public class UsuarioController {
 				response.put("tipo",Constantes.error);
 			}
 			response.put("obj",estaInhabilitado);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);	
+		} catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgBuscarUsuarioError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
+	}
+	
+	@PostMapping("/retornarArrendero")
+	public ResponseEntity<?> retornaArrendero(@RequestBody Usuario usuario){
+		Map<String,Object> response = new HashMap<>();
+		try {
+			Arrendero arrendero = service.retornarArrendero(usuario);
+			arrendero.setUsuario(null);
+			response.put("obj",arrendero);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);	
+		} catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgBuscarUsuarioError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
+	}
+	
+	@PostMapping("/retornarArrendatario")
+	public ResponseEntity<?> retornaArrendatario(@RequestBody Usuario usuario){
+		Map<String,Object> response = new HashMap<>();
+		try {
+			Arrendatario arrendatario = service.retornarArrendatario(usuario);
+			arrendatario.setUsuario(null);
+			response.put("obj",arrendatario);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);	
 		} catch (DataAccessException e) {
 			response.put("mensaje", Constantes.msgBuscarUsuarioError);

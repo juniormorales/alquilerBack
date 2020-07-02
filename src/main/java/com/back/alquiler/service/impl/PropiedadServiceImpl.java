@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Propiedad;
 import com.back.alquiler.repo.PropiedadRepo;
 import com.back.alquiler.service.PropiedadService;
@@ -63,6 +64,17 @@ public class PropiedadServiceImpl implements PropiedadService {
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public List<Propiedad> listarPorArrendero(Integer id) {
+		Arrendero a = new Arrendero();
+		a.setIdArrendero(id);
+		try {
+			return repo_propiedad.findByArrendero(a);
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 

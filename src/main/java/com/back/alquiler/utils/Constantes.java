@@ -66,6 +66,7 @@ public class Constantes {
 	public static final String msgEliminarOk = "El registro se ha eliminado correctamente";
 	public static final String msgEliminarError = "El registro que se quiere eliminar no existe o ya ha sido eliminado de la base de datos";
 	public static final String msgEliminarErrorGrave = "No se puede eliminar el registro";
+	public static final String msgEliminarErrorGraveDesc = "Este registro esta siendo usado por otro, verificar que ningun recurso este usando este valor";
 
 	// Usuario
 	public static final String msgRegistrarUsuarioOk = "Se ha registrado exitosamente su cuenta";
@@ -99,6 +100,7 @@ public class Constantes {
 	public static final String msgRegistrarCondicionPagoError = "Ocurrio un error al intentar registrar la condición de pago";
 	public static final String msgRegistrarCondicionPagoOk = "La condicion de pago se ha registrado correctamente";
 	public static final String msgYaExisteCondicionPago = "Este cuenta ya tiene una condición de pago registrada";
+	public static final String msgListarCondicionPagoError ="Ocurrio un error al intentar listar las condiciones de pago";
 	
 	// sweetalert2
 	public static final String tituloOk = "¡HECHO!";

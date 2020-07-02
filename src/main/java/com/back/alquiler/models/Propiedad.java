@@ -50,7 +50,7 @@ public class Propiedad {
 	@Column(nullable=false)
 	private Boolean permiteMascotas;
 	
-	@Column(nullable=true)
+	@Column(nullable=false)
 	private String condicionPropiedad;
 	
 	//0: fuera de servicio, 1: disponible, 2: en mantenimiento , 3: ya ocupado

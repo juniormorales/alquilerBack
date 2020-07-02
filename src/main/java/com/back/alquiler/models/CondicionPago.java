@@ -16,6 +16,9 @@ public class CondicionPago {
 	private Integer idCondicionPago;
 	
 	@Column(nullable=false)
+	private String alias;
+	
+	@Column(nullable=false)
 	private Double precio;
 	
 	//En meses
@@ -112,6 +115,12 @@ public class CondicionPago {
 	public void setArrendero(Arrendero arrendero) {
 		this.arrendero = arrendero;
 	}
-	
-	
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}	
 }

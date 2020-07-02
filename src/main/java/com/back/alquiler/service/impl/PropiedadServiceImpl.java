@@ -1,5 +1,6 @@
 package com.back.alquiler.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,32 @@ import com.back.alquiler.service.PropiedadService;
 
 @Service
 public class PropiedadServiceImpl implements PropiedadService {
-	
+
 	@Autowired
 	PropiedadRepo repo_propiedad;
-	
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Propiedad registrar(Propiedad obj) {
 		try {
-			if(!obj.getTieneDanios()) {
+			if (!obj.getTieneDanios()) {
 				obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
 			}
+			switch (obj.getEstado()) {
+			case 0:
+				obj.setCondicionPropiedad("Fuera de servicio");
+				break;
+			case 1:
+				obj.setCondicionPropiedad("Disponible");
+				break;
+			case 2:
+				obj.setCondicionPropiedad("En mantenimiento");
+				break;
+			case 3:
+				obj.setCondicionPropiedad("Ya ocupado");
+				break;
+			}
+			obj.setFechaRegistro(new Date());
 			return repo_propiedad.save(obj);
 		} catch (Exception e) {
 			throw e;
@@ -35,7 +51,7 @@ public class PropiedadServiceImpl implements PropiedadService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Propiedad modificar(Propiedad obj) {
 		try {
-			if(!obj.getTieneDanios()) {
+			if (!obj.getTieneDanios()) {
 				obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
 			}
 			return repo_propiedad.save(obj);
@@ -59,10 +75,10 @@ public class PropiedadServiceImpl implements PropiedadService {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_propiedad.existsById(id)) {
+		if (repo_propiedad.existsById(id)) {
 			repo_propiedad.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}

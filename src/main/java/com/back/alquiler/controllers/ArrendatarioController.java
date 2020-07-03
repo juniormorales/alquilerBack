@@ -40,18 +40,21 @@ public class ArrendatarioController {
 		try {
 			Boolean yaexistedni = service_usuario.buscarSiExisteDNI(arrendatario.getUsuario().getDni());
 			if(yaexistedni) {
+				response.put("estado",false);
 				response.put("titulo", Constantes.tituloWarn);
 				response.put("mensaje", Constantes.msgYaExisteDNI);
 				response.put("tipo",Constantes.warning);
 			}else {
 				Boolean yaexisteemail = service_usuario.buscarSiExisteEmail(arrendatario.getUsuario().getEmail());
 				if(yaexisteemail) {
+					response.put("estado",false);
 					response.put("titulo", Constantes.tituloWarn);
 					response.put("mensaje", Constantes.msgYaExisteEmail);
 					response.put("tipo",Constantes.warning);
 				}else {
 					Boolean yaexisteusername = service_usuario.buscarSiExisteUsername(arrendatario.getUsuario().getUsername());
 					if(yaexisteusername) {
+						response.put("estado",false);
 						response.put("titulo", Constantes.tituloWarn);
 						response.put("mensaje", Constantes.msgYaExisteUsername);
 						response.put("tipo",Constantes.warning);
@@ -60,10 +63,10 @@ public class ArrendatarioController {
 						Usuario user = service_usuario.registrar(arrendatario.getUsuario());
 						arrendatario.setUsuario(user);
 						Arrendatario resp = service_arrendatario.registrar(arrendatario);
+						response.put("estado",true);
 						response.put("titulo", Constantes.tituloOk);
 						response.put("mensaje", Constantes.msgRegistrarUsuarioOk);
 						response.put("tipo",Constantes.success);
-						response.put("defaultObj", resp);
 					}
 				}	
 			}

@@ -20,7 +20,13 @@ public class SolicitudPropiedad {
 	@Column(nullable=false)
 	private Date fechaSolicitud;
 	
-	//Pendiente:2, Rechazado:0 , Aceptado:1, Confirmado:3, Cancelado:4
+	/*	Para el arrendatario
+		Pendiente:2, Rechazado:0 , Confirmar Aceptacion:1, Cancelado:4
+		
+		Para el arrendero
+		Por aceptar:2, Esperando Confirmacion:1
+		General: Confirmado:3,
+	 * */
 	@Column(nullable=false)
 	private Integer estado;
 	
@@ -35,12 +41,16 @@ public class SolicitudPropiedad {
 	private String descripcionRechazo;
 	
 	@ManyToOne
-	@JoinColumn(name="id_arrendatario")
+	@JoinColumn(name="id_arrendatario",nullable=false)
 	private Arrendatario arrendatario;
 	
 	@ManyToOne
-	@JoinColumn(name="id_propiedad")
+	@JoinColumn(name="id_propiedad",nullable=false)
 	private Propiedad propiedad;
+	
+	@ManyToOne
+	@JoinColumn(name="id_arrendero",nullable=false)
+	private Arrendero arrendero;
 
 	public Integer getIdSolicitudPropiedad() {
 		return idSolicitudPropiedad;
@@ -105,4 +115,13 @@ public class SolicitudPropiedad {
 	public void setPropiedad(Propiedad propiedad) {
 		this.propiedad = propiedad;
 	}
+
+	public Arrendero getArrendero() {
+		return arrendero;
+	}
+
+	public void setArrendero(Arrendero arrendero) {
+		this.arrendero = arrendero;
+	}
+	
 }

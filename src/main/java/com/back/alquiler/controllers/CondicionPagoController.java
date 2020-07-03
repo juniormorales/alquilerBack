@@ -47,7 +47,18 @@ public class CondicionPagoController {
 
 	@PutMapping("/modificar")
 	public ResponseEntity<?> modificarCondicionPago(@RequestBody CondicionPago condicionPago) {
-		return null;
+		Map<String, Object> response = new HashMap<>();
+		try {
+			service_condicion_pago.modificar(condicionPago);
+			response.put("titulo", Constantes.tituloOk);
+			response.put("mensaje", Constantes.msgActualizarCondicionPagoOk);
+			response.put("tipo", Constantes.success);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		} catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgActualizarCondicionPagoError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@GetMapping("/listar/{id}")

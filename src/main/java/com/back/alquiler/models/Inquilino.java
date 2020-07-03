@@ -33,8 +33,16 @@ public class Inquilino {
 	private Boolean estadoPago;
 	
 	@ManyToOne
-	@JoinColumn(name="id_solicitud_propiedad")
-	private SolicitudPropiedad solicitudPropieda;
+	@JoinColumn(name="id_arrendatario",nullable=false)
+	private Arrendatario arrendatario;
+	
+	@ManyToOne
+	@JoinColumn(name="id_propiedad",nullable=false)
+	private Propiedad propiedad;
+	
+	@ManyToOne
+	@JoinColumn(name="id_arrendero",nullable=false)
+	private Arrendero arrendero;
 
 	public Integer getIdInquilino() {
 		return idInquilino;
@@ -76,11 +84,28 @@ public class Inquilino {
 		this.estadoPago = estadoPago;
 	}
 
-	public SolicitudPropiedad getSolicitudPropieda() {
-		return solicitudPropieda;
+	public Arrendatario getArrendatario() {
+		return arrendatario;
 	}
 
-	public void setSolicitudPropieda(SolicitudPropiedad solicitudPropieda) {
-		this.solicitudPropieda = solicitudPropieda;
+	public void setArrendatario(Arrendatario arrendatario) {
+		this.arrendatario = arrendatario;
+	}
+
+	public Propiedad getPropiedad() {
+		return propiedad;
+	}
+
+	public void setPropiedad(Propiedad propiedad) {
+		this.propiedad = propiedad;
+	}
+
+	public Arrendero getArrendero() {
+		return arrendero;
+	}
+
+	public void setArrendero(Arrendero arrendero) {
+		this.arrendero = arrendero;
 	}	
+	
 }

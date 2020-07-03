@@ -30,6 +30,9 @@ public class Contrato {
 	@Column(nullable=true)
 	private String rutaContrato;
 	
+	@Column(nullable=false)
+	private Boolean caduco;
+	
 	@ManyToOne
 	@JoinColumn(name="id_inquilino")
 	private Inquilino inquilino;
@@ -80,5 +83,13 @@ public class Contrato {
 
 	public void setInquilino(Inquilino inquilino) {
 		this.inquilino = inquilino;
-	}	
+	}
+
+	public Boolean getCaduco() {
+		return caduco;
+	}
+
+	public void setCaduco(Boolean caduco) {
+		this.caduco = caduco;
+	}
 }

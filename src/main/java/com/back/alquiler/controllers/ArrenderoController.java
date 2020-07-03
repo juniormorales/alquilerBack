@@ -41,18 +41,21 @@ public class ArrenderoController {
 		try {
 			Boolean yaexistedni = service_usuario.buscarSiExisteDNI(arrendero.getUsuario().getDni());
 			if(yaexistedni) {
+				response.put("estado",false);
 				response.put("titulo", Constantes.tituloWarn);
 				response.put("mensaje", Constantes.msgYaExisteDNI);
 				response.put("tipo",Constantes.warning);
 			}else {
 				Boolean yaexisteemail = service_usuario.buscarSiExisteEmail(arrendero.getUsuario().getEmail());
 				if(yaexisteemail) {
+					response.put("estado",false);
 					response.put("titulo", Constantes.tituloWarn);
 					response.put("mensaje", Constantes.msgYaExisteEmail);
 					response.put("tipo",Constantes.warning);
 				}else {
 					Boolean yaexisteusername = service_usuario.buscarSiExisteUsername(arrendero.getUsuario().getUsername());
 					if(yaexisteusername) {
+						response.put("estado",false);
 						response.put("titulo", Constantes.tituloWarn);
 						response.put("mensaje", Constantes.msgYaExisteUsername);
 						response.put("tipo",Constantes.warning);
@@ -61,10 +64,10 @@ public class ArrenderoController {
 						Usuario user = service_usuario.registrar(arrendero.getUsuario());
 						arrendero.setUsuario(user);
 						Arrendero resp = service_arrendero.registrar(arrendero);
+						response.put("estado",true);
 						response.put("titulo", Constantes.tituloOk);
 						response.put("mensaje", Constantes.msgRegistrarUsuarioOk);
 						response.put("tipo",Constantes.success);
-						response.put("defaultObj", resp);
 					}
 				}	
 			}

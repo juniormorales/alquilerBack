@@ -99,8 +99,19 @@ public class Constantes {
 	//Condicion Pago
 	public static final String msgRegistrarCondicionPagoError = "Ocurrio un error al intentar registrar la condición de pago";
 	public static final String msgRegistrarCondicionPagoOk = "La condicion de pago se ha registrado correctamente";
-	public static final String msgYaExisteCondicionPago = "Este cuenta ya tiene una condición de pago registrada";
+	public static final String msgActualizarCondicionPagoOk = "La condicion de pago se ha actualizado correctamente";
+	public static final String msgActualizarCondicionPagoError = "Ocurrio un error al intentar actualizar la condicion de pago";
 	public static final String msgListarCondicionPagoError ="Ocurrio un error al intentar listar las condiciones de pago";
+	
+	//Inquilino
+	public static final String msgListarInquilinosPorArrenderoError = "Ocurrio un error al listar los inquilinos";
+	public static final String msgDarBajaInquilinoOk = "Se dio de baja al inquilino correctamente";
+	public static final String msgDarBajaInquilinoAunNo = "El contrato de este inquilino aun no ha caducado";
+	public static final String msgDarBajaInquilinoError = "Ocurrio un error al intentar dar de baja al inquilino";
+	
+	//Solicitud Propiedad
+	public static final String msgListarSolError = "Ocurrio un error al listar las solicitudes de propiedad";
+
 	
 	// sweetalert2
 	public static final String tituloOk = "¡HECHO!";

@@ -115,23 +115,7 @@ public class UtilitarioController {
 			List<Usuario> tmp_usuarios = new ArrayList<>();
 			Usuario user1 = this.crearUsuario("correo1@hotmail.com", true,
 					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "user1", admi, "ADMINISTRADOR",false);
-			Usuario user2 = this.crearUsuario("correo2@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user2", arrendero,"ARRENDERO",false);
-			Usuario user3 = this.crearUsuario("correo3@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user3", arrendetario,"ARRENDATARIO",false);
-			Usuario user4 = this.crearUsuario("correo4@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user4", arrendero,"ARRENDERO",false);
-			Usuario user5 = this.crearUsuario("correo5@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user5", arrendetario,"ARRENDATARIO",false);
-			Usuario user6 = this.crearUsuario("correo6@hotmail.com", true,
-					"$2a$10$xTCGZ.f3FK3EcJZS4Jb/UOBT6hq7RpddSyrpOMCsy5KbXsJXqC1qu", "user6", arrendero,"ARRENDERO",false);
-
 			tmp_usuarios.add(user1);
-			tmp_usuarios.add(user2);
-			tmp_usuarios.add(user3);
-			tmp_usuarios.add(user4);
-			tmp_usuarios.add(user5);
-			tmp_usuarios.add(user6);
 			messages.add(service.insertarDatosUsuarios(tmp_usuarios));
 			messages.add(service.insertarDatosPerfilesModulos());
 			messages.add(service.insertarDatosDepartamento());

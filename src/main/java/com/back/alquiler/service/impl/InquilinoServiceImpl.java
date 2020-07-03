@@ -1,5 +1,7 @@
 package com.back.alquiler.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Arrendero;
+import com.back.alquiler.models.Contrato;
 import com.back.alquiler.models.Inquilino;
+import com.back.alquiler.repo.ContratoRepo;
 import com.back.alquiler.repo.InquilinoRepo;
 import com.back.alquiler.service.InquilinoService;
 
@@ -16,6 +21,9 @@ public class InquilinoServiceImpl implements InquilinoService {
 	
 	@Autowired
 	InquilinoRepo repo_inquilino;
+	
+	@Autowired
+	ContratoRepo repo_contrato;
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -57,6 +65,37 @@ public class InquilinoServiceImpl implements InquilinoService {
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public List<Inquilino> listarPorArrenderoYContratoHecho(Integer id) {
+		try {
+			Arrendero a = new Arrendero();
+			a.setIdArrendero(id);
+			return repo_inquilino.findByArrenderoAndContratoHechoAndEstado(a, true, true);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public Boolean darBajaInquilino(Inquilino inquilino) {
+		try {
+			Contrato cont = repo_contrato.findByInquilinoAndCaduco(inquilino, false);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(cont.getFechaInicio()); 
+			calendar.add(Calendar.MONTH,cont.getTiempoContrato());
+			Date fecha_actual = new Date();
+			if(calendar.getTime().compareTo(fecha_actual)>0) {
+				return false;
+			}else {
+				inquilino.setEstado(false);
+				repo_inquilino.save(inquilino);
+				return true;
+			}
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 

@@ -88,9 +88,15 @@ public class SolicitudPropiedadController {
 					response.put("mensaje", Constantes.msgAceptarAprobacionOk);
 					response.put("tipo",Constantes.success);
 				}else {
-					response.put("titulo", Constantes.tituloOk);
-					response.put("mensaje", Constantes.msgActualizarSolOk);
-					response.put("tipo",Constantes.success);
+					if(sol.getEstado()== 1) {
+						response.put("titulo", Constantes.tituloOk);
+						response.put("mensaje", Constantes.msgRechazarSolOk);
+						response.put("tipo",Constantes.success);
+					}else {
+						response.put("titulo", Constantes.tituloOk);
+						response.put("mensaje", Constantes.msgActualizarSolOk);
+						response.put("tipo",Constantes.success);
+					}
 				}
 			}
 			

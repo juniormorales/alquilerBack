@@ -114,6 +114,7 @@ public class Constantes {
 	public static final String msgActualizarSolOk = "La solicitud se envio nuevamente con la nueva propuesta";
 	public static final String msgActualizarSolError = "Ocurrio un error al procesar la solicitud";
 	public static final String msgCancelarSolOk = "Su solicitud a esta propiedad ha sido cancelada";
+	public static final String msgRechazarSolOk = "Se ha rechazado la solicitud correctamente";
 	public static final String msgAceptarAprobacionOk ="!Felicitaciones, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
 			+ "de contrato y se pondrá en contacto contigo a travez de tu email registrado o de uno de tus números telefónicos para completar la firma!";
 

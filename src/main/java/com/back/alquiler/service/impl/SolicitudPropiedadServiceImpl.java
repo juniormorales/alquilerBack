@@ -81,10 +81,24 @@ public class SolicitudPropiedadServiceImpl implements SolicitudPropiedadService 
 		try {
 			Arrendatario a = new Arrendatario();
 			a.setIdArrendatario(id);
-			return repo_sol_prop.findByArrendatario(a);
+			List<SolicitudPropiedad> lsSol = repo_sol_prop.findByArrendatario(a);
+			lsSol = lsSol.stream().filter( sol -> sol.getEstado()!=1).collect(Collectors.toList());
+			return lsSol;
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
+	@Override
+	public List<SolicitudPropiedad> listarSolAceptadas(Integer id) {
+		try {
+			Arrendatario a = new Arrendatario();
+			a.setIdArrendatario(id);
+			List<SolicitudPropiedad> lsSol = repo_sol_prop.findByArrendatario(a);
+			lsSol = lsSol.stream().filter( sol -> sol.getEstado()==1).collect(Collectors.toList());
+			return lsSol;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

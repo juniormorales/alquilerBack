@@ -88,6 +88,7 @@ public class Constantes {
 	
 	//Usuario
 	public static final String msgListarCuentasDesactivadasError = "Ocurrio un error al intentar listar las cuentas desactivadas";
+	public static final String msgListarCuentasError = "Ocurrio un error al intentar listar las cuentas registradas";
 	public static final String msgActivarCuentaError = "Ocurrio un error al intentar activar la cuenta";
 	public static final String msgActicarCuentaOk = "Se le ha habilitado la cuenta a este usuario";
 	public static final String msgInhabilitarCuentaOk = "Se ha inhabilitado la cuenta a este usuario";

@@ -128,7 +128,7 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 	@Override
 	public List<Usuario> listar() {
 		try {
-			List<Usuario> ls = repo.findAll().stream().filter(usuario -> usuario.getTipoUsuario() != "ADMINISTRADOR")
+			List<Usuario> ls = repo.findAll().stream().filter(usuario -> !usuario.getTipoUsuario().equalsIgnoreCase("ADMINISTRADOR"))
 					.map( usuario -> {
 						usuario.setPassword(null);
 						return usuario;

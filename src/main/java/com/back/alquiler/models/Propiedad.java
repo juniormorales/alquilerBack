@@ -57,6 +57,12 @@ public class Propiedad {
 	@Column(nullable=false)
 	private Integer estado;
 	
+	@Column(nullable=false)
+	private Boolean confirmado;
+	
+	@Column(nullable=false)
+	private Integer nroPartida;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_condicion_pago", nullable=false)
 	private CondicionPago condicionPago;
@@ -188,7 +194,22 @@ public class Propiedad {
 	public void setLsImagenPropiedad(List<ImagenPropiedad> lsImagenPropiedad) {
 		this.lsImagenPropiedad = lsImagenPropiedad;
 	}
-	
+
+	public Boolean getConfirmado() {
+		return confirmado;
+	}
+
+	public void setConfirmado(Boolean confirmado) {
+		this.confirmado = confirmado;
+	}
+
+	public Integer getNroPartida() {
+		return nroPartida;
+	}
+
+	public void setNroPartida(Integer nroPartida) {
+		this.nroPartida = nroPartida;
+	}
 	
 	
 }

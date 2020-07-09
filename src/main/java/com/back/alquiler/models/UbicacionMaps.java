@@ -21,6 +21,9 @@ public class UbicacionMaps {
 	@Column(nullable=false)
 	private Double longitud;
 	
+	@Column(nullable=false)
+	private String descripcionDireccion;
+	
 	@ManyToOne
 	@JoinColumn(name="id_propiedad")
 	private Propiedad propiedad;
@@ -56,4 +59,13 @@ public class UbicacionMaps {
 	public void setPropiedad(Propiedad propiedad) {
 		this.propiedad = propiedad;
 	}
+
+	public String getDescripcionDireccion() {
+		return descripcionDireccion;
+	}
+
+	public void setDescripcionDireccion(String descripcionDireccion) {
+		this.descripcionDireccion = descripcionDireccion;
+	}
+	
 }

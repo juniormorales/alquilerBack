@@ -9,5 +9,5 @@ import com.back.alquiler.models.Propiedad;
 
 public interface PropiedadRepo extends JpaRepository<Propiedad,Integer>{
 	
-	List<Propiedad> findByArrendero(Arrendero arrendero);
+	List<Propiedad> findByArrenderoAndConfirmado(Arrendero arrendero, Boolean confirmado);
 }

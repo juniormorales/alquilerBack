@@ -102,7 +102,7 @@ public class PropiedadServiceImpl implements PropiedadService {
 		Arrendero a = new Arrendero();
 		a.setIdArrendero(id);
 		try {
-			return repo_propiedad.findByArrendero(a);
+			return repo_propiedad.findByArrenderoAndConfirmado(a,true);
 		} catch (Exception e) {
 			throw e;
 		}

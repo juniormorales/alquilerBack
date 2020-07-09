@@ -10,7 +10,7 @@ import com.back.alquiler.models.Modulo;
 public interface UtilitarioRepo extends JpaRepository<Modulo, Integer>{
 
 
-	@Query(value="insert into perfiles_modulo (id_perfil, id_modulo) VALUES (1, 1),(1, 2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(3,9),(3,10),(3,11);", nativeQuery = true)
+	@Query(value="insert into perfiles_modulo (id_perfil, id_modulo) VALUES (1, 1),(1, 2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),(3,9),(3,10),(3,11),(1,12);", nativeQuery = true)
 	void insertarPerfilesModulo();
 	
 	@Query(value="insert into tipo_zona(id_tipo_zona, descripcion) VALUES (1, 'A.H. ASENTAMIENTO HUMANO'),"

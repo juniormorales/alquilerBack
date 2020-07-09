@@ -57,6 +57,8 @@ public class UtilitarioController {
 					"sub");
 			Modulo modDeudas = this.CrearModulo("deudas", "tim-icons icon-paper", true, 3, "/arrendatario/",
 					"Pagos / Deudas", "sub");
+			
+			Modulo modPropConfirmar = this.CrearModulo("propconfir", "mdi mdi-timetable", false, 3, "/administracion/propiedad-confirmar", "Confirmar Propiedades", "link");
 			tmp_modulo.add(modGestionCuentas);
 			tmp_modulo.add(modVerSoliAcep);
 			tmp_modulo.add(modDash);
@@ -68,6 +70,7 @@ public class UtilitarioController {
 			tmp_modulo.add(modPresentacion);
 			tmp_modulo.add(modHistorialUsu);
 			tmp_modulo.add(modDeudas);
+			tmp_modulo.add(modPropConfirmar);
 			messages.add(service.insertarDatosModulo(tmp_modulo));
 
 			List<Pagina> tmp_pagina = new ArrayList<>();

@@ -52,10 +52,11 @@ public class PropiedadController {
 	public ResponseEntity<?> registrarPropiedad(@RequestBody Propiedad propiedad) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				service_propiedad.registrar(propiedad);
+				Propiedad resp = service_propiedad.registrar(propiedad);
 				response.put("titulo", Constantes.tituloOk);
 				response.put("mensaje", Constantes.msgRegistrarPropiedadOk);
 				response.put("tipo",Constantes.success);
+				response.put("id",resp.getIdPropiedad());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
 			response.put("mensaje", Constantes.msgRegistrarPropiedadError);

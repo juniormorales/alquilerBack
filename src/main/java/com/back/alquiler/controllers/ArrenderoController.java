@@ -66,7 +66,7 @@ public class ArrenderoController {
 						Arrendero resp = service_arrendero.registrar(arrendero);
 						response.put("estado",true);
 						response.put("titulo", Constantes.tituloOk);
-						response.put("mensaje", Constantes.msgRegistrarUsuarioOk);
+						response.put("mensaje", Constantes.msgRegistrarUsuarioOk + " " + Constantes.msgRegistrarArrenderoOk);
 						response.put("tipo",Constantes.success);
 					}
 				}	

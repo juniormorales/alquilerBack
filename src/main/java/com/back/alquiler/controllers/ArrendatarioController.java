@@ -65,7 +65,7 @@ public class ArrendatarioController {
 						Arrendatario resp = service_arrendatario.registrar(arrendatario);
 						response.put("estado",true);
 						response.put("titulo", Constantes.tituloOk);
-						response.put("mensaje", Constantes.msgRegistrarUsuarioOk + " " + Constantes.msgRegistrarArrenderoOk);
+						response.put("mensaje", Constantes.msgRegistrarUsuarioOk);
 						response.put("tipo",Constantes.success);
 					}
 				}	

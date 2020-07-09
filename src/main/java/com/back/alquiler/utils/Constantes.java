@@ -69,22 +69,24 @@ public class Constantes {
 	public static final String msgEliminarErrorGraveDesc = "Este registro esta siendo usado por otro, verificar que ningun recurso este usando este valor";
 
 	// Usuario
-	public static final String msgRegistrarUsuarioOk = "Se ha registrado exitosamente su cuenta";
-	public static final String msgRegistrarUsuarioError = "Ocurrio un error al registrar su cuenta en la Base de datos";
-	public static final String msgYaExisteDNI = "Este DNI ya tiene una cuenta asignada";
-	public static final String msgYaExisteEmail = "Este email ya tiene registrado una cuenta";
-	public static final String msgYaExisteUsername = "Este username ya esta en uso, intente con otro";
+	public static final String msgRegistrarUsuarioOk = "Se ha registrado exitosamente su cuenta.";
+	public static final String msgRegistrarArrenderoOk = "En menos de 24 horas su cuenta sera revisada por un administrador para su activacion.";
+	public static final String msgRegistrarUsuarioError = "Ocurrio un error al registrar su cuenta en la Base de datos.";
+	public static final String msgYaExisteDNI = "Este DNI ya tiene una cuenta asignada.";
+	public static final String msgYaExisteEmail = "Este email ya tiene registrado una cuenta.";
+	public static final String msgYaExisteUsername = "Este username ya esta en uso, intente con otro.";
 
 	// Propiedad
-	public static final String msgRegistrarPropiedadOk = "Se ha registrado correctamente la propiedad";
-	public static final String msgRegistrarPropiedadError = "Ocurrio un error al registrar la propiedad en la base de datos";
-	public static final String msgActualizarPropiedadOk = "Se ha actualizado correctamente la propiedad";
-	public static final String msgActualizarPropiedadError = "Ocurrio un error al actualizar la propiedad en la base de datos";
-	public static final String msgRegistrarImagenPropiedadOk = "La imagen se subio correctamente";
-	public static final String msgRegistrarImagenPropiedadError = "Ocurrio un error al intentar subir la imagen";
-	public static final String msgEliminarImagenesPropiedadOk = "Las imagenes seleccionadas se han quitado correctamente";
-	public static final String msgEliminarImagenesPropiedadError = "Ocurrio un error al intentar eliminar las imagenes";
-	public static final String msgListarImagenesPropiedadError = "Ocurrio un error al leer las imagenes de la propiedad";
+	public static final String msgRegistrarPropiedadOk = "Se ha registrado correctamente la propiedad. En menos de 24 horas un administrador verificara si el número de partida registral "
+			+ "corresponde a la direccion de la propiedad registrada.";
+	public static final String msgRegistrarPropiedadError = "Ocurrio un error al registrar la propiedad en la base de datos.";
+	public static final String msgActualizarPropiedadOk = "Se ha actualizado correctamente la propiedad.";
+	public static final String msgActualizarPropiedadError = "Ocurrio un error al actualizar la propiedad en la base de datos.";
+	public static final String msgRegistrarImagenPropiedadOk = "La imagen se subio correctamente.";
+	public static final String msgRegistrarImagenPropiedadError = "Ocurrio un error al intentar subir la imagen.";
+	public static final String msgEliminarImagenesPropiedadOk = "Las imagenes seleccionadas se han quitado correctamente.";
+	public static final String msgEliminarImagenesPropiedadError = "Ocurrio un error al intentar eliminar las imagenes.";
+	public static final String msgListarImagenesPropiedadError = "Ocurrio un error al leer las imagenes de la propiedad.";
 	
 	//Usuario
 	public static final String msgListarCuentasDesactivadasError = "Ocurrio un error al intentar listar las cuentas desactivadas";

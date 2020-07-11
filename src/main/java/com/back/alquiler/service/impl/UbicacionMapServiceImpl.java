@@ -1,6 +1,7 @@
 package com.back.alquiler.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,16 @@ public class UbicacionMapServiceImpl implements UbicacionMapService {
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public List<UbicacionMaps> listarPropiedadesDisponibles() {
+		try {
+			List<UbicacionMaps> lsMaps = repo_ubicacion.findAll();
+			return  lsMaps.stream().filter( maps -> maps.getPropiedad().getConfirmado()).collect(Collectors.toList());
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 

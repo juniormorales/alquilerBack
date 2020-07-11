@@ -61,6 +61,9 @@ public class Propiedad {
 	private Boolean confirmado;
 	
 	@Column(nullable=false)
+	private Boolean rechazado;
+	
+	@Column(nullable=false)
 	private Integer nroPartida;
 	
 	@ManyToOne
@@ -209,6 +212,14 @@ public class Propiedad {
 
 	public void setNroPartida(Integer nroPartida) {
 		this.nroPartida = nroPartida;
+	}
+
+	public Boolean getRechazado() {
+		return rechazado;
+	}
+
+	public void setRechazado(Boolean rechazado) {
+		this.rechazado = rechazado;
 	}
 	
 	

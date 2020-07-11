@@ -10,4 +10,6 @@ import com.back.alquiler.models.Propiedad;
 public interface PropiedadRepo extends JpaRepository<Propiedad,Integer>{
 	
 	List<Propiedad> findByArrenderoAndConfirmado(Arrendero arrendero, Boolean confirmado);
+	
+	List<Propiedad> findByConfirmadoAndRechazado(Boolean confirmado, Boolean rechazado);
 }

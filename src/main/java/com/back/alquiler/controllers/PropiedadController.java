@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.alquiler.models.Propiedad;
+import com.back.alquiler.models.UbicacionMaps;
 import com.back.alquiler.service.ImagenPropiedadService;
 import com.back.alquiler.service.PropiedadService;
+import com.back.alquiler.service.UbicacionMapService;
 import com.back.alquiler.utils.Constantes;
 
 @RestController
@@ -34,11 +36,28 @@ public class PropiedadController {
 	@Autowired
 	ImagenPropiedadService service_imagen_prop;
 	
+	@Autowired
+	UbicacionMapService service_ubicacion;
+	
 	@GetMapping("/listar/{id}")
 	public ResponseEntity<?> listarPorArrendero(@PathVariable Integer id){
 		Map<String, Object> response = new HashMap<>();
 		try {
 				List<Propiedad> lsProp = service_propiedad.listarPorArrendero(id);
+				response.put("aaData",lsProp);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		} catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgRegistrarPropiedadError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/listarPorAceptar")
+	public ResponseEntity<?> listarUbicacionMapPorAceptar(){
+		Map<String, Object> response = new HashMap<>();
+		try {
+				List<UbicacionMaps> lsProp = service_propiedad.listarNoAceptadas();
 				response.put("aaData",lsProp);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
@@ -85,7 +104,7 @@ public class PropiedadController {
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarPropiedad(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
-		try {
+		try {	
 			try {
 				service_imagen_prop.eliminarTodasLasImagenes(id);
 			} catch (IOException e) {

@@ -1,5 +1,6 @@
 package com.back.alquiler.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,14 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Propiedad;
+import com.back.alquiler.models.UbicacionMaps;
 import com.back.alquiler.repo.PropiedadRepo;
+import com.back.alquiler.repo.UbicacionMapsRepo;
 import com.back.alquiler.service.PropiedadService;
+import com.back.alquiler.service.UbicacionMapService;
 
 @Service
 public class PropiedadServiceImpl implements PropiedadService {
 
 	@Autowired
 	PropiedadRepo repo_propiedad;
+	
+	@Autowired
+	UbicacionMapsRepo repo_ubicacion;
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -89,6 +96,10 @@ public class PropiedadServiceImpl implements PropiedadService {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
+		Propiedad p = new Propiedad();
+		p.setIdPropiedad(id);
+		repo_ubicacion.deleteByPropiedad(p);
+		
 		if (repo_propiedad.existsById(id)) {
 			repo_propiedad.deleteById(id);
 			return true;
@@ -103,6 +114,21 @@ public class PropiedadServiceImpl implements PropiedadService {
 		a.setIdArrendero(id);
 		try {
 			return repo_propiedad.findByArrenderoAndConfirmado(a,true);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public List<UbicacionMaps> listarNoAceptadas() {
+		try {
+			List<Propiedad> lsProp = repo_propiedad.findByConfirmadoAndRechazado(false,false);
+			List<UbicacionMaps> maps = new ArrayList<>();
+			lsProp.forEach( propiedad -> {
+				maps.add(repo_ubicacion.findByPropiedad(propiedad));
+			});
+			
+			return maps;
 		} catch (Exception e) {
 			throw e;
 		}

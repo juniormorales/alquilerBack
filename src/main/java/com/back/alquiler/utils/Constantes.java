@@ -87,8 +87,8 @@ public class Constantes {
 	public static final String msgEliminarImagenesPropiedadOk = "Las imagenes seleccionadas se han quitado correctamente.";
 	public static final String msgEliminarImagenesPropiedadError = "Ocurrio un error al intentar eliminar las imagenes.";
 	public static final String msgListarImagenesPropiedadError = "Ocurrio un error al leer las imagenes de la propiedad.";
-	
-	//Usuario
+
+	// Usuario
 	public static final String msgListarCuentasDesactivadasError = "Ocurrio un error al intentar listar las cuentas desactivadas";
 	public static final String msgListarCuentasError = "Ocurrio un error al intentar listar las cuentas registradas";
 	public static final String msgActivarCuentaError = "Ocurrio un error al intentar activar la cuenta";
@@ -98,29 +98,36 @@ public class Constantes {
 	public static final String msgCuentaInhabilitada = "Su cuenta ha sido inhabilitada por ingresar datos falsos";
 	public static final String msgBuscarUsuarioError = "Ocurrio un error al buscar al usuario en la base de datos";
 
-	
-	//Condicion Pago
+	// Condicion Pago
 	public static final String msgRegistrarCondicionPagoError = "Ocurrio un error al intentar registrar la condición de pago";
 	public static final String msgRegistrarCondicionPagoOk = "La condicion de pago se ha registrado correctamente";
 	public static final String msgActualizarCondicionPagoOk = "La condicion de pago se ha actualizado correctamente";
 	public static final String msgActualizarCondicionPagoError = "Ocurrio un error al intentar actualizar la condicion de pago";
-	public static final String msgListarCondicionPagoError ="Ocurrio un error al intentar listar las condiciones de pago";
-	
-	//Inquilino
+	public static final String msgListarCondicionPagoError = "Ocurrio un error al intentar listar las condiciones de pago";
+
+	// Condicion Pago
+	public static final String msgRegistrarPagoError = "Ocurrio un error al intentar registrar el pago";
+	public static final String msgRegistrarPagoOk = "El pago se ha registrado correctamente";
+	public static final String msgActualizarPagoOk = "El pago se ha actualizado correctamente";
+	public static final String msgActualizarPagoError = "Ocurrio un error al intentar actualizar el pago";
+	public static final String msgListarPagoError = "Ocurrio un error al intentar listar los pago";
+
+	// Inquilino
 	public static final String msgListarInquilinosPorArrenderoError = "Ocurrio un error al listar los inquilinos";
 	public static final String msgDarBajaInquilinoOk = "Se dio de baja al inquilino correctamente";
 	public static final String msgDarBajaInquilinoAunNo = "El contrato de este inquilino aun no ha caducado";
 	public static final String msgDarBajaInquilinoError = "Ocurrio un error al intentar dar de baja al inquilino";
-	
+
 	//Solicitud Propiedad
 	public static final String msgRegistrarSolPropOk = "Su solicitud se ha enviado correctamente, el propietario evaluará su perfil y se le notificara de la respuesta que se haya tomado";
 	public static final String msgRegistrarSolPropError = "Ocurrio un error al registrar su solicitud";
+
 	public static final String msgListarSolError = "Ocurrio un error al listar las solicitudes de propiedad";
 	public static final String msgActualizarSolOk = "La solicitud se envio nuevamente con la nueva propuesta";
 	public static final String msgActualizarSolError = "Ocurrio un error al procesar la solicitud";
 	public static final String msgCancelarSolOk = "Su solicitud a esta propiedad ha sido cancelada";
 	public static final String msgRechazarSolOk = "Se ha rechazado la solicitud correctamente";
-	public static final String msgAceptarAprobacionOk ="!Felicitaciones, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
+	public static final String msgAceptarAprobacionOk = "!Felicitaciones, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
 			+ "de contrato y se pondrá en contacto contigo a travez de tu email registrado o de uno de tus números telefónicos para completar la firma!";
 
 	// sweetalert2

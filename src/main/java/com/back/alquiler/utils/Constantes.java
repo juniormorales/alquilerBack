@@ -113,6 +113,8 @@ public class Constantes {
 	public static final String msgDarBajaInquilinoError = "Ocurrio un error al intentar dar de baja al inquilino";
 	
 	//Solicitud Propiedad
+	public static final String msgRegistrarSolPropOk = "Su solicitud se ha enviado correctamente, el propietario evaluará su perfil y se le notificara de la respuesta que se haya tomado";
+	public static final String msgRegistrarSolPropError = "Ocurrio un error al registrar su solicitud";
 	public static final String msgListarSolError = "Ocurrio un error al listar las solicitudes de propiedad";
 	public static final String msgActualizarSolOk = "La solicitud se envio nuevamente con la nueva propuesta";
 	public static final String msgActualizarSolError = "Ocurrio un error al procesar la solicitud";

@@ -1,5 +1,6 @@
 package com.back.alquiler.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,7 @@ public class SolicitudPropiedadServiceImpl implements SolicitudPropiedadService 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SolicitudPropiedad registrar(SolicitudPropiedad obj) {
 		try {
+			obj.setFechaSolicitud(new Date());
 			return repo_sol_prop.save(obj);
 		} catch (Exception e) {
 			throw e;

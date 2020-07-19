@@ -8,4 +8,6 @@ import com.back.alquiler.models.Renta;
 public interface RentaService extends ICRUD<Renta>{
 	
 	List<Renta> listarRentasPendientes(Inquilino inquilino);
+	
+	List<Renta> listarRentasCanceladas(Inquilino inquilino);
 }

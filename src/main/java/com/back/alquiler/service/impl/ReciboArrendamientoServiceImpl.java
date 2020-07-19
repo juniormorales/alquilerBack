@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Pago;
 import com.back.alquiler.models.ReciboArrendamiento;
+import com.back.alquiler.repo.PagoRepo;
 import com.back.alquiler.repo.ReciboArrendamientoRepo;
 import com.back.alquiler.service.ReciboArrendamientoService;
 
@@ -16,6 +18,9 @@ public class ReciboArrendamientoServiceImpl implements ReciboArrendamientoServic
 	
 	@Autowired
 	ReciboArrendamientoRepo repo_recibo_arrend;
+	
+	@Autowired
+	PagoRepo repo_pago;
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -57,6 +62,17 @@ public class ReciboArrendamientoServiceImpl implements ReciboArrendamientoServic
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public Boolean crearReciboArrendamiento(Pago pago) {
+		try {
+			pago.setReciboCreado(true);
+			repo_pago.save(pago);
+			return null;
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 

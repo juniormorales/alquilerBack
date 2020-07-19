@@ -19,8 +19,12 @@ public class ReciboArrendamiento {
 	private String urlRecibo;
 	
 	@ManyToOne
-	@JoinColumn(name="id_renta")
+	@JoinColumn(name="id_renta", nullable=false)
 	private Renta renta;
+	
+	@ManyToOne
+	@JoinColumn(name="id_pago",nullable=false)
+	private Pago pago;
 
 	public Integer getIdReciboArrendamiento() {
 		return idReciboArrendamiento;
@@ -44,6 +48,14 @@ public class ReciboArrendamiento {
 
 	public void setRenta(Renta renta) {
 		this.renta = renta;
+	}
+
+	public Pago getPago() {
+		return pago;
+	}
+
+	public void setPago(Pago pago) {
+		this.pago = pago;
 	}
 	
 	

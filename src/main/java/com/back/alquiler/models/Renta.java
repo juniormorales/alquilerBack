@@ -23,9 +23,16 @@ public class Renta {
 	@Column(nullable=false)
 	private Double cantidad;
 	
+	@Column(nullable=false)
+	private Double montoAcumuladoCancelado;
+	
 	//1: cancelado, 0: proximo, 2: vencido
 	@Column(nullable=false)
 	private Integer estado;
+	
+	//0: pago enviado, 1:pago rechazado, 2: sin enviar, 3: incompleto
+	@Column(nullable=false)
+	private Integer envioPago;
 	
 	@Column(nullable=false)
 	private Double importeAtrasado;
@@ -81,4 +88,21 @@ public class Renta {
 	public void setInquilino(Inquilino inquilino) {
 		this.inquilino = inquilino;
 	}
+
+	public Integer getEnvioPago() {
+		return envioPago;
+	}
+
+	public void setEnvioPago(Integer envioPago) {
+		this.envioPago = envioPago;
+	}
+
+	public Double getMontoAcumuladoCancelado() {
+		return montoAcumuladoCancelado;
+	}
+
+	public void setMontoAcumuladoCancelado(Double montoAcumuladoCancelado) {
+		this.montoAcumuladoCancelado = montoAcumuladoCancelado;
+	}
+	
 }

@@ -26,10 +26,24 @@ public class RentaController {
 	RentaService service_renta;
 	
 	@PostMapping("/listarPendientesPorInquilino")
-	public ResponseEntity<?> listarPorInquilino(@RequestBody Inquilino inquilino){
+	public ResponseEntity<?> listarPendientesPorInquilino(@RequestBody Inquilino inquilino){
 		Map<String,Object> response = new HashMap<>();
 		try {
 			List<Renta> lsRentas = service_renta.listarRentasPendientes(inquilino);
+			response.put("aaData",lsRentas);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+		} catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgListarRentasInquilinoError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
+	}
+	
+	@PostMapping("/listarCanceladosPorInquilino")
+	public ResponseEntity<?> listarCanceladosPorInquilino(@RequestBody Inquilino inquilino){
+		Map<String,Object> response = new HashMap<>();
+		try {
+			List<Renta> lsRentas = service_renta.listarRentasCanceladas(inquilino);
 			response.put("aaData",lsRentas);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
 		} catch (DataAccessException e) {

@@ -103,6 +103,8 @@ public class ContratoServiceImpl implements ContratoService {
 				renta.setFechaRenta(java.sql.Date.valueOf(fecha_mes_prox));
 				renta.setImporteAtrasado(inquilino.getPropiedad().getCondicionPago().getTasaRecargo()*renta.getCantidad()*0.01);
 				renta.setInquilino(resp);
+				renta.setEnvioPago(2);
+				renta.setMontoAcumuladoCancelado(0.0);
 				repo_renta.save(renta);
 			}
 			

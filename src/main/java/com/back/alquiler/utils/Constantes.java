@@ -113,9 +113,10 @@ public class Constantes {
 	// Condicion Pago
 	public static final String msgRegistrarPagoError = "Ocurrio un error al intentar registrar el pago";
 	public static final String msgRegistrarPagoParaConfirmarOk = "El voucher se ha enviado correctamente, sera revisado por el dueño para confirmar su pago";
-	public static final String msgActualizarPagoOk = "El pago se ha actualizado correctamente";
-	public static final String msgActualizarPagoError = "Ocurrio un error al intentar actualizar el pago";
-	public static final String msgListarPagoError = "Ocurrio un error al intentar listar los pago";
+	public static final String msgConfirmarPagoOk = "El pago se ha confirmado correctamente";
+	public static final String msgRechazarPagoOk ="El pago se ha rechazado correctamente";
+	public static final String msgActualizarPagoError = "Ocurrio un error al intentar procesar el pago";
+	public static final String msgListarPagoError = "Ocurrio un error al intentar listar los pagos";
 
 	// Inquilino
 	public static final String msgListarInquilinosPorArrenderoError = "Ocurrio un error al listar los inquilinos";
@@ -139,6 +140,9 @@ public class Constantes {
 	//Renta
 	public static final String msgListarRentasInquilinoError = "Ocurrio un error al listar las rentas que posee";
 	
+	//Pagos
+	
+	
 	//UbicacionMaps
 	public static final String msgRegistrarUbicacionMapsError = "Ocurrio un error al registrar la ubicacion de la propiedad";
 	public static final String msgListarPropiedadesDisponiblesError = "Ocurrio un error al intentar listar las propiedades disponibles";
@@ -156,7 +160,8 @@ public class Constantes {
 
 	// Rutas Imagenes
 	public static final String rutaImagenPropiedad = "src/main/resources/Uploads/imagenesPropiedad";
-
+	public static final String rutaImagenVoucher = "src/main/resources/Uploads/vouchersPago";
+	
 	// Fotos
 	public static final String errorRegistroFoto = "Error al guardar la foto en la Base de Datos";
 	public static final String errorLecturaFoto = "Error al intentar leer la foto";

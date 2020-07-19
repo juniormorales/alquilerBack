@@ -1,5 +1,7 @@
 package com.back.alquiler.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,11 +21,23 @@ public class Pago {
 	private Double monto;
 	
 	@Column(nullable=false)
+	private Double montoRestante;
+	
+	@Column(nullable=false)
+	private Boolean reciboCreado;
+	
+	@Column(nullable=false)
 	private String urlVoucher;
 	
-	//true: si fue aceptado, false: si no
+	//true: si fue aceptado, false: si esta por confirmar
 	@Column(nullable=false)
 	private Boolean estado;
+	
+	@Column(nullable=false)
+	private Boolean rechazado;
+	
+	@Column(nullable=true)
+	private Date fechaRegistro;
 	
 	@ManyToOne
 	@JoinColumn(name="id_renta", nullable=false)
@@ -32,6 +46,10 @@ public class Pago {
 	@ManyToOne
 	@JoinColumn(name="id_arrendero",nullable=false)
 	private Arrendero arrendero;
+	
+	@ManyToOne
+	@JoinColumn(name="id_inquilino",nullable=false)
+	private Inquilino inquilino;
 
 	public Integer getIdPago() {
 		return idPago;
@@ -79,5 +97,46 @@ public class Pago {
 
 	public void setArrendero(Arrendero arrendero) {
 		this.arrendero = arrendero;
-	}	
+	}
+
+	public Boolean getRechazado() {
+		return rechazado;
+	}
+
+	public void setRechazado(Boolean rechazado) {
+		this.rechazado = rechazado;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+
+	public Inquilino getInquilino() {
+		return inquilino;
+	}
+
+	public void setInquilino(Inquilino inquilino) {
+		this.inquilino = inquilino;
+	}
+
+	public Double getMontoRestante() {
+		return montoRestante;
+	}
+
+	public void setMontoRestante(Double montoRestante) {
+		this.montoRestante = montoRestante;
+	}
+
+	public Boolean getReciboCreado() {
+		return reciboCreado;
+	}
+
+	public void setReciboCreado(Boolean reciboCreado) {
+		this.reciboCreado = reciboCreado;
+	}
+	
 }

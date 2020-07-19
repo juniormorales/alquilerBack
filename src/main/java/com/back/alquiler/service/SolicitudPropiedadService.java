@@ -9,4 +9,5 @@ public interface SolicitudPropiedadService extends ICRUD<SolicitudPropiedad>{
 	List<SolicitudPropiedad> listarSolPendienteyAceptado(Integer id);
 	List<SolicitudPropiedad> listarSolArrendatario(Integer id);
 	List<SolicitudPropiedad> listarSolAceptadas(Integer id);
+	Boolean buscarSolExistente(Integer id);
 }

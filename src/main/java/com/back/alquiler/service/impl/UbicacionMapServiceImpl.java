@@ -8,17 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.FiltroDTO;
 import com.back.alquiler.models.UbicacionMaps;
 import com.back.alquiler.repo.UbicacionMapsRepo;
 import com.back.alquiler.service.UbicacionMapService;
+import com.back.alquiler.utils.Constantes;
 
 @Service
 public class UbicacionMapServiceImpl implements UbicacionMapService {
-	
+
 	@Autowired
 	UbicacionMapsRepo repo_ubicacion;
-	
-	
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public UbicacionMaps registrar(UbicacionMaps obj) {
@@ -54,10 +55,10 @@ public class UbicacionMapServiceImpl implements UbicacionMapService {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_ubicacion.existsById(id)) {
+		if (repo_ubicacion.existsById(id)) {
 			repo_ubicacion.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -66,10 +67,41 @@ public class UbicacionMapServiceImpl implements UbicacionMapService {
 	public List<UbicacionMaps> listarPropiedadesDisponibles() {
 		try {
 			List<UbicacionMaps> lsMaps = repo_ubicacion.findAll();
-			return  lsMaps.stream().filter( maps -> maps.getPropiedad().getConfirmado()).collect(Collectors.toList());
+			return lsMaps.stream().filter(maps -> maps.getPropiedad().getConfirmado()).collect(Collectors.toList());
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	@Override
+	public List<UbicacionMaps> filtrarPropiedadesDisponibleS(List<FiltroDTO> filtros) {
+
+		List<UbicacionMaps> lsMaps = repo_ubicacion.findAll().stream()
+				.filter(maps -> maps.getPropiedad().getConfirmado()).collect(Collectors.toList());
+
+		if (filtros.get(0) != null) {
+			Integer idTarifa = filtros.get(0).getId();
+			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getCondicionPago()
+					.getPrecio() >= Constantes.dataTarifa[idTarifa]
+					&& maps.getPropiedad().getCondicionPago().getPrecio() <= Constantes.dataTarifa[idTarifa + 1])
+					.collect(Collectors.toList());
+		}
+
+		if (filtros.get(1) != null) {
+			Integer idPiso = filtros.get(1).getId();
+			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getCantidadPisos() >= Constantes.dataPisos[idPiso]
+					&& maps.getPropiedad().getCantidadPisos() <= Constantes.dataPisos[idPiso +1])
+					.collect(Collectors.toList());
+		}
+
+		if (filtros.get(2) != null) {
+			Integer idHabitacion = filtros.get(2).getId();
+			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getNroHabitaciones() >= Constantes.dataHabitaciones[idHabitacion]
+					&& maps.getPropiedad().getNroHabitaciones() <= Constantes.dataHabitaciones[idHabitacion +1])
+					.collect(Collectors.toList());
+
+		}
+		return lsMaps;
 	}
 
 }

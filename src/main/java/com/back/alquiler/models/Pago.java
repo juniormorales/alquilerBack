@@ -26,8 +26,12 @@ public class Pago {
 	private Boolean estado;
 	
 	@ManyToOne
-	@JoinColumn(name="id_renta")
+	@JoinColumn(name="id_renta", nullable=false)
 	private Renta renta;
+	
+	@ManyToOne
+	@JoinColumn(name="id_arrendero",nullable=false)
+	private Arrendero arrendero;
 
 	public Integer getIdPago() {
 		return idPago;
@@ -60,6 +64,20 @@ public class Pago {
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
-	
-	
+
+	public Renta getRenta() {
+		return renta;
+	}
+
+	public void setRenta(Renta renta) {
+		this.renta = renta;
+	}
+
+	public Arrendero getArrendero() {
+		return arrendero;
+	}
+
+	public void setArrendero(Arrendero arrendero) {
+		this.arrendero = arrendero;
+	}	
 }

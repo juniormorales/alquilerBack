@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Inquilino;
 import com.back.alquiler.models.Renta;
 import com.back.alquiler.repo.RentaRepo;
 import com.back.alquiler.service.RentaService;
@@ -57,6 +58,15 @@ public class RentaServiceImpl implements RentaService {
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public List<Renta> listarRentasPendientes(Inquilino inquilino) {
+		try {
+			return repo_renta.findByInquilinoAndEstado(inquilino, 0);
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 

@@ -66,6 +66,9 @@ public class Propiedad {
 	@Column(nullable=false)
 	private Integer nroPartida;
 	
+	@Column(nullable=true)
+	private String direccion;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_condicion_pago", nullable=false)
 	private CondicionPago condicionPago;
@@ -220,6 +223,14 @@ public class Propiedad {
 
 	public void setRechazado(Boolean rechazado) {
 		this.rechazado = rechazado;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 	
 	

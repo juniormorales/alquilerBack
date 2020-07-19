@@ -26,6 +26,21 @@ public class InquilinoController {
 	@Autowired
 	InquilinoService service_inquilino;
 	
+	@GetMapping("/listarSinContrato/{id}")
+	ResponseEntity<?> listarPorArrenderoSinContrato(@PathVariable Integer id){
+		Map<String,Object> response = new HashMap<>();
+		
+		try {
+			List<Inquilino> lsInq = service_inquilino.listarPorArrenderoYContratoNoHecho(id);
+			response.put("aaData",lsInq);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+		}  catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgListarInquilinosPorArrenderoError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
+	}
+	
 	@GetMapping("/listar/{id}")
 	ResponseEntity<?> listarPorArrendero(@PathVariable Integer id){
 		Map<String,Object> response = new HashMap<>();
@@ -33,6 +48,21 @@ public class InquilinoController {
 		try {
 			List<Inquilino> lsInq = service_inquilino.listarPorArrenderoYContratoHecho(id);
 			response.put("aaData",lsInq);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+		}  catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgListarInquilinosPorArrenderoError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
+	}
+	
+	@GetMapping("/obtenerInquilino/{id}")
+	ResponseEntity<?> obtenerInquilino(@PathVariable Integer id){
+		Map<String,Object> response = new HashMap<>();
+		
+		try {
+			Inquilino resp = service_inquilino.obtenerInquilinoActivo(id);
+			response.put("defaultObj",resp);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
 		}  catch (DataAccessException e) {
 			response.put("mensaje", Constantes.msgListarInquilinosPorArrenderoError);

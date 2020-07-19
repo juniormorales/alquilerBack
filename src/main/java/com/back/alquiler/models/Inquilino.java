@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Inquilino {
@@ -31,6 +32,9 @@ public class Inquilino {
 	//true:al dia, false: atrasado
 	@Column(nullable=false)
 	private Boolean estadoPago;
+	
+	@Transient
+	private Date fecha_inicio;
 	
 	@ManyToOne
 	@JoinColumn(name="id_arrendatario",nullable=false)
@@ -106,6 +110,13 @@ public class Inquilino {
 
 	public void setArrendero(Arrendero arrendero) {
 		this.arrendero = arrendero;
-	}	
-	
+	}
+
+	public Date getFecha_inicio() {
+		return fecha_inicio;
+	}
+
+	public void setFecha_inicio(Date fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
+	}
 }

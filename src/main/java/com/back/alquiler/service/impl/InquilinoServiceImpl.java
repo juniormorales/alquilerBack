@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Contrato;
 import com.back.alquiler.models.Inquilino;
+import com.back.alquiler.models.SolicitudPropiedad;
 import com.back.alquiler.repo.ContratoRepo;
 import com.back.alquiler.repo.InquilinoRepo;
 import com.back.alquiler.service.InquilinoService;
@@ -24,6 +26,7 @@ public class InquilinoServiceImpl implements InquilinoService {
 	
 	@Autowired
 	ContratoRepo repo_contrato;
+	
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -98,5 +101,44 @@ public class InquilinoServiceImpl implements InquilinoService {
 			throw e;
 		}
 	}
+
+	@Override
+	public Inquilino registrarInquilinoSinContrato(SolicitudPropiedad sol) {
+		Inquilino in = new Inquilino();
+		in.setArrendatario(sol.getArrendatario());
+		in.setArrendero(sol.getArrendero());
+		in.setContratoHecho(false);
+		in.setEstado(true);
+		in.setEstadoPago(true);
+		in.setFechaConfirmacion(new Date());
+		in.setPropiedad(sol.getPropiedad());
+		try {
+			return repo_inquilino.save(in);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public List<Inquilino> listarPorArrenderoYContratoNoHecho(Integer id) {
+		try {
+			Arrendero a = new Arrendero();
+			a.setIdArrendero(id);
+			return repo_inquilino.findByArrenderoAndContratoHechoAndEstado(a, false, true);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public Inquilino obtenerInquilinoActivo(Integer id) {
+		try {
+			Arrendatario arrendatario = new Arrendatario();
+			arrendatario.setIdArrendatario(id);
+			return repo_inquilino.findByArrendatarioAndEstado(arrendatario,true);
+		} catch (Exception e) {
+			throw e;
+		}
+	}	
 
 }

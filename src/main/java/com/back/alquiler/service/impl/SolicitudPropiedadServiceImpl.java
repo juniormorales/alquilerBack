@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Arrendero;
+import com.back.alquiler.models.Propiedad;
 import com.back.alquiler.models.SolicitudPropiedad;
 import com.back.alquiler.repo.SolicitudPropiedadRepo;
 import com.back.alquiler.service.SolicitudPropiedadService;
@@ -99,6 +100,26 @@ public class SolicitudPropiedadServiceImpl implements SolicitudPropiedadService 
 			List<SolicitudPropiedad> lsSol = repo_sol_prop.findByArrendatario(a);
 			lsSol = lsSol.stream().filter( sol -> sol.getEstado()==1).collect(Collectors.toList());
 			return lsSol;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public Boolean buscarSolExistente(Integer id) {
+		Propiedad prop = new Propiedad();
+		prop.setIdPropiedad(id);
+		try {
+			SolicitudPropiedad sol =  repo_sol_prop.findByPropiedad(prop);
+			if(sol!=null) {
+				if(sol.getEstado()==4) {
+					return false;
+				}else {
+					return true;
+				}
+			}else {
+				return false;
+			}
 		} catch (Exception e) {
 			throw e;
 		}

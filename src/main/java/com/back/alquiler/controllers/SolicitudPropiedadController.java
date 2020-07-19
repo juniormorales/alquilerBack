@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.alquiler.models.SolicitudPropiedad;
+import com.back.alquiler.service.InquilinoService;
 import com.back.alquiler.service.SolicitudPropiedadService;
 import com.back.alquiler.utils.Constantes;
 
@@ -25,6 +26,9 @@ public class SolicitudPropiedadController {
 
 	@Autowired
 	SolicitudPropiedadService service_sol_prop;
+	
+	@Autowired
+	InquilinoService service_inquilino;
 
 	@PostMapping("/registrarSolicitud")
 	ResponseEntity<?> registrarSolicitudPropiedad(@RequestBody SolicitudPropiedad sol) {
@@ -99,6 +103,7 @@ public class SolicitudPropiedadController {
 				response.put("tipo", Constantes.success);
 			} else {
 				if (sol.getEstado() == 3) {
+					service_inquilino.registrarInquilinoSinContrato(sol);
 					response.put("titulo", Constantes.tituloOk);
 					response.put("mensaje", Constantes.msgAceptarAprobacionOk);
 					response.put("tipo", Constantes.success);
@@ -118,6 +123,20 @@ public class SolicitudPropiedadController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
 			response.put("mensaje", Constantes.msgActualizarSolError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/buscarSolicitudExistente/{id}")
+	public ResponseEntity<?> buscarSolExistente(@PathVariable("id") Integer id){
+		Map<String,Object> response = new HashMap<>();
+		try {
+			Boolean resp = service_sol_prop.buscarSolExistente(id);
+			response.put("encontro",resp);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+		} catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgBuscarSolExistenteError);
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

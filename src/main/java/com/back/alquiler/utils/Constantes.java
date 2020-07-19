@@ -87,8 +87,13 @@ public class Constantes {
 	public static final String msgEliminarImagenesPropiedadOk = "Las imagenes seleccionadas se han quitado correctamente.";
 	public static final String msgEliminarImagenesPropiedadError = "Ocurrio un error al intentar eliminar las imagenes.";
 	public static final String msgListarImagenesPropiedadError = "Ocurrio un error al leer las imagenes de la propiedad.";
+	
+	//Contrato
+	public static final String msgHabilitarContratoError = "Ocurrio un error al intentar crear el contrato";
+	public static final String msgCrearContratoOk = "El contrato se ha emitido correctamente, pongase "
+			+ "en contacto con su inquilino para coordinar la fecha de la firma si esque aun no lo ha hecho";
 
-	// Usuario
+	// Cuentas
 	public static final String msgListarCuentasDesactivadasError = "Ocurrio un error al intentar listar las cuentas desactivadas";
 	public static final String msgListarCuentasError = "Ocurrio un error al intentar listar las cuentas registradas";
 	public static final String msgActivarCuentaError = "Ocurrio un error al intentar activar la cuenta";
@@ -107,7 +112,7 @@ public class Constantes {
 
 	// Condicion Pago
 	public static final String msgRegistrarPagoError = "Ocurrio un error al intentar registrar el pago";
-	public static final String msgRegistrarPagoOk = "El pago se ha registrado correctamente";
+	public static final String msgRegistrarPagoParaConfirmarOk = "El voucher se ha enviado correctamente, sera revisado por el dueño para confirmar su pago";
 	public static final String msgActualizarPagoOk = "El pago se ha actualizado correctamente";
 	public static final String msgActualizarPagoError = "Ocurrio un error al intentar actualizar el pago";
 	public static final String msgListarPagoError = "Ocurrio un error al intentar listar los pago";
@@ -121,6 +126,7 @@ public class Constantes {
 	//Solicitud Propiedad
 	public static final String msgRegistrarSolPropOk = "Su solicitud se ha enviado correctamente, el propietario evaluará su perfil y se le notificara de la respuesta que se haya tomado";
 	public static final String msgRegistrarSolPropError = "Ocurrio un error al registrar su solicitud";
+	public static final String msgBuscarSolExistenteError = "Ocurrio un error al intentar buscar una solicitud para esta propiedad";
 
 	public static final String msgListarSolError = "Ocurrio un error al listar las solicitudes de propiedad";
 	public static final String msgActualizarSolOk = "La solicitud se envio nuevamente con la nueva propuesta";
@@ -129,7 +135,15 @@ public class Constantes {
 	public static final String msgRechazarSolOk = "Se ha rechazado la solicitud correctamente";
 	public static final String msgAceptarAprobacionOk = "!Felicitaciones, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
 			+ "de contrato y se pondrá en contacto contigo a travez de tu email registrado o de uno de tus números telefónicos para completar la firma!";
-
+	
+	//Renta
+	public static final String msgListarRentasInquilinoError = "Ocurrio un error al listar las rentas que posee";
+	
+	//UbicacionMaps
+	public static final String msgRegistrarUbicacionMapsError = "Ocurrio un error al registrar la ubicacion de la propiedad";
+	public static final String msgListarPropiedadesDisponiblesError = "Ocurrio un error al intentar listar las propiedades disponibles";
+	public static final String msgFiltrarPropiedadesError = "Ocurrio un error al filtrar las propiedades";
+	
 	// sweetalert2
 	public static final String tituloOk = "¡HECHO!";
 	public static final String tituloWarn = "¡ADVERTENCIA!";
@@ -147,5 +161,11 @@ public class Constantes {
 	public static final String errorRegistroFoto = "Error al guardar la foto en la Base de Datos";
 	public static final String errorLecturaFoto = "Error al intentar leer la foto";
 	public static final String errorCargarFoto = "No se pudo cargar la imagen o no es legible";
-
+	
+	
+	//Datos de Filtro
+	public static final Integer [] dataHabitaciones = {0,4,6,10,15,20,Integer.MAX_VALUE};
+	public static final Integer [] dataPisos = {1,2,3,4,5,6,Integer.MAX_VALUE};
+	public static final Double [] dataTarifa = {0.0,500.0,1000.0,1500.0,2000.0,3000.0,Double.MAX_VALUE};
+	
 }

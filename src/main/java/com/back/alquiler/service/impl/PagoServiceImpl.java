@@ -1,12 +1,20 @@
 package com.back.alquiler.service.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -24,6 +32,12 @@ import com.back.alquiler.repo.PagoRepo;
 import com.back.alquiler.repo.RentaRepo;
 import com.back.alquiler.service.PagoService;
 import com.back.alquiler.utils.Constantes;
+import com.back.alquiler.utils.ConvertirNumeroALetras;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @Service
 public class PagoServiceImpl implements PagoService {
@@ -33,6 +47,9 @@ public class PagoServiceImpl implements PagoService {
 
 	@Autowired
 	RentaRepo repo_renta;
+	
+	@javax.annotation.Resource(name="dataSource")
+	DataSource dataSource;
 	
 	private Double monto;
 
@@ -47,17 +64,24 @@ public class PagoServiceImpl implements PagoService {
 			obj.setRechazado(false);
 			obj.setFechaRegistro(new Date());
 			obj.setInquilino(renta.getInquilino());
-			return repo_pago.save(obj);
+			
+			Pago respuesta =  repo_pago.save(obj);
+			respuesta.setNro_boleta(String.valueOf(1000000+respuesta.getIdPago()));
+			return repo_pago.save(respuesta);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
+	
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Pago modificar(Pago obj) {
 		monto =0.0;
+		ConvertirNumeroALetras letritas = new ConvertirNumeroALetras();
 		try {
+			obj.setFechaConfirmado(new Date());
+			obj.setMontoLetras(letritas.Convertir(obj.getMonto() + "", true));
 			Renta renta = obj.getRenta();
 			repo_pago.findByRenta(renta).forEach( pago ->{
 				monto = monto + pago.getMonto();
@@ -180,6 +204,34 @@ public class PagoServiceImpl implements PagoService {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	@Override
+	public byte[] generarBoleta(Integer idPago) throws Exception {
+		try {
+			byte[] file=null;
+			String directorio = System.getProperty("user.dir");
+			String separador = System.getProperty("file.separator");
+			String ruta = directorio + separador + Constantes.rutaBoleta + separador;
+			JasperPrint print=null;
+			Map<String, Object> parametor=new HashMap<String,Object>();
+			parametor.put("id_pago",idPago);
+			parametor.put("rechazado",false);
+			Connection cn= dataSource.getConnection();
+			file = this.crearReporte(print, ruta, parametor, cn);
+			return file;
+		} catch (Exception e) {
+			throw e;
+		}	
+	}
+	
+	private byte[] crearReporte(JasperPrint print, String ruta, Map<String,Object>parametor, Connection cn) throws FileNotFoundException, JRException{
+		byte[] file = null;
+		File fileroot = new File(ruta+"boleta_arrendamiento.jasper");
+		FileInputStream input = new FileInputStream(fileroot);
+		print = JasperFillManager.fillReport(input,parametor,cn);			
+		file=JasperExportManager.exportReportToPdf(print);
+		return file;
 	}
 
 }

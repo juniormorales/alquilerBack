@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.back.alquiler.models.Banco;
 import com.back.alquiler.models.Modulo;
 import com.back.alquiler.models.Pagina;
 import com.back.alquiler.models.Perfil;
 import com.back.alquiler.models.Usuario;
+import com.back.alquiler.repo.BancoRepo;
 import com.back.alquiler.repo.ModuloRepo;
 import com.back.alquiler.repo.PaginaRepo;
 import com.back.alquiler.repo.PerfilRepo;
@@ -35,6 +37,9 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 
 	@Autowired
 	UsuarioRepo repoUsuario;
+	
+	@Autowired
+	BancoRepo repoBanco;
 
 	private static final Logger LOG = LoggerFactory.getLogger(Exception.class);
 
@@ -119,6 +124,17 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 			throw e;
 		}
 
+	}
+
+	@Override
+	public String insertarDatosBancos(List<Banco> bancos) {
+		try {
+			repoBanco.saveAll(bancos);
+			return "Se inserto correctamente los bancos";
+		} catch (Exception e) {
+			LOG.error(this.getClass().getSimpleName() + " insertarDatosBancos. ERROR : " + e.getMessage());
+			throw e;
+		}
 	}
 
 }

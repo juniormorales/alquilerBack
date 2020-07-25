@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.back.alquiler.models.Pago;
 import com.back.alquiler.service.PagoService;
-import com.back.alquiler.service.ReciboArrendamientoService;
 import com.back.alquiler.utils.Constantes;
 
 @RestController
@@ -32,9 +31,7 @@ public class PagoController {
 	
 	@Autowired
 	PagoService service_pago;
-	
-	@Autowired
-	ReciboArrendamientoService service_recibo_arrendamiento;
+
 	
 	@PostMapping("/enviarPagoConfirmacion")
 	public ResponseEntity<?> registrarPago(@RequestBody Pago pago) {
@@ -115,7 +112,6 @@ public class PagoController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 				Pago resp = service_pago.modificar(pago);
-				service_recibo_arrendamiento.crearReciboArrendamiento(resp);
 				response.put("titulo", Constantes.tituloOk);
 				response.put("mensaje", Constantes.msgConfirmarPagoOk);
 				response.put("tipo",Constantes.success);
@@ -169,6 +165,19 @@ public class PagoController {
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@GetMapping("/descargarBoleta/{id}")
+	public byte[] descargarBoleta(@PathVariable("id") Integer id) throws Exception{
+		try {
+				byte[] file = service_pago.generarBoleta(id);
+				
+			return file;
+		} catch (DataAccessException e) {
+			throw new Exception(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		} 
 	}
 	
 }

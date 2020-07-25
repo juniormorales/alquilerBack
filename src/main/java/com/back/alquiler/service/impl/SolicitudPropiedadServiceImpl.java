@@ -106,11 +106,13 @@ public class SolicitudPropiedadServiceImpl implements SolicitudPropiedadService 
 	}
 
 	@Override
-	public Boolean buscarSolExistente(Integer id) {
+	public Boolean buscarSolExistente(Integer idPropiedad, Integer idArrendatario) {
 		Propiedad prop = new Propiedad();
-		prop.setIdPropiedad(id);
+		Arrendatario arrendatario = new Arrendatario();
+		prop.setIdPropiedad(idPropiedad);
+		arrendatario.setIdArrendatario(idArrendatario);
 		try {
-			SolicitudPropiedad sol =  repo_sol_prop.findByPropiedad(prop);
+			SolicitudPropiedad sol =  repo_sol_prop.findByPropiedadAndArrendatario(prop,arrendatario);
 			if(sol!=null) {
 				if(sol.getEstado()==4) {
 					return false;

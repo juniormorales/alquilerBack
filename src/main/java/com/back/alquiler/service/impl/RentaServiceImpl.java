@@ -64,7 +64,7 @@ public class RentaServiceImpl implements RentaService {
 	@Override
 	public List<Renta> listarRentasPendientes(Inquilino inquilino) {
 		try {
-			return repo_renta.findByInquilinoAndEstadoOrderByFechaRentaAsc(inquilino, 0);
+			return repo_renta.findByInquilinoAndEstadoOrderByFechaIniRentaAsc(inquilino, 0);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -73,7 +73,7 @@ public class RentaServiceImpl implements RentaService {
 	@Override
 	public List<Renta> listarRentasCanceladas(Inquilino inquilino) {
 		try {
-			return repo_renta.findByInquilinoAndEstadoOrderByFechaRentaAsc(inquilino, 1);
+			return repo_renta.findByInquilinoAndEstadoOrderByFechaIniRentaAsc(inquilino, 1);
 		} catch (Exception e) {
 			throw e;
 		}

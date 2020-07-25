@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boleta_arrendamiento" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="5b866359-4d37-4dc3-9656-f18639ac640b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_pago" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rechazado" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[false]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ui.apellidos as arrendatario_apellidos,ui.nombres as arrendatario_nombres,p.monto_letras as monto_pagado,prop.alias as alias_propiedad, p.fecha_confirmado as fecha_confirmado,
+prop.direccion as direccion_propiedad, r.fecha_ini_renta as inicio_renta,r.fecha_fin_renta as fin_renta, ua.apellidos as arrendero_apellidos,ua.nombres as arrendero_nombres, p.nro_boleta as numero_boleta,arrendero.nro_partida_registral as partida_registral,p.banco as banco from pago p INNER JOIN renta r ON p.id_renta = r.id_renta INNER JOIN arrendero ON p.id_arrendero = arrendero.id_arrendero INNER JOIN usuario ua ON arrendero.id_usuario = ua.id_usuario INNER JOIN inquilino i ON p.id_inquilino = i.id_inquilino INNER JOIN arrendatario ON i.id_arrendatario = arrendatario.id_arrendatario INNER JOIN usuario ui ON arrendatario.id_usuario = ui.id_usuario INNER JOIN propiedad prop ON i.id_propiedad = prop.id_propiedad WHERE p.id_pago = $P{id_pago} AND i.estado = true AND p.rechazado = $P{rechazado};]]>
+	</queryString>
+	<field name="arrendatario_apellidos" class="java.lang.String"/>
+	<field name="arrendatario_nombres" class="java.lang.String"/>
+	<field name="monto_pagado" class="java.lang.String"/>
+	<field name="alias_propiedad" class="java.lang.String"/>
+	<field name="fecha_confirmado" class="java.sql.Timestamp"/>
+	<field name="direccion_propiedad" class="java.lang.String"/>
+	<field name="inicio_renta" class="java.sql.Timestamp"/>
+	<field name="fin_renta" class="java.sql.Timestamp"/>
+	<field name="arrendero_apellidos" class="java.lang.String"/>
+	<field name="arrendero_nombres" class="java.lang.String"/>
+	<field name="numero_boleta" class="java.lang.String"/>
+	<field name="partida_registral" class="java.lang.Integer"/>
+	<field name="banco" class="java.lang.String"/>
+	<variable name="arrendatario_apellidos_1" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{arrendatario_apellidos}]]></variableExpression>
+	</variable>
+	<variable name="arrendatario_apellidos_2" class="java.lang.Integer" resetType="Page" calculation="Count">
+		<variableExpression><![CDATA[$F{arrendatario_apellidos}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="149" splitType="Stretch">
+			<rectangle radius="20">
+				<reportElement x="10" y="11" width="179" height="125" uuid="db46b5ec-224a-4417-885a-01cafb799575"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="215" y="10" width="331" height="138" uuid="a4327cb2-8037-410c-b55a-4e5143a3130f"/>
+				<textElement textAlignment="Center">
+					<font size="45" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Boleta de Arrendamiento]]></text>
+			</staticText>
+			<rectangle radius="20">
+				<reportElement x="558" y="11" width="232" height="125" uuid="f5a2cfa0-dfdd-47cd-8aa0-7870b7514712"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="622" y="21" width="127" height="30" forecolor="#FF3333" uuid="cdbd2c21-3320-49a9-8692-bb565cb62772"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[N° BOLETA]]></text>
+			</staticText>
+			<line>
+				<reportElement x="558" y="99" width="232" height="1" uuid="f6b1f2b9-cc4b-4437-babb-dfa525e348b4"/>
+			</line>
+			<staticText>
+				<reportElement x="578" y="99" width="194" height="50" uuid="a2e82d67-04c3-4f62-ab27-44478fd19497"/>
+				<textElement textAlignment="Center">
+					<font size="27" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORIGINAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="21" y="21" width="165" height="32" forecolor="#FF3333" uuid="862ba71c-1bd1-45b9-a5fb-1ff7df3dd2ec"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FECHA EMISION "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="558" y="53" width="232" height="1" uuid="3bac66db-e64d-4268-8bf3-76916c239d71"/>
+			</line>
+			<line>
+				<reportElement x="10" y="51" width="176" height="1" uuid="b00eb6c6-95f1-47c6-9a46-ea1df329a181"/>
+			</line>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="10" y="77" width="176" height="33" uuid="e0503222-c943-4d08-8d7a-d90d50c5292a"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_confirmado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="148" width="802" height="1" uuid="6bb6d772-01bc-4faa-84ad-c915a96b0827"/>
+			</line>
+			<textField>
+				<reportElement x="558" y="55" width="232" height="45" uuid="d5e81814-cdc5-4849-9083-89a96f8ea068"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA["B - " + $F{numero_boleta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="321" splitType="Stretch">
+			<textField>
+				<reportElement x="21" y="79" width="284" height="42" uuid="b79b6b15-877e-4f3d-be5c-8e4000d8d79c"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CORRESPONDIENTE AL ARRIENDO "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="305" y="112" width="483" height="1" uuid="5b2e46ef-4267-426d-99ae-2ce5f7da5e99"/>
+			</line>
+			<textField>
+				<reportElement x="21" y="121" width="202" height="20" uuid="478b4df8-c271-412b-9ebc-ebecbd7b056e"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SITUADO EN "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="143" y="65" width="645" height="1" uuid="417fdc0c-abcf-4f83-b710-484c06e70082"/>
+			</line>
+			<textField>
+				<reportElement x="23" y="46" width="122" height="20" uuid="49cb9149-2756-4972-aad9-308e2faa1ddf"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["LA SUMA DE "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="11" width="122" height="22" uuid="ef3c479e-16f8-4d38-af4e-9c3276bd5c4f"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RECIBI DE "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="143" y="33" width="645" height="1" uuid="e97a5508-7345-44a7-a36f-9a49a3072fc0"/>
+			</line>
+			<line>
+				<reportElement x="143" y="138" width="645" height="1" uuid="ea031a7c-e805-497c-ae9b-d2c9f1d6a79e"/>
+			</line>
+			<textField>
+				<reportElement x="21" y="154" width="122" height="20" uuid="c1254b3c-a064-4242-8a32-d278bd8e0b17"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PERIODO DEL "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="438" y="159" width="26" height="20" uuid="3096f1c0-2ff1-428f-8233-53cb435732fd"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["AL"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="143" y="174" width="295" height="1" uuid="6ad99d39-a9d0-4274-8e53-3297813f0de8"/>
+			</line>
+			<line>
+				<reportElement x="464" y="173" width="324" height="1" uuid="5493c209-85c5-4930-9a9e-5967d8b3b589"/>
+			</line>
+			<rectangle radius="20">
+				<reportElement x="23" y="211" width="359" height="100" uuid="bd10fb1d-637a-44b1-9a20-e39470afabaa"/>
+			</rectangle>
+			<rectangle radius="20">
+				<reportElement x="400" y="211" width="390" height="100" uuid="3e19222c-e5cc-4d5b-8c01-7f77954b8db2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="162" y="225" width="26" height="24" backcolor="#000000" uuid="fd820f85-a2f9-46d8-8f9f-6f4e0ebd1906"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="307" y="225" width="26" height="24" uuid="e6f7c5bd-d391-4f8a-8d33-3ccb5b179efe"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="534" y="249" width="238" height="1" uuid="badc4108-dbd9-4f2e-bccb-ff9e23908ea0"/>
+			</line>
+			<textField>
+				<reportElement x="35" y="277" width="78" height="25" uuid="15ba7b9b-364a-4230-aa93-dfa87fcb51d1"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["BANCO "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="225" width="78" height="25" uuid="f7f4d996-4910-4284-b610-d906d9a623f7"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DEPOSITO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="225" width="78" height="25" uuid="6c72f68b-d3c2-45e1-870f-fac87f4bdcbd"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EFECTIVO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="225" width="114" height="25" uuid="c9c4e9f5-f2b4-4aa1-8f81-d38719d1384f"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ARRENDERO "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="277" width="181" height="25" uuid="3d9b070a-19d9-46e1-897b-e7c88cd2ab2f"/>
+				<textElement markup="none">
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["N° PARTIDA REGISTRAL "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="113" y="291" width="250" height="1" uuid="d8e5dceb-6880-4401-8d84-38d620787559"/>
+			</line>
+			<line>
+				<reportElement x="601" y="290" width="171" height="1" uuid="a1523ffa-af51-4bd1-ba78-7fbbdce694ee"/>
+			</line>
+			<textField>
+				<reportElement x="158" y="11" width="630" height="31" uuid="9f3b49d3-7d07-4b53-b7d4-d80ee26f3065"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{arrendatario_apellidos} + " " + $F{arrendatario_nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="42" width="628" height="23" uuid="008f0c3d-a8ac-45be-a508-0d85ff6bc6fd"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monto_pagado} + " NUEVOS SOLES"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="79" width="472" height="37" uuid="76682e8c-0aea-4bf9-83cb-43d1d6ce90ea"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alias_propiedad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="116" width="630" height="30" uuid="078afe8b-0d0e-4182-ae7e-a405e196bb32"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion_propiedad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="145" y="154" width="293" height="25" uuid="d3b475ed-da6a-4070-8f1e-b9b01eb12b6e"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inicio_renta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="478" y="150" width="310" height="25" uuid="36871605-ae17-444a-b610-0e4823a9fce3"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fin_renta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="266" width="238" height="26" uuid="2c8a8b40-3b56-459f-be1e-f6b636b300c9"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{banco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="536" y="225" width="236" height="34" uuid="e9b22f74-90e1-423b-92d5-3080de569498"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{arrendero_apellidos} + " " + $F{arrendero_nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="601" y="266" width="173" height="27" uuid="b1eeab76-f76a-4604-89bd-1e79fca1812e"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{partida_registral}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="195" width="802" height="1" uuid="ca95f2f1-f955-466d-8270-35d7cdf829cc"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="44" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="26" splitType="Stretch"/>
+	</summary>
+</jasperReport>

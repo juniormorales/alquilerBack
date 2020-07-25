@@ -7,21 +7,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ServicioPublico {
+public class Banco {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idServicioPublico;
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer idBanco;
+	
 	@Column(nullable=false)
 	private String descripcion;
 
-	public Integer getIdServicioPublico() {
-		return idServicioPublico;
+	public Integer getIdBanco() {
+		return idBanco;
 	}
 
-	public void setIdServicioPublico(Integer idServicioPublico) {
-		this.idServicioPublico = idServicioPublico;
+	public void setIdBanco(Integer idBanco) {
+		this.idBanco = idBanco;
 	}
 
 	public String getDescripcion() {
@@ -31,6 +31,14 @@ public class ServicioPublico {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+	public Banco(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	
+	public Banco() {
+		
+	}
 	
+
 }

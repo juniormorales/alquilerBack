@@ -1,6 +1,5 @@
 package com.back.alquiler.repo;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

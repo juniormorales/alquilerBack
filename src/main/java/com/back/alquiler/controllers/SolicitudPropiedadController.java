@@ -128,11 +128,11 @@ public class SolicitudPropiedadController {
 		}
 	}
 	
-	@GetMapping("/buscarSolicitudExistente/{id}")
-	public ResponseEntity<?> buscarSolExistente(@PathVariable("id") Integer id){
+	@GetMapping("/buscarSolicitudExistente/{idPropiedad}/{idArrendatario}")
+	public ResponseEntity<?> buscarSolExistente(@PathVariable("idPropiedad") Integer idPropiedad,@PathVariable("idArrendatario") Integer idArrendatario){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Boolean resp = service_sol_prop.buscarSolExistente(id);
+			Boolean resp = service_sol_prop.buscarSolExistente(idPropiedad,idArrendatario);
 			response.put("encontro",resp);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {

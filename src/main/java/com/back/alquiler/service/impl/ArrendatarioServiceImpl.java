@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.back.alquiler.models.Arrendatario;
-import com.back.alquiler.models.Perfil;
-import com.back.alquiler.models.Usuario;
 import com.back.alquiler.repo.ArrendatarioRepo;
 import com.back.alquiler.repo.UsuarioRepo;
 import com.back.alquiler.service.ArrendatarioService;

@@ -15,7 +15,6 @@ import com.back.alquiler.models.UbicacionMaps;
 import com.back.alquiler.repo.PropiedadRepo;
 import com.back.alquiler.repo.UbicacionMapsRepo;
 import com.back.alquiler.service.PropiedadService;
-import com.back.alquiler.service.UbicacionMapService;
 
 @Service
 public class PropiedadServiceImpl implements PropiedadService {

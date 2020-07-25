@@ -18,7 +18,10 @@ public class Renta {
 	private Integer idRenta;
 	
 	@Column(nullable=false)
-	private Date fechaRenta;
+	private Date fechaFinRenta;
+	
+	@Column(nullable=false)
+	private Date fechaIniRenta;
 	
 	@Column(nullable=false)
 	private Double cantidad;
@@ -49,12 +52,22 @@ public class Renta {
 		this.idRenta = idRenta;
 	}
 
-	public Date getFechaRenta() {
-		return fechaRenta;
+
+
+	public Date getFechaFinRenta() {
+		return fechaFinRenta;
 	}
 
-	public void setFechaRenta(Date fechaRenta) {
-		this.fechaRenta = fechaRenta;
+	public void setFechaFinRenta(Date fechaFinRenta) {
+		this.fechaFinRenta = fechaFinRenta;
+	}
+
+	public Date getFechaIniRenta() {
+		return fechaIniRenta;
+	}
+
+	public void setFechaIniRenta(Date fechaIniRenta) {
+		this.fechaIniRenta = fechaIniRenta;
 	}
 
 	public Double getCantidad() {

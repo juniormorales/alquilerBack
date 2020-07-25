@@ -21,4 +21,8 @@ public interface PagoService extends ICRUD<Pago> {
 	Resource verFotoVoucher(Integer id) throws IOException;
 	
 	Pago rechazarPago(Pago pago);
+	
+	byte[] generarBoleta(Integer idPago) throws Exception;
+	
+	
 }

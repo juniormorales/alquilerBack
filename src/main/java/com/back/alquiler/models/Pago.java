@@ -20,11 +20,8 @@ public class Pago {
 	@Column(nullable=false)
 	private Double monto;
 	
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private Double montoRestante;
-	
-	@Column(nullable=false)
-	private Boolean reciboCreado;
 	
 	@Column(nullable=false)
 	private String urlVoucher;
@@ -36,8 +33,20 @@ public class Pago {
 	@Column(nullable=false)
 	private Boolean rechazado;
 	
-	@Column(nullable=true)
+	@Column(nullable=false)
 	private Date fechaRegistro;
+	
+	@Column(nullable=true)
+	private Date fechaConfirmado;
+	
+	@Column(nullable=false)
+	private String banco;
+	
+	@Column(nullable=true)
+	private String nro_boleta;
+	
+	@Column(nullable=true)
+	private String montoLetras;
 	
 	@ManyToOne
 	@JoinColumn(name="id_renta", nullable=false)
@@ -131,12 +140,36 @@ public class Pago {
 		this.montoRestante = montoRestante;
 	}
 
-	public Boolean getReciboCreado() {
-		return reciboCreado;
+
+	public String getBanco() {
+		return banco;
 	}
 
-	public void setReciboCreado(Boolean reciboCreado) {
-		this.reciboCreado = reciboCreado;
+	public void setBanco(String banco) {
+		this.banco = banco;
 	}
-	
+
+	public String getNro_boleta() {
+		return nro_boleta;
+	}
+
+	public void setNro_boleta(String nro_boleta) {
+		this.nro_boleta = nro_boleta;
+	}
+
+	public Date getFechaConfirmado() {
+		return fechaConfirmado;
+	}
+
+	public void setFechaConfirmado(Date fechaConfirmado) {
+		this.fechaConfirmado = fechaConfirmado;
+	}
+
+	public String getMontoLetras() {
+		return montoLetras;
+	}
+
+	public void setMontoLetras(String montoLetras) {
+		this.montoLetras = montoLetras;
+	}
 }

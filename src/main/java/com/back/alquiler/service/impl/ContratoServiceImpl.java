@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +99,8 @@ public class ContratoServiceImpl implements ContratoService {
 				Renta renta = new Renta();
 				renta.setCantidad(resp.getPropiedad().getCondicionPago().getPrecio());
 				renta.setEstado(0);
-				renta.setFechaRenta(java.sql.Date.valueOf(fecha_mes_prox));
+				renta.setFechaIniRenta(java.sql.Date.valueOf(fecha_inicio));
+				renta.setFechaFinRenta(java.sql.Date.valueOf(fecha_mes_prox));
 				renta.setImporteAtrasado(inquilino.getPropiedad().getCondicionPago().getTasaRecargo()*renta.getCantidad()*0.01);
 				renta.setInquilino(resp);
 				renta.setEnvioPago(2);

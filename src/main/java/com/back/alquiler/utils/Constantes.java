@@ -102,7 +102,10 @@ public class Constantes {
 	public static final String msgInhabilitarCuentaError = "Ocurrio un error al intentar inhabilitar la cuenta";
 	public static final String msgCuentaInhabilitada = "Su cuenta ha sido inhabilitada por ingresar datos falsos";
 	public static final String msgBuscarUsuarioError = "Ocurrio un error al buscar al usuario en la base de datos";
-
+	
+	//Banco
+	public static final String msgListarBancosError = "Ocurrio un error al intentar listar los bancos";
+	
 	// Condicion Pago
 	public static final String msgRegistrarCondicionPagoError = "Ocurrio un error al intentar registrar la condición de pago";
 	public static final String msgRegistrarCondicionPagoOk = "La condicion de pago se ha registrado correctamente";
@@ -110,13 +113,14 @@ public class Constantes {
 	public static final String msgActualizarCondicionPagoError = "Ocurrio un error al intentar actualizar la condicion de pago";
 	public static final String msgListarCondicionPagoError = "Ocurrio un error al intentar listar las condiciones de pago";
 
-	// Condicion Pago
+	// Pago
 	public static final String msgRegistrarPagoError = "Ocurrio un error al intentar registrar el pago";
 	public static final String msgRegistrarPagoParaConfirmarOk = "El voucher se ha enviado correctamente, sera revisado por el dueño para confirmar su pago";
 	public static final String msgConfirmarPagoOk = "El pago se ha confirmado correctamente";
 	public static final String msgRechazarPagoOk ="El pago se ha rechazado correctamente";
 	public static final String msgActualizarPagoError = "Ocurrio un error al intentar procesar el pago";
 	public static final String msgListarPagoError = "Ocurrio un error al intentar listar los pagos";
+	public static final String msgGenerarBoletaError ="Ocurrio un error al intentar generar su boleta de arrendamiento";
 
 	// Inquilino
 	public static final String msgListarInquilinosPorArrenderoError = "Ocurrio un error al listar los inquilinos";
@@ -134,8 +138,8 @@ public class Constantes {
 	public static final String msgActualizarSolError = "Ocurrio un error al procesar la solicitud";
 	public static final String msgCancelarSolOk = "Su solicitud a esta propiedad ha sido cancelada";
 	public static final String msgRechazarSolOk = "Se ha rechazado la solicitud correctamente";
-	public static final String msgAceptarAprobacionOk = "!Felicitaciones, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
-			+ "de contrato y se pondrá en contacto contigo a travez de tu email registrado o de uno de tus números telefónicos para completar la firma!";
+	public static final String msgAceptarAprobacionOk = "¡Felicitaciones!, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
+			+ "de contrato y se pondrá en contacto contigo a travez de tu email registrado o de uno de tus números telefónicos para completar la firma";
 	
 	//Renta
 	public static final String msgListarRentasInquilinoError = "Ocurrio un error al listar las rentas que posee";
@@ -161,6 +165,7 @@ public class Constantes {
 	// Rutas Imagenes
 	public static final String rutaImagenPropiedad = "src/main/resources/Uploads/imagenesPropiedad";
 	public static final String rutaImagenVoucher = "src/main/resources/Uploads/vouchersPago";
+	public static final String rutaBoleta = "src/main/resources/Boletas";
 	
 	// Fotos
 	public static final String errorRegistroFoto = "Error al guardar la foto en la Base de Datos";

@@ -235,7 +235,7 @@ prop.direccion as direccion_propiedad, r.fecha_ini_renta as inicio_renta,r.fecha
 				<textElement>
 					<font size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{monto_pagado} + " NUEVOS SOLES"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{monto_pagado}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="316" y="79" width="472" height="37" uuid="76682e8c-0aea-4bf9-83cb-43d1d6ce90ea"/>

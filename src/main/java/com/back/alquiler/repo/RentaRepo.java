@@ -9,5 +9,5 @@ import com.back.alquiler.models.Renta;
 
 public interface RentaRepo extends JpaRepository<Renta,Integer> {
 	
-	List<Renta> findByInquilinoAndEstadoOrderByFechaIniRentaAsc(Inquilino inquilino, Integer estado);
+	List<Renta> findByInquilinoAndEstadoOrderByFechaFinRentaAsc(Inquilino inquilino, Integer estado);
 }

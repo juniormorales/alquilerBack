@@ -23,8 +23,12 @@ public class Calificacion {
 	private String comentario;
 	
 	@ManyToOne
-	@JoinColumn(name="id_arrendatario")
+	@JoinColumn(name="id_arrendatario",nullable=false)
 	private Arrendatario arrendatario;
+	
+	@ManyToOne
+	@JoinColumn(name="id_arrendero",nullable=false)
+	private Arrendero arrendero;
 
 	public Integer getIdCalificacion() {
 		return idCalificacion;
@@ -56,5 +60,13 @@ public class Calificacion {
 
 	public void setArrendatario(Arrendatario arrendatario) {
 		this.arrendatario = arrendatario;
+	}
+
+	public Arrendero getArrendero() {
+		return arrendero;
+	}
+
+	public void setArrendero(Arrendero arrendero) {
+		this.arrendero = arrendero;
 	}
 }

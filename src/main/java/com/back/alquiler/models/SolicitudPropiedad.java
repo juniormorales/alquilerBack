@@ -40,6 +40,9 @@ public class SolicitudPropiedad {
 	@Column(nullable=true)
 	private String descripcionRechazo;
 	
+	@Column(nullable=true)
+	private Double garantiaPropuesta;
+	
 	@ManyToOne
 	@JoinColumn(name="id_arrendatario",nullable=false)
 	private Arrendatario arrendatario;
@@ -123,5 +126,12 @@ public class SolicitudPropiedad {
 	public void setArrendero(Arrendero arrendero) {
 		this.arrendero = arrendero;
 	}
-	
+
+	public Double getGarantiaPropuesta() {
+		return garantiaPropuesta;
+	}
+
+	public void setGarantiaPropuesta(Double garantiaPropuesta) {
+		this.garantiaPropuesta = garantiaPropuesta;
+	}
 }

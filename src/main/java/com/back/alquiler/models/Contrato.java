@@ -28,14 +28,24 @@ public class Contrato {
 	private Integer tiempoContrato;
 	
 	@Column(nullable=true)
-	private String rutaContrato;
+	private Date fechaFin;
+	
+	@Column(nullable=true)
+	private String archivoContrato;
 	
 	@Column(nullable=false)
 	private Boolean caduco;
 	
+	@Column(nullable=true)
+	private Double garantia;
+	
 	@ManyToOne
 	@JoinColumn(name="id_inquilino")
 	private Inquilino inquilino;
+	
+	@ManyToOne
+	@JoinColumn(name="id_arrendero",nullable=true)
+	private Arrendero arrendero;
 
 	public Integer getIdContrato() {
 		return idContrato;
@@ -69,12 +79,12 @@ public class Contrato {
 		this.tiempoContrato = tiempoContrato;
 	}
 
-	public String getRutaContrato() {
-		return rutaContrato;
+	public String getArchivoContrato() {
+		return archivoContrato;
 	}
 
-	public void setRutaContrato(String rutaContrato) {
-		this.rutaContrato = rutaContrato;
+	public void setArchivoContrato(String rutaContrato) {
+		this.archivoContrato = rutaContrato;
 	}
 
 	public Inquilino getInquilino() {
@@ -91,5 +101,29 @@ public class Contrato {
 
 	public void setCaduco(Boolean caduco) {
 		this.caduco = caduco;
+	}
+
+	public Double getGarantia() {
+		return garantia;
+	}
+
+	public void setGarantia(Double garantia) {
+		this.garantia = garantia;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public Arrendero getArrendero() {
+		return arrendero;
+	}
+
+	public void setArrendero(Arrendero arrendero) {
+		this.arrendero = arrendero;
 	}
 }

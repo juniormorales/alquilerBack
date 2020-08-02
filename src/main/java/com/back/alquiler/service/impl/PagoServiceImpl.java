@@ -64,7 +64,7 @@ public class PagoServiceImpl implements PagoService {
 			obj.setRechazado(false);
 			obj.setFechaRegistro(new Date());
 			obj.setInquilino(renta.getInquilino());
-			
+			obj.setBanco("");
 			Pago respuesta =  repo_pago.save(obj);
 			respuesta.setNro_boleta(String.valueOf(1000000+respuesta.getIdPago()));
 			return repo_pago.save(respuesta);

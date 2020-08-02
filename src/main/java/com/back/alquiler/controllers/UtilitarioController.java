@@ -50,10 +50,10 @@ public class UtilitarioController {
 			Modulo modGestSolici = this.CrearModulo(null, "mdi mdi-eye", false, 6, "/arrendero/solicitudes",
 					"Solicitudes", "link");
 			Modulo modGestDoc = this.CrearModulo("doc", "tim-icons icon-single-copy-04", true, 4, "/arrendero/",
-					"Documentos", "sub");
+					"Contratos", "sub");
 			Modulo modPresentacion = this.CrearModulo(null, "mdi mdi-map-marker-radius", false, 1,
 					"/arrendatario/buscar", "Buscar Propiedades", "link");
-			Modulo modHistorialUsu = this.CrearModulo(null, "mdi mdi-library", true, 2, "/arrendatario/", "Historiales",
+			Modulo modHistorialUsu = this.CrearModulo(null, "mdi mdi-library", true, 2, "/arrendatario/", "Solicitudes",
 					"sub");
 			Modulo modDeudas = this.CrearModulo("deudas", "tim-icons icon-paper", true, 3, "/arrendatario/",
 					"Pagos / Deudas", "sub");
@@ -81,12 +81,10 @@ public class UtilitarioController {
 			Pagina pgpagoporacept = this.CrearPagina("pagoporacept", "por-aceptar", "PENDI", "Pagos por Confirmar",
 					modGestInqui);
 			Pagina pgcontratopend = this.CrearPagina("contrpend", "contrat-pend", "CNPND", "Contratos pendientes",
-					modGestInqui);
-			Pagina pgrecib = this.CrearPagina("recibo", "recibos", "REC", "Recibos", modGestDoc);
+					modGestDoc);
 			Pagina pgcontr = this.CrearPagina("contr", "contratos", "CONT", "Contratos", modGestDoc);
-			Pagina pgsol = this.CrearPagina("solicitud", "sol-hechas", "SOL", "Solicitudes Hechas", modHistorialUsu);
-			Pagina pgbol = this.CrearPagina("hboletas", "boletas", "BOL", "Mis Boletas", modHistorialUsu);
-			Pagina pgveracep = this.CrearPagina("veracep", "sol-aceptadas", "ACEPT", "Sol. Aceptadas", modHistorialUsu);
+			Pagina pgsol = this.CrearPagina("solicitud", "sol-hechas", "SOL", "Hechas", modHistorialUsu);
+			Pagina pgveracep = this.CrearPagina("veracep", "sol-aceptadas", "ACEPT", "Aceptadas", modHistorialUsu);
 			Pagina pgrecordpagos = this.CrearPagina("pagos", "pagos", "PAGO", "Record de Pagos", modDeudas);
 			Pagina pgpagosvencer = this.CrearPagina("pagosven", "por-vencer", "PPV", "Pagos por Vencer", modDeudas);
 			Pagina pgpagospend = this.CrearPagina("deudas", "deudas", "DEUDA", "Deudas pendientes", modDeudas);
@@ -95,10 +93,8 @@ public class UtilitarioController {
 			tmp_pagina.add(pgpago);
 			tmp_pagina.add(pgpagoporacept);
 			tmp_pagina.add(pgcontratopend);
-			tmp_pagina.add(pgrecib);
 			tmp_pagina.add(pgcontr);
 			tmp_pagina.add(pgsol);
-			tmp_pagina.add(pgbol);
 			tmp_pagina.add(pgveracep);
 			tmp_pagina.add(pgrecordpagos);
 			tmp_pagina.add(pgpagosvencer);

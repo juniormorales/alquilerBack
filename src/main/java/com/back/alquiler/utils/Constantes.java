@@ -92,6 +92,7 @@ public class Constantes {
 	public static final String msgHabilitarContratoError = "Ocurrio un error al intentar crear el contrato";
 	public static final String msgCrearContratoOk = "El contrato se ha emitido correctamente, pongase "
 			+ "en contacto con su inquilino para coordinar la fecha de la firma si esque aun no lo ha hecho";
+	public static final String msgListarContratoError = "Ocurrio un error al intentar listar los contratos";
 
 	// Cuentas
 	public static final String msgListarCuentasDesactivadasError = "Ocurrio un error al intentar listar las cuentas desactivadas";
@@ -105,6 +106,9 @@ public class Constantes {
 	
 	//Banco
 	public static final String msgListarBancosError = "Ocurrio un error al intentar listar los bancos";
+	
+	//calificacion
+	public static final String msgListarCalificacionesError = "Ocurrio un error al intentar listar las calificaciones";
 	
 	// Condicion Pago
 	public static final String msgRegistrarCondicionPagoError = "Ocurrio un error al intentar registrar la condición de pago";
@@ -166,6 +170,7 @@ public class Constantes {
 	public static final String rutaImagenPropiedad = "src/main/resources/Uploads/imagenesPropiedad";
 	public static final String rutaImagenVoucher = "src/main/resources/Uploads/vouchersPago";
 	public static final String rutaBoleta = "src/main/resources/Boletas";
+	public static final String rutaContrato = "src/main/resources/Contrato";
 	
 	// Fotos
 	public static final String errorRegistroFoto = "Error al guardar la foto en la Base de Datos";

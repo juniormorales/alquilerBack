@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Calificacion;
 import com.back.alquiler.repo.CalificacionRepo;
 import com.back.alquiler.service.CalificacionService;
@@ -57,6 +58,17 @@ public class CalificacionServiceImpl implements CalificacionService {
 			return true;
 		}else {
 			return false;
+		}
+	}
+
+	@Override
+	public List<Calificacion> listarCalificacionesArrendatario(Integer id) {
+		try {
+			Arrendatario arrendatario = new Arrendatario();
+			arrendatario.setIdArrendatario(id);
+			return repo_calificacion.findByArrendatario(arrendatario);
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 

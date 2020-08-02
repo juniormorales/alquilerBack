@@ -40,6 +40,9 @@ public class CondicionPago {
 	@Column(nullable=false)
 	private Double tasaRecargo;
 	
+	@Column(nullable=false)
+	private Double penalidadNoDesocupar;
+	
 	@ManyToOne
 	@JoinColumn(name="id_arrendero",nullable=false)
 	private Arrendero arrendero;
@@ -122,5 +125,15 @@ public class CondicionPago {
 
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	public Double getPenalidadNoDesocupar() {
+		return penalidadNoDesocupar;
+	}
+
+	public void setPenalidadNoDesocupar(Double penalidadNoDesocupar) {
+		this.penalidadNoDesocupar = penalidadNoDesocupar;
 	}	
+	
+	
 }

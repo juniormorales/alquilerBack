@@ -10,4 +10,6 @@ public interface RentaService extends ICRUD<Renta>{
 	List<Renta> listarRentasPendientes(Inquilino inquilino);
 	
 	List<Renta> listarRentasCanceladas(Inquilino inquilino);
+	
+	List<Renta> listarDeudasRenta(Inquilino inquilino);
 }

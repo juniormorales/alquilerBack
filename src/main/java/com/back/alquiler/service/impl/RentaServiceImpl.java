@@ -79,4 +79,13 @@ public class RentaServiceImpl implements RentaService {
 		}
 	}
 
+	@Override
+	public List<Renta> listarDeudasRenta(Inquilino inquilino) {
+		try {
+			return repo_renta.findByInquilinoAndEstadoOrderByFechaFinRentaAsc(inquilino, 2);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 }

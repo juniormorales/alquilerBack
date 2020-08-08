@@ -53,4 +53,18 @@ public class RentaController {
 		}
 	}
 	
+	@PostMapping("/listardeudasRentaPorInquilino")
+	public ResponseEntity<?> listarDeudasRentaPorInquilino(@RequestBody Inquilino inquilino){
+		Map<String,Object> response = new HashMap<>();
+		try {
+			List<Renta> lsRentas = service_renta.listarDeudasRenta(inquilino);
+			response.put("aaData",lsRentas);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+		} catch (DataAccessException e) {
+			response.put("mensaje", Constantes.msgListarRentasInquilinoError);
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}
+	}
+	
 }

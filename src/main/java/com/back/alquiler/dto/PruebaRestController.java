@@ -11,16 +11,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/test")
 public class PruebaRestController {
 	
 	@PostMapping("/registrar")
 	public ResponseEntity<?> registrar(@RequestBody Dato1 dato){
 		Map<String,Object> response = new HashMap<>();
 		System.out.println(dato.toString());
-		response.put("error", false);
-		response.put("id",1);
-		response.put("message","Su registro ha sido completado");
+		response.put("isSuccesfull", true);
+		response.put("message","Persona registrada correctamente");
+		response.put("objeto",dato);
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody Dato2 dato){
+		Map<String,Object> response = new HashMap<>();
+		dato.setId_usuario(1);
+		dato.setToken("Asadh6ju435S%dfgbrWSqAwEQdRaeR#");
+		System.out.println(dato.toString());
+		response.put("isSuccesfull", true);
+		response.put("message","Usuario registrado correctamente");
+		response.put("usuario",dato);
 		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
 		
 	}

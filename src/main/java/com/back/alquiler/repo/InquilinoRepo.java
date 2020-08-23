@@ -13,4 +13,6 @@ public interface InquilinoRepo extends JpaRepository<Inquilino,Integer>{
 	List<Inquilino> findByArrenderoAndContratoHechoAndEstado(Arrendero arrendero, Boolean contrato, Boolean estado);
 	
 	Inquilino findByArrendatarioAndEstado(Arrendatario arrendatario, Boolean estado);
+	
+	List<Inquilino> findByArrenderoAndEstadoPago(Arrendero arrendero, Boolean estadopago);
 }

@@ -13,6 +13,8 @@ public interface SolicitudPropiedadRepo extends JpaRepository<SolicitudPropiedad
 	
 	List<SolicitudPropiedad> findByArrendero(Arrendero arrendero);
 	List<SolicitudPropiedad> findByArrendatario(Arrendatario arrendatario);
+	List<SolicitudPropiedad> findByArrenderoAndEstado(Arrendero arrendero, Integer estado);
+	
 	SolicitudPropiedad findByPropiedadAndArrendatario(Propiedad propiedad, Arrendatario arrendatario);
 	
 	SolicitudPropiedad findByArrendatarioAndPropiedadOrderByFechaSolicitudDesc(Arrendatario arrendatario, Propiedad propiedad);

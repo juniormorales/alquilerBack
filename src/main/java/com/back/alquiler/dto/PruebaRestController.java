@@ -50,21 +50,4 @@ public class PruebaRestController {
 		
 	}
 	
-	@GetMapping("/obtenerPersona/{id}")
-	public ResponseEntity<?> obtenerPersona(@PathVariable("id") Integer id){
-		System.out.println("ID del usuario: " + id);
-		Dato1 persona = new Dato1();
-		persona.setApellidos("Morales Brenis");
-		persona.setNombres("Junior Angel");
-		persona.setEdad(23);
-		persona.setGenero("Masculino");
-		persona.setId_persona(1);
-		persona.setEmail("angel_96vir@hotmail.com");
-		persona.setDni("73058001");
-		Map<String,Object> response = new HashMap<>();
-		response.put("isSuccesfull", true);
-		response.put("message","Listado correctamente");
-		response.put("objeto",persona);
-		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
-	}
 }

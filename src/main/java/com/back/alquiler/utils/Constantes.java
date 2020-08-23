@@ -1,5 +1,11 @@
 package com.back.alquiler.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
+import com.sun.el.stream.Stream;
+
 public class Constantes {
 
 	public static final String LLAVE_SECRETA = "alguna.clave.secreta.12345678";
@@ -147,6 +153,14 @@ public class Constantes {
 	
 	//Renta
 	public static final String msgListarRentasInquilinoError = "Ocurrio un error al listar las rentas que posee";
+	
+	//Dashboard
+	public static final String msgMostrarGananciasAnualesDashError = "Error al procesar las ganancias por año";
+	public static final String msgListarCantidadSolicitudesPorPropiedadError = "Error al procesar la cantidad de solicitudes por propiedad";
+	public static final String msgCantidadInquilinosAlDiaError = "Error al procesar la cantidad de inquilinos al dia en sus pagos";
+	public static final String msgCantidadInquilinosDeudoresError = "Error al procesar la cantidad de inquilinos deudores en sus pagos";
+	public static final String msgCantidadPagosPorConfirmarError = "Error al procesar la cantidad de pagos por confirmar";
+	public static final String msgCantidadSolicitudesPendientesError = "Error al procesar la cantidad de solicitudes pendientes";
 	
 	//Pagos
 	

@@ -71,7 +71,7 @@ public class DashboardController {
 	public ResponseEntity<?> listarCantidadInquilinosDeudores(@PathVariable("idarrendero") Integer idarrendero){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Long cantidad = service.cantidadInquilinosAlDia(idarrendero);
+			Long cantidad = service.cantidadInquilinosDeudores(idarrendero);
 			response.put("data",cantidad);
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
 		} catch (Exception e) {

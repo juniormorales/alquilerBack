@@ -32,7 +32,7 @@ public class AdministracionController {
 		} catch (Exception e) {
 			response.put("mensaje",Constantes.msgListarCuentasError);
 			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

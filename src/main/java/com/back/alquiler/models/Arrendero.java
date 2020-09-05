@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+
 @Entity
 public class Arrendero {
 	
@@ -94,5 +95,56 @@ public class Arrendero {
 		this.distrito = distrito;
 	}
 	
+	public Arrendero() {
+		
+	}
 	
+	private Arrendero(ArrenderoBuilder builder) {
+		this.departamento = builder.departamento;
+		this.provincia = builder.provincia;
+		this.distrito = builder.distrito;
+		this.direccionActual = builder.direccionActual;
+		this.nroPartidaRegistral = builder.nroPartidaRegistral;
+		this.usuario = builder.usuario;
+		
+	}
+	
+	public static class ArrenderoBuilder{
+		private String direccionActual;
+		
+		private Integer nroPartidaRegistral;
+		
+		private Usuario usuario;
+		
+		private Departamento departamento;
+		
+		private Provincia provincia;
+
+		private Distrito distrito;
+		
+		public ArrenderoBuilder(Usuario usuario) {
+			this.usuario = usuario;
+		}
+		
+		public ArrenderoBuilder direccion(String direccion) {
+			this.direccionActual = direccion;
+			return this;
+		}
+		
+		public ArrenderoBuilder nroPartida(Integer nro) {
+			this.nroPartidaRegistral = nro;
+			return this;
+		}
+		
+		public ArrenderoBuilder ubigeo(Departamento dep, Provincia prov, Distrito dist) {
+			this.departamento = dep;
+			this.provincia = prov;
+			this.distrito = dist;
+			return this;
+		}
+		
+		public Arrendero build() {
+			return  new Arrendero(this); 
+		}
+	}
 }

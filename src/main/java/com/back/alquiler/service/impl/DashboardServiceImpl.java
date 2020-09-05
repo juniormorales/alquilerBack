@@ -70,7 +70,7 @@ public class DashboardServiceImpl implements DashboardService {
 			List<SolicitudPropiedad> listaSolicitudes = repo_solicitud.findByArrendero(arrendero);
 			repo_propiedad.findByArrenderoAndConfirmado(arrendero, true).forEach(propiedad -> {
 				Long cantidad = listaSolicitudes.stream()
-						.filter(sol -> sol.getPropiedad().getIdPropiedad() == propiedad.getIdPropiedad())
+						.filter(sol -> sol.getPropiedad().getIdPropiedad().equals(propiedad.getIdPropiedad()))
 						.map(sol -> sol.getPropiedad())
 						.count();
 				Map<String,Object> response = new HashMap<>();

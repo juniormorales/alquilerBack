@@ -31,7 +31,7 @@ public class SolicitudPropiedadController {
 	InquilinoService service_inquilino;
 
 	@PostMapping("/registrarSolicitud")
-	ResponseEntity<?> registrarSolicitudPropiedad(@RequestBody SolicitudPropiedad sol) {
+	public ResponseEntity<?> registrarSolicitudPropiedad(@RequestBody SolicitudPropiedad sol) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
@@ -48,7 +48,7 @@ public class SolicitudPropiedadController {
 	}
 
 	@GetMapping("/listarParaArrendero/{id}")
-	ResponseEntity<?> listarPorArrendero(@PathVariable Integer id) {
+	public ResponseEntity<?> listarPorArrendero(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
@@ -63,7 +63,7 @@ public class SolicitudPropiedadController {
 	}
 
 	@GetMapping("/listarParaArrendatario/{id}")
-	ResponseEntity<?> listarPorArrendatarioHistorial(@PathVariable Integer id) {
+	public ResponseEntity<?> listarPorArrendatarioHistorial(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
@@ -78,7 +78,7 @@ public class SolicitudPropiedadController {
 	}
 
 	@GetMapping("/listarSolAcep/{id}")
-	ResponseEntity<?> listarSolAceptadas(@PathVariable Integer id) {
+	public ResponseEntity<?> listarSolAceptadas(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
@@ -93,7 +93,7 @@ public class SolicitudPropiedadController {
 	}
 
 	@PostMapping("/modificar")
-	ResponseEntity<?> listarPorArrendatarioHistorial(@RequestBody SolicitudPropiedad sol) {
+	public ResponseEntity<?> listarPorArrendatarioHistorial(@RequestBody SolicitudPropiedad sol) {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			service_sol_prop.modificar(sol);

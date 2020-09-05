@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +24,25 @@ import com.back.alquiler.utils.Constantes;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+	
+	@Value("${security.jwt.client-id}")
+	private String clientId;
+
+	@Value("${security.jwt.client-secret}")
+	private String clientSecret;
+
+	@Value("${security.jwt.grant-type-pass}")
+	private String grantTypePass;
+	
+	@Value("${security.jwt.grant-type-refresh}")
+	private String grantTypeRefresh;
+
+	@Value("${security.jwt.scope-read}")
+	private String scopeRead;
+
+	@Value("${security.jwt.scope-write}")
+	private String scopeWrite = "write";
+
 	
 	@Autowired
 	private BCryptPasswordEncoder passEncoder;
@@ -44,10 +64,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		 clients.inMemory().withClient("alquiler")
-		 .secret(passEncoder.encode("alquilerPass"))
-		 .scopes("read","write")
-		 .authorizedGrantTypes("password","refresh_token")
+		 clients.inMemory().withClient(clientId)
+		 .secret(passEncoder.encode(clientSecret))
+		 .scopes(scopeRead,scopeWrite)
+		 .authorizedGrantTypes(grantTypePass,grantTypeRefresh)
 		 .accessTokenValiditySeconds(30000);
 	}
 

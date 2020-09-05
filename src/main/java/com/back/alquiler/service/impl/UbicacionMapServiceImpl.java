@@ -82,22 +82,22 @@ public class UbicacionMapServiceImpl implements UbicacionMapService {
 		if (filtros.get(0) != null) {
 			Integer idTarifa = filtros.get(0).getId();
 			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getCondicionPago()
-					.getPrecio() >= Constantes.dataTarifa[idTarifa]
-					&& maps.getPropiedad().getCondicionPago().getPrecio() <= Constantes.dataTarifa[idTarifa + 1])
+					.getPrecio() >= Constantes.getDatatarifa()[idTarifa]
+					&& maps.getPropiedad().getCondicionPago().getPrecio() <= Constantes.getDatatarifa()[idTarifa + 1])
 					.collect(Collectors.toList());
 		}
 
 		if (filtros.get(1) != null) {
 			Integer idPiso = filtros.get(1).getId();
-			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getCantidadPisos() >= Constantes.dataPisos[idPiso]
-					&& maps.getPropiedad().getCantidadPisos() <= Constantes.dataPisos[idPiso +1])
+			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getCantidadPisos() >= Constantes.getDatapisos()[idPiso]
+					&& maps.getPropiedad().getCantidadPisos() <= Constantes.getDatapisos()[idPiso +1])
 					.collect(Collectors.toList());
 		}
 
 		if (filtros.get(2) != null) {
 			Integer idHabitacion = filtros.get(2).getId();
-			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getNroHabitaciones() >= Constantes.dataHabitaciones[idHabitacion]
-					&& maps.getPropiedad().getNroHabitaciones() <= Constantes.dataHabitaciones[idHabitacion +1])
+			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getNroHabitaciones() >= Constantes.getDatahabitaciones()[idHabitacion]
+					&& maps.getPropiedad().getNroHabitaciones() <= Constantes.getDatahabitaciones()[idHabitacion +1])
 					.collect(Collectors.toList());
 
 		}

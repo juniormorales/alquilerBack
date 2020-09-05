@@ -1,10 +1,5 @@
 package com.back.alquiler.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import com.sun.el.stream.Stream;
 
 public class Constantes {
 
@@ -193,8 +188,21 @@ public class Constantes {
 	
 	
 	//Datos de Filtro
-	public static final Integer [] dataHabitaciones = {0,4,6,10,15,20,Integer.MAX_VALUE};
-	public static final Integer [] dataPisos = {1,2,3,4,5,6,Integer.MAX_VALUE};
-	public static final Double [] dataTarifa = {0.0,500.0,1000.0,1500.0,2000.0,3000.0,Double.MAX_VALUE};
+	private  static final Integer [] dataHabitaciones = {0,4,6,10,15,20,Integer.MAX_VALUE};
+	private static final Integer [] dataPisos = {1,2,3,4,5,6,Integer.MAX_VALUE};
+	private static final Double [] dataTarifa = {0.0,500.0,1000.0,1500.0,2000.0,3000.0,Double.MAX_VALUE};
 	
+	public static Integer[] getDatahabitaciones() {
+		return dataHabitaciones;
+	}
+	public static Integer[] getDatapisos() {
+		return dataPisos;
+	}
+	public static Double[] getDatatarifa() {
+		return dataTarifa;
+	}	
+	
+	//RESPONSEENTITY
+	public static final String mensajeResponse = "mensaje";
+	public static final String errorResponse = "error";
 }

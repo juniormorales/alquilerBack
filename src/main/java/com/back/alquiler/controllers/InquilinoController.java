@@ -27,7 +27,7 @@ public class InquilinoController {
 	InquilinoService service_inquilino;
 	
 	@GetMapping("/listarSinContrato/{id}")
-	ResponseEntity<?> listarPorArrenderoSinContrato(@PathVariable Integer id){
+	public ResponseEntity<?> listarPorArrenderoSinContrato(@PathVariable Integer id){
 		Map<String,Object> response = new HashMap<>();
 		
 		try {
@@ -42,7 +42,7 @@ public class InquilinoController {
 	}
 	
 	@GetMapping("/listar/{id}")
-	ResponseEntity<?> listarPorArrendero(@PathVariable Integer id){
+	public ResponseEntity<?> listarPorArrendero(@PathVariable Integer id){
 		Map<String,Object> response = new HashMap<>();
 		
 		try {
@@ -57,7 +57,7 @@ public class InquilinoController {
 	}
 	
 	@GetMapping("/obtenerInquilino/{id}")
-	ResponseEntity<?> obtenerInquilino(@PathVariable Integer id){
+	public ResponseEntity<?> obtenerInquilino(@PathVariable Integer id){
 		Map<String,Object> response = new HashMap<>();
 		
 		try {
@@ -72,7 +72,7 @@ public class InquilinoController {
 	}
 	
 	@PostMapping("/darBaja")
-	ResponseEntity<?> listarPorArrendero(@RequestBody Inquilino inquilino){
+	public ResponseEntity<?> listarPorArrendero(@RequestBody Inquilino inquilino){
 		Map<String,Object> response = new HashMap<>();
 		
 		try {

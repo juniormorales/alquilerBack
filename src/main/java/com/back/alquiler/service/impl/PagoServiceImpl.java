@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.sql.DataSource;
@@ -47,10 +48,10 @@ public class PagoServiceImpl implements PagoService {
 
 	@Autowired
 	RentaRepo repo_renta;
-	
-	@javax.annotation.Resource(name="dataSource")
+
+	@javax.annotation.Resource(name = "dataSource")
 	DataSource dataSource;
-	
+
 	private Double monto;
 
 	@Override
@@ -65,33 +66,32 @@ public class PagoServiceImpl implements PagoService {
 			obj.setFechaRegistro(new Date());
 			obj.setInquilino(renta.getInquilino());
 			obj.setBanco("");
-			Pago respuesta =  repo_pago.save(obj);
-			respuesta.setNro_boleta(String.valueOf(1000000+respuesta.getIdPago()));
+			Pago respuesta = repo_pago.save(obj);
+			respuesta.setNro_boleta(String.valueOf(1000000 + respuesta.getIdPago()));
 			return repo_pago.save(respuesta);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Pago modificar(Pago obj) {
-		monto =0.0;
+		monto = 0.0;
 		ConvertirNumeroALetras letritas = new ConvertirNumeroALetras();
 		try {
 			obj.setFechaConfirmado(new Date());
 			obj.setMontoLetras(letritas.Convertir(obj.getMonto() + "", true));
 			Renta renta = obj.getRenta();
-			repo_pago.findByRenta(renta).forEach( pago ->{
+			repo_pago.findByRenta(renta).forEach(pago -> {
 				monto = monto + pago.getMonto();
 			});
 			monto = monto + obj.getMonto();
-			
-			if(monto < renta.getCantidad()) {
+
+			if (monto < renta.getCantidad()) {
 				renta.setEnvioPago(3);
 				obj.setMontoRestante(renta.getCantidad() - monto);
-			}else {
+			} else {
 				obj.setMontoRestante(0.0);
 				renta.setEnvioPago(0);
 				renta.setEstado(1);
@@ -131,7 +131,7 @@ public class PagoServiceImpl implements PagoService {
 		try {
 			Arrendero arrendero = new Arrendero();
 			arrendero.setIdArrendero(id);
-			return repo_pago.findByArrenderoAndEstadoAndRechazado(arrendero, false,false);
+			return repo_pago.findByArrenderoAndEstadoAndRechazado(arrendero, false, false);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -139,8 +139,9 @@ public class PagoServiceImpl implements PagoService {
 
 	@Override
 	public Pago registrarImagenVoucher(MultipartFile archivo, Integer id) throws IOException {
-		Pago pago = repo_pago.findById(id).get();
 		try {
+			Optional<Pago> op = repo_pago.findById(id);
+			Pago pago = op.isPresent() ? op.get() : new Pago();
 			String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
 			Path rutaArchivo = Paths.get(Constantes.rutaImagenVoucher).resolve(nombreArchivo).toAbsolutePath();
 			Files.copy(archivo.getInputStream(), rutaArchivo);
@@ -154,19 +155,21 @@ public class PagoServiceImpl implements PagoService {
 
 	@Override
 	public Resource verFotoVoucher(Integer id) throws IOException {
-		Pago pago = repo_pago.findById(id).get();
+		Optional<Pago> op = repo_pago.findById(id);
+		Pago pago = op.isPresent() ? op.get() : new Pago();
 		Path rutaArchivo = Paths.get(Constantes.rutaImagenVoucher).resolve(pago.getUrlVoucher()).toAbsolutePath();
 		Resource recurso = null;
 		try {
 			recurso = new UrlResource(rutaArchivo.toUri());
 			if (!recurso.exists() && !recurso.isReadable()) {
 				throw new RuntimeException(Constantes.errorCargarFoto + pago.getUrlVoucher());
-			}else {
+			} else {
 				return recurso;
 			}
 		} catch (Exception e) {
 			throw e;
 		}
+
 	}
 
 	@Override
@@ -179,7 +182,7 @@ public class PagoServiceImpl implements PagoService {
 			pago.setMonto(0.0);
 			repo_renta.save(renta);
 			return repo_pago.save(pago);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -209,28 +212,28 @@ public class PagoServiceImpl implements PagoService {
 	@Override
 	public byte[] generarBoleta(Integer idPago) throws Exception {
 		try {
-			byte[] file=null;
+			byte[] file = null;
 			String directorio = System.getProperty("user.dir");
 			String separador = System.getProperty("file.separator");
 			String ruta = directorio + separador + Constantes.rutaBoleta + separador;
-			JasperPrint print=null;
-			Map<String, Object> parametor=new HashMap<String,Object>();
-			parametor.put("id_pago",idPago);
-			parametor.put("rechazado",false);
-			Connection cn= dataSource.getConnection();
-			file = this.crearReporte(print, ruta, parametor, cn);
+			Map<String, Object> parametor = new HashMap<String, Object>();
+			parametor.put("id_pago", idPago);
+			parametor.put("rechazado", false);
+			Connection cn = dataSource.getConnection();
+			file = this.crearReporte(ruta, parametor, cn);
 			return file;
 		} catch (Exception e) {
 			throw e;
-		}	
+		}
 	}
-	
-	private byte[] crearReporte(JasperPrint print, String ruta, Map<String,Object>parametor, Connection cn) throws FileNotFoundException, JRException{
+
+	private byte[] crearReporte(String ruta, Map<String, Object> parametor, Connection cn)
+			throws FileNotFoundException, JRException {
 		byte[] file = null;
-		File fileroot = new File(ruta+"boleta_arrendamiento.jasper");
+		File fileroot = new File(ruta + "boleta_arrendamiento.jasper");
 		FileInputStream input = new FileInputStream(fileroot);
-		print = JasperFillManager.fillReport(input,parametor,cn);			
-		file=JasperExportManager.exportReportToPdf(print);
+		JasperPrint print = JasperFillManager.fillReport(input, parametor, cn);
+		file = JasperExportManager.exportReportToPdf(print);
 		return file;
 	}
 

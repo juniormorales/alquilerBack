@@ -45,4 +45,13 @@ public class Arrendatario {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public Arrendatario(String direccionTemporal, Usuario usuario) {
+		this.direccionTemporal = direccionTemporal;
+		this.usuario = usuario;
+	}
+	
+	public Arrendatario() {
+		
+	}
 }

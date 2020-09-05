@@ -100,9 +100,10 @@ public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 						.toAbsolutePath();
 				File archivoFotoAnterior = rutaFotoAnterior.toFile();
 				if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
-					archivoFotoAnterior.delete();
+					if(archivoFotoAnterior.delete()) {
+						repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
+					}
 				}
-				repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
 			}
 		});
 		return true;
@@ -121,9 +122,10 @@ public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 							.toAbsolutePath();
 					File archivoFotoAnterior = rutaFotoAnterior.toFile();
 					if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
-						archivoFotoAnterior.delete();
+						if(archivoFotoAnterior.delete()) {
+							repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
+						}
 					}
-					repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
 				}
 				;
 			});

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back.alquiler.dto.ArrendatarioNuevoDTO;
 import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Usuario;
 import com.back.alquiler.service.ArrendatarioService;
@@ -35,7 +36,7 @@ public class ArrendatarioController {
 	
 	
 	@PostMapping("/registrar")
-	public ResponseEntity<?> registrar(@RequestBody Arrendatario arrendatario){
+	public ResponseEntity<?> registrar(@RequestBody ArrendatarioNuevoDTO arrendatario){
 		Map<String,Object> response = new HashMap<>();
 		try {
 			Boolean yaexistedni = service_usuario.buscarSiExisteDNI(arrendatario.getUsuario().getDni());
@@ -61,8 +62,7 @@ public class ArrendatarioController {
 					}else {
 						arrendatario.getUsuario().setPassword(passwordEncoder.encode(arrendatario.getUsuario().getPassword()));
 						Usuario user = service_usuario.registrar(arrendatario.getUsuario());
-						arrendatario.setUsuario(user);
-						Arrendatario resp = service_arrendatario.registrar(arrendatario);
+						service_arrendatario.registrar(new Arrendatario(arrendatario.getDireccionTemporal(),user));
 						response.put("estado",true);
 						response.put("titulo", Constantes.tituloOk);
 						response.put("mensaje", Constantes.msgRegistrarUsuarioOk);

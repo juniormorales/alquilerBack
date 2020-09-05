@@ -3,11 +3,13 @@ package com.back.alquiler.service.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
@@ -48,6 +50,9 @@ public class ContratoServiceImpl implements ContratoService {
 
 	@Autowired
 	RentaRepo repo_renta;
+
+	private FileOutputStream out;
+	private FileInputStream fis;
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -137,17 +142,25 @@ public class ContratoServiceImpl implements ContratoService {
 
 	@Override
 	public String crearContrato(Inquilino inquilino) throws Exception {
-		ConvertirNumeroALetras convertidor = new ConvertirNumeroALetras();
+		Contrato contrato;
 		try {
-			Contrato contrato = repo_contrato.findByInquilinoAndCaduco(inquilino, false);
-			String directorio = System.getProperty("user.dir");
-			String separador = System.getProperty("file.separator");
-			String randomUIID = UUID.randomUUID().toString();
-			String ruta = directorio + separador + Constantes.rutaContrato + separador + randomUIID + ".docx";
-			File file = new File(ruta);
-			file.createNewFile();
-			XWPFDocument documento = new XWPFDocument();
-			FileOutputStream out = new FileOutputStream(new File(ruta));
+			contrato = repo_contrato.findByInquilinoAndCaduco(inquilino, false);
+		} catch (Exception e) {
+			throw e;
+		}
+		String directorio = System.getProperty("user.dir");
+		String separador = System.getProperty("file.separator");
+		String randomUIID = UUID.randomUUID().toString();
+		String ruta = directorio + separador + Constantes.rutaContrato + separador + randomUIID + ".docx";
+		File file = new File(ruta);
+		if(!file.createNewFile()) {
+			throw new IOException("No se pudo crear el contrato, la ruta no existe");
+		}
+
+		ConvertirNumeroALetras convertidor = new ConvertirNumeroALetras();
+		XWPFDocument documento = new XWPFDocument();
+		try {
+			out = new FileOutputStream(new File(ruta));
 			WordConstante constante = new WordConstante();
 			String title = constante.titulo().getText1();
 			String prfA1 = constante.parrafo1().getText1();
@@ -750,34 +763,40 @@ public class ContratoServiceImpl implements ContratoService {
 			aFirma.setFontFamily("Arial");
 			aFirma.setFontSize(12);
 			documento.write(out);
-			out.close();
-			System.out.println("Documento creado con exito");
-			return randomUIID;
+
 		} catch (Exception e) {
 			throw e;
+		} finally {
+			documento.close();
+			out.close();
 		}
+		return randomUIID;
 
 	}
 
 	@Override
 	public byte[] obtenerContrato(Integer id) throws Exception {
+		byte[] bArray;
 		try {
-			Contrato contrato = repo_contrato.findById(id).get();
-			FileInputStream fis = null;
+			Optional<Contrato> op = repo_contrato.findById(id);
+			Contrato contrato = op.isPresent() ? op.get() : new Contrato();
 			String directorio = System.getProperty("user.dir");
 			String separador = System.getProperty("file.separator");
-			String ruta = directorio + separador + Constantes.rutaContrato + separador + contrato.getArchivoContrato() + ".docx";
+			String ruta = directorio + separador + Constantes.rutaContrato + separador + contrato.getArchivoContrato()
+					+ ".docx";
 			File archivo = new File(ruta);
-			byte[] bArray = new byte[(int) archivo.length()];
-
 			fis = new FileInputStream(archivo);
-			fis.read(bArray);
-			fis.close();
+			bArray = new byte[(int) archivo.length()];
+		    while (fis.read(bArray) > 0) {
+		    }
 
-			return bArray;
 		} catch (Exception e) {
 			throw e;
+		} finally {
+			fis.close();
 		}
+		return bArray;
+
 	}
 
 	@Override

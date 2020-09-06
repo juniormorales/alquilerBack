@@ -11,40 +11,34 @@ import com.back.alquiler.service.BancoService;
 
 @Service
 public class BancoServiceImpl implements BancoService {
-	
+
 	@Autowired
-	BancoRepo repo;
-	
+	BancoRepo repoBanco;
+
 	@Override
 	public Banco registrar(Banco obj) {
-		try {
-			return repo.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoBanco.save(obj);
+
 	}
 
 	@Override
 	public Banco modificar(Banco obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Banco leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repoBanco.save(obj);
 	}
 
 	@Override
 	public List<Banco> listar() {
-		return repo.findAll();
+		return repoBanco.findAll();
 	}
 
 	@Override
 	public Boolean eliminar(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		if (repoBanco.existsById(id)) {
+			repoBanco.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

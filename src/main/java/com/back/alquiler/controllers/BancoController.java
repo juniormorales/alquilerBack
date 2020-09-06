@@ -20,19 +20,19 @@ import com.back.alquiler.utils.Constantes;
 public class BancoController {
 	
 	@Autowired
-	BancoService service;
+	BancoService serviceBanco;
 	
 	@GetMapping("/listar")
-	public ResponseEntity<?> listar(){
+	public ResponseEntity<Map<String, Object>> listar(){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<Banco> lsbancos = service.listar();
-			response.put("aaData",lsbancos);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			List<Banco> lsbancos = serviceBanco.listar();
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsbancos);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje", Constantes.msgListarBancosError);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_BANCO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

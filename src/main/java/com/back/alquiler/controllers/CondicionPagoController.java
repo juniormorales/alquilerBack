@@ -21,80 +21,74 @@ import org.springframework.web.bind.annotation.RestController;
 import com.back.alquiler.models.CondicionPago;
 import com.back.alquiler.service.CondicionPagoService;
 import com.back.alquiler.utils.Constantes;
+import com.back.alquiler.utils.EliminarResponse;
 
 @RestController
 @RequestMapping("/api/condicion-pago")
 public class CondicionPagoController {
 
 	@Autowired
-	CondicionPagoService service_condicion_pago;
+	CondicionPagoService serviceCondicionPago;
 
 	@PostMapping("/registrar")
-	public ResponseEntity<?> registrarCondicionPago(@RequestBody CondicionPago condicionPago) {
+	public ResponseEntity<Map<String, Object>> registrarCondicionPago(@RequestBody CondicionPago condicionPago) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			service_condicion_pago.registrar(condicionPago);
-			response.put("titulo", Constantes.tituloOk);
-			response.put("mensaje", Constantes.msgRegistrarCondicionPagoOk);
-			response.put("tipo", Constantes.success);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			serviceCondicionPago.registrar(condicionPago);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_CONDICPAGO_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgRegistrarCondicionPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_CONDICPAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modificar")
-	public ResponseEntity<?> modificarCondicionPago(@RequestBody CondicionPago condicionPago) {
+	public ResponseEntity<Map<String, Object>> modificarCondicionPago(@RequestBody CondicionPago condicionPago) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			service_condicion_pago.modificar(condicionPago);
-			response.put("titulo", Constantes.tituloOk);
-			response.put("mensaje", Constantes.msgActualizarCondicionPagoOk);
-			response.put("tipo", Constantes.success);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			serviceCondicionPago.modificar(condicionPago);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_CONDICPAGO_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgActualizarCondicionPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_CONDICPAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/listar/{id}")
-	public ResponseEntity<?> listarCondicionPorArrendero(@PathVariable Integer id){
+	public ResponseEntity<Map<String,Object>> listarCondicionPorArrendero(@PathVariable Integer id){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<CondicionPago> lsCondicion = service_condicion_pago.listarPorArrendero(id);
-			response.put("aaData",lsCondicion);
-			
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			List<CondicionPago> lsCondicion = serviceCondicionPago.listarPorArrendero(id);
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsCondicion);	
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgListarCondicionPagoError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_LISTAR_CONDICPAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/eliminar/{id}")
-	public ResponseEntity<?> eliminarCondicionPago(@PathVariable Integer id) {
+	public ResponseEntity<Map<String,Object>> eliminarCondicionPago(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			Boolean elimino = service_condicion_pago.eliminar(id);
-			if(elimino) {
-				response.put("titulo", Constantes.tituloOk);
-				response.put("mensaje", Constantes.msgEliminarOk);
-				response.put("tipo", Constantes.success);
+			boolean elimino = serviceCondicionPago.eliminar(id);
+			if(Boolean.TRUE.equals(elimino)) {
+				EliminarResponse.eliminoOk(response);
 			}else {
-				response.put("titulo", Constantes.tituloError);
-				response.put("mensaje", Constantes.msgEliminarError);
-				response.put("tipo", Constantes.error);
+				EliminarResponse.eliminoError(response);
 			}
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
 		} catch (DataIntegrityViolationException e) {
-			response.put("mensaje", Constantes.msgEliminarErrorGrave);
-			response.put("error", Constantes.msgEliminarErrorGraveDesc);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return EliminarResponse.dataIntegrityError(e);
 		}
 	}
 

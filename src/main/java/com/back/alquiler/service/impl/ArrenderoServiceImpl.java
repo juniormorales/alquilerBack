@@ -13,49 +13,37 @@ import com.back.alquiler.service.ArrenderoService;
 
 @Service
 public class ArrenderoServiceImpl implements ArrenderoService {
-	
+
 	@Autowired
-	ArrenderoRepo repo_arrendero;
-	
+	ArrenderoRepo repoArrendero;
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Arrendero registrar(Arrendero obj) {
-		try {
-			return repo_arrendero.save(obj);
-		}catch(Exception e) {
-			throw e;
-		}
+		return repoArrendero.save(obj);
+
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Arrendero modificar(Arrendero obj) {
-		try {
-			return repo_arrendero.save(obj);
-		}catch(Exception e) {
-			throw e;
-		}
-	}
+		return repoArrendero.save(obj);
 
-	@Override
-	public Arrendero leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Arrendero> listar() {
-		return repo_arrendero.findAll();
+		return repoArrendero.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_arrendero.existsById(id)) {
-			repo_arrendero.deleteById(id);
+		if (repoArrendero.existsById(id)) {
+			repoArrendero.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}

@@ -27,45 +27,36 @@ import com.back.alquiler.utils.Constantes;
 public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 
 	@Autowired
-	ImagenPropiedadRepo repo_imagen_prop;
+	ImagenPropiedadRepo repoImagenProp;
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ImagenPropiedad registrar(ImagenPropiedad obj) {
-		try {
-			return repo_imagen_prop.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoImagenProp.save(obj);
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public ImagenPropiedad modificar(ImagenPropiedad obj) {
-		try {
-			return repo_imagen_prop.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+		return repoImagenProp.save(obj);
 
-	@Override
-	public ImagenPropiedad leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<ImagenPropiedad> listar() {
-		return repo_imagen_prop.findAll();
+		return repoImagenProp.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		if (repoImagenProp.existsById(id)) {
+			repoImagenProp.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -74,38 +65,20 @@ public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 		Propiedad p = new Propiedad();
 		p.setIdPropiedad(id);
 		imagen.setPropiedad(p);
-		
-		try {	
-			String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
-			Path rutaArchivo = Paths.get(Constantes.rutaImagenPropiedad).resolve(nombreArchivo).toAbsolutePath();
-			Files.copy(archivo.getInputStream(), rutaArchivo);
-			imagen.setNombreFoto(nombreArchivo);
-			return repo_imagen_prop.save(imagen);
-			
-		} catch (Exception e) {
-			throw e;
-		}
+
+		String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
+		Path rutaArchivo = Paths.get(Constantes.RUTA_IMAGEN_PROPIEDAD).resolve(nombreArchivo).toAbsolutePath();
+		Files.copy(archivo.getInputStream(), rutaArchivo);
+		imagen.setNombreFoto(nombreArchivo);
+		return repoImagenProp.save(imagen);
+
 	}
 
 	@Override
 	public Boolean eliminarImagenes(List<Integer> ids) throws IOException {
 		List<ImagenPropiedad> lsImagenes = new ArrayList<>();
-		ids.forEach(id -> {
-			lsImagenes.add(repo_imagen_prop.findByIdImagenPropiedad(id));
-		});
-		lsImagenes.forEach(imagen -> {
-			String nombreFotoAnterior = imagen.getNombreFoto();
-			if (nombreFotoAnterior != null) {
-				Path rutaFotoAnterior = Paths.get(Constantes.rutaImagenPropiedad).resolve(nombreFotoAnterior)
-						.toAbsolutePath();
-				File archivoFotoAnterior = rutaFotoAnterior.toFile();
-				if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
-					if(archivoFotoAnterior.delete()) {
-						repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
-					}
-				}
-			}
-		});
+		ids.forEach(id -> lsImagenes.add(repoImagenProp.findByIdImagenPropiedad(id)));
+		eliminarImagenesAux(lsImagenes);
 		return true;
 	}
 
@@ -113,52 +86,54 @@ public class ImagenPropiedadServiceImpl implements ImagenPropiedadService {
 	public Boolean eliminarTodasLasImagenes(Integer id) throws IOException {
 		Propiedad propiedad = new Propiedad();
 		propiedad.setIdPropiedad(id);
-		List<ImagenPropiedad> lsImagenes = repo_imagen_prop.findByPropiedad(propiedad);
-		if(!lsImagenes.isEmpty()) {
-			lsImagenes.forEach(imagen -> {
-				String nombreFotoAnterior = imagen.getNombreFoto();
-				if (nombreFotoAnterior != null) {
-					Path rutaFotoAnterior = Paths.get(Constantes.rutaImagenPropiedad).resolve(nombreFotoAnterior)
-							.toAbsolutePath();
-					File archivoFotoAnterior = rutaFotoAnterior.toFile();
-					if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
-						if(archivoFotoAnterior.delete()) {
-							repo_imagen_prop.deleteById(imagen.getIdImagenPropiedad());
-						}
-					}
-				}
-				;
-			});
+		List<ImagenPropiedad> lsImagenes = repoImagenProp.findByPropiedad(propiedad);
+		if (!lsImagenes.isEmpty()) {
+			eliminarImagenesAux(lsImagenes);
 		}
 		return true;
 	}
 
 	@Override
 	public List<Map<String, Object>> retornarImagenes(Integer id) throws IOException {
-		List<Map<String, Object>> lsMaps  = new ArrayList<>();
+		List<Map<String, Object>> lsMaps = new ArrayList<>();
 		String directorio = System.getProperty("user.dir");
 		String separador = System.getProperty("file.separator");
 		Propiedad propiedad = new Propiedad();
 		propiedad.setIdPropiedad(id);
-		List<ImagenPropiedad> lsImagen = repo_imagen_prop.findByPropiedad(propiedad);
+		List<ImagenPropiedad> lsImagen = repoImagenProp.findByPropiedad(propiedad);
 		lsImagen.forEach(imagen -> {
-			String ruta = directorio + separador +Constantes.rutaImagenPropiedad + separador + imagen.getNombreFoto();
+			String ruta = directorio + separador + Constantes.RUTA_IMAGEN_PROPIEDAD + separador
+					+ imagen.getNombreFoto();
 			File archivo = new File(ruta);
 			imagen.setPropiedad(null);
-
 			if (archivo.exists()) {
+				Map<String, Object> dataImagen = new HashMap<>();
 				try {
-					Map<String, Object> dataImagen = new HashMap<>();
-
-					dataImagen.put("foto", Files.readAllBytes(archivo.toPath()));
-					dataImagen.put("obj", imagen);
-					lsMaps.add(dataImagen);
+					dataImagen.put(Constantes.FOTO_TXT_RESPONSE, Files.readAllBytes(archivo.toPath()));
 				} catch (IOException e) {
-					e.printStackTrace();
+					dataImagen.put(Constantes.FOTO_TXT_RESPONSE, null);
 				}
+				dataImagen.put(Constantes.OBJ_TXT_RESPONSE, imagen);
+				lsMaps.add(dataImagen);
 			}
 		});
 		return lsMaps;
+	}
+	
+	private void eliminarImagenesAux(List<ImagenPropiedad> lsImagenes) {
+		lsImagenes.forEach(imagen -> {
+			String nombreFotoAnterior = imagen.getNombreFoto();
+			if (nombreFotoAnterior != null) {
+				Path rutaFotoAnterior = Paths.get(Constantes.RUTA_IMAGEN_PROPIEDAD).resolve(nombreFotoAnterior)
+						.toAbsolutePath();
+					try {
+						Files.delete(rutaFotoAnterior);
+						repoImagenProp.deleteById(imagen.getIdImagenPropiedad());
+					} catch (IOException e) {
+						imagen.setNombreFoto("");
+					}
+			}
+		});
 	}
 
 }

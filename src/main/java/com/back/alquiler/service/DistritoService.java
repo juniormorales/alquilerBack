@@ -7,8 +7,7 @@ import com.back.alquiler.models.Provincia;
 
 
 
-public interface DistritoService extends ICRUD<Distrito>{
-	
+public interface DistritoService{
 	public List<Distrito> listarPorProvincia(Provincia prov); 
 
 }

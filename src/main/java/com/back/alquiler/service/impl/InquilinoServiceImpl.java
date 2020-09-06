@@ -20,86 +20,68 @@ import com.back.alquiler.service.InquilinoService;
 
 @Service
 public class InquilinoServiceImpl implements InquilinoService {
-	
+
 	@Autowired
-	InquilinoRepo repo_inquilino;
-	
+	InquilinoRepo repoInquilino;
+
 	@Autowired
-	ContratoRepo repo_contrato;
-	
-	
+	ContratoRepo repoContrato;
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Inquilino registrar(Inquilino obj) {
-		try {
-			return repo_inquilino.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+
+		return repoInquilino.save(obj);
+
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Inquilino modificar(Inquilino obj) {
-		try {
-			return repo_inquilino.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+		return repoInquilino.save(obj);
 
-	@Override
-	public Inquilino leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Inquilino> listar() {
-		return repo_inquilino.findAll();
+		return repoInquilino.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_inquilino.existsById(id)) {
-			repo_inquilino.deleteById(id);
+		if (repoInquilino.existsById(id)) {
+			repoInquilino.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
 
 	@Override
 	public List<Inquilino> listarPorArrenderoYContratoHecho(Integer id) {
-		try {
-			Arrendero a = new Arrendero();
-			a.setIdArrendero(id);
-			return repo_inquilino.findByArrenderoAndContratoHechoAndEstado(a, true, true);
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero a = new Arrendero();
+		a.setIdArrendero(id);
+		return repoInquilino.findByArrenderoAndContratoHechoAndEstado(a, true, true);
+
 	}
 
 	@Override
 	public Boolean darBajaInquilino(Inquilino inquilino) {
-		try {
-			Contrato cont = repo_contrato.findByInquilinoAndCaduco(inquilino, false);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(cont.getFechaInicio()); 
-			calendar.add(Calendar.MONTH,cont.getTiempoContrato());
-			Date fecha_actual = new Date();
-			if(calendar.getTime().compareTo(fecha_actual)>0) {
-				return false;
-			}else {
-				inquilino.setEstado(false);
-				repo_inquilino.save(inquilino);
-				return true;
-			}
-		} catch (Exception e) {
-			throw e;
+		Contrato cont = repoContrato.findByInquilinoAndCaduco(inquilino, false);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(cont.getFechaInicio());
+		calendar.add(Calendar.MONTH, cont.getTiempoContrato());
+		Date fechaActual = new Date();
+		if (calendar.getTime().compareTo(fechaActual) > 0) {
+			return false;
+		} else {
+			inquilino.setEstado(false);
+			repoInquilino.save(inquilino);
+			return true;
 		}
+
 	}
 
 	@Override
@@ -112,33 +94,24 @@ public class InquilinoServiceImpl implements InquilinoService {
 		in.setEstadoPago(true);
 		in.setFechaConfirmacion(new Date());
 		in.setPropiedad(sol.getPropiedad());
-		try {
-			return repo_inquilino.save(in);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoInquilino.save(in);
+
 	}
 
 	@Override
 	public List<Inquilino> listarPorArrenderoYContratoNoHecho(Integer id) {
-		try {
-			Arrendero a = new Arrendero();
-			a.setIdArrendero(id);
-			return repo_inquilino.findByArrenderoAndContratoHechoAndEstado(a, false, true);
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero a = new Arrendero();
+		a.setIdArrendero(id);
+		return repoInquilino.findByArrenderoAndContratoHechoAndEstado(a, false, true);
+
 	}
 
 	@Override
 	public Inquilino obtenerInquilinoActivo(Integer id) {
-		try {
-			Arrendatario arrendatario = new Arrendatario();
-			arrendatario.setIdArrendatario(id);
-			return repo_inquilino.findByArrendatarioAndEstado(arrendatario,true);
-		} catch (Exception e) {
-			throw e;
-		}
-	}	
+		Arrendatario arrendatario = new Arrendatario();
+		arrendatario.setIdArrendatario(id);
+		return repoInquilino.findByArrendatarioAndEstado(arrendatario, true);
+
+	}
 
 }

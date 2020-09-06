@@ -5,7 +5,7 @@ import java.util.List;
 import com.back.alquiler.models.Modulo;
 import com.back.alquiler.models.Perfil;
 
-public interface ModuloService extends ICRUD<Modulo> {
+public interface ModuloService {
 
 	List<Modulo> listarModuloPorPerfil(Perfil perfil);
 

@@ -20,76 +20,32 @@ import com.back.alquiler.service.PropiedadService;
 public class PropiedadServiceImpl implements PropiedadService {
 
 	@Autowired
-	PropiedadRepo repo_propiedad;
-	
+	PropiedadRepo repoPropiedad;
+
 	@Autowired
-	UbicacionMapsRepo repo_ubicacion;
+	UbicacionMapsRepo repoUbicacion;
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Propiedad registrar(Propiedad obj) {
-		try {
-			if (!obj.getTieneDanios()) {
-				obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
-			}
-			switch (obj.getEstado()) {
-			case 0:
-				obj.setCondicionPropiedad("Fuera de servicio");
-				break;
-			case 1:
-				obj.setCondicionPropiedad("Disponible");
-				break;
-			case 2:
-				obj.setCondicionPropiedad("En mantenimiento");
-				break;
-			case 3:
-				obj.setCondicionPropiedad("Ya ocupado");
-				break;
-			}
-			obj.setFechaRegistro(new Date());
-			return repo_propiedad.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+		setData(obj);
+		obj.setFechaRegistro(new Date());
+		return repoPropiedad.save(obj);
+
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Propiedad modificar(Propiedad obj) {
-		try {
-			if (!obj.getTieneDanios()) {
-				obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
-			}
-			switch (obj.getEstado()) {
-			case 0:
-				obj.setCondicionPropiedad("Fuera de servicio");
-				break;
-			case 1:
-				obj.setCondicionPropiedad("Disponible");
-				break;
-			case 2:
-				obj.setCondicionPropiedad("En mantenimiento");
-				break;
-			case 3:
-				obj.setCondicionPropiedad("Ya ocupado");
-				break;
-			}
-			return repo_propiedad.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+		setData(obj);
+		return repoPropiedad.save(obj);
 
-	@Override
-	public Propiedad leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Propiedad> listar() {
-		return repo_propiedad.findAll();
+		return repoPropiedad.findAll();
 	}
 
 	@Override
@@ -97,10 +53,10 @@ public class PropiedadServiceImpl implements PropiedadService {
 	public Boolean eliminar(Integer id) {
 		Propiedad p = new Propiedad();
 		p.setIdPropiedad(id);
-		repo_ubicacion.deleteByPropiedad(p);
-		
-		if (repo_propiedad.existsById(id)) {
-			repo_propiedad.deleteById(id);
+		repoUbicacion.deleteByPropiedad(p);
+
+		if (repoPropiedad.existsById(id)) {
+			repoPropiedad.deleteById(id);
 			return true;
 		} else {
 			return false;
@@ -111,25 +67,38 @@ public class PropiedadServiceImpl implements PropiedadService {
 	public List<Propiedad> listarPorArrendero(Integer id) {
 		Arrendero a = new Arrendero();
 		a.setIdArrendero(id);
-		try {
-			return repo_propiedad.findByArrenderoAndConfirmado(a,true);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoPropiedad.findByArrenderoAndConfirmado(a, true);
+
 	}
 
 	@Override
 	public List<UbicacionMaps> listarNoAceptadas() {
-		try {
-			List<Propiedad> lsProp = repo_propiedad.findByConfirmadoAndRechazado(false,false);
-			List<UbicacionMaps> maps = new ArrayList<>();
-			lsProp.forEach( propiedad -> {
-				maps.add(repo_ubicacion.findByPropiedad(propiedad));
-			});
-			
-			return maps;
-		} catch (Exception e) {
-			throw e;
+		List<Propiedad> lsProp = repoPropiedad.findByConfirmadoAndRechazado(false, false);
+		List<UbicacionMaps> maps = new ArrayList<>();
+		lsProp.forEach(propiedad ->  maps.add(repoUbicacion.findByPropiedad(propiedad)));
+		return maps;
+	}
+	
+	private void  setData(Propiedad obj) {
+		if (Boolean.FALSE.equals(obj.getTieneDanios())) {
+			obj.setDescripcionDanios("La propiedad no presenta ningun daño en las instalaciones");
+		}
+		switch (obj.getEstado()) {
+		case 0:
+			obj.setCondicionPropiedad("Fuera de servicio");
+			break;
+		case 1:
+			obj.setCondicionPropiedad("Disponible");
+			break;
+		case 2:
+			obj.setCondicionPropiedad("En mantenimiento");
+			break;
+		case 3:
+			obj.setCondicionPropiedad("Ya ocupado");
+			break;
+		default:
+			obj.setCondicionPropiedad("No definido");
+			break;
 		}
 	}
 

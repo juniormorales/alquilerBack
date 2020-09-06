@@ -25,20 +25,16 @@ public class ProvinciaController {
 	ProvinciaService service;
 	
 	@PostMapping("/porDepartamento")
-	public ResponseEntity<?> listarPorDepartamento(@RequestBody Departamento depa) throws Exception {
-		
+	public ResponseEntity<Map<String,Object>> listarPorDepartamento(@RequestBody Departamento depa) throws Exception {	
 		Map<String,Object> response = new HashMap<>();
-		
 		try {
 			List<Provincia> lsprov = service.listarPorDepartamento(depa);
-			response.put("mensaje",Constantes.msgListarProvinciaOK);
-			response.put("aaData",lsprov);
-			
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsprov);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgListarProvinciaError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_LISTAR_PROV_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}	
 }

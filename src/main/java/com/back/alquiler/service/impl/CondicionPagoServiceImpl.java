@@ -14,62 +14,44 @@ import com.back.alquiler.service.CondicionPagoService;
 
 @Service
 public class CondicionPagoServiceImpl implements CondicionPagoService {
-	
+
 	@Autowired
-	CondicionPagoRepo repo_condicion_pago;
-	
+	CondicionPagoRepo repoCondicionPago;
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public CondicionPago registrar(CondicionPago obj) {
-		try {
-			return repo_condicion_pago.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoCondicionPago.save(obj);
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public CondicionPago modificar(CondicionPago obj) {
-		try {
-			return repo_condicion_pago.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	@Override
-	public CondicionPago leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repoCondicionPago.save(obj);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<CondicionPago> listar() {
-		return repo_condicion_pago.findAll();
+		return repoCondicionPago.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_condicion_pago.existsById(id)) {
-			repo_condicion_pago.deleteById(id);
+		if (repoCondicionPago.existsById(id)) {
+			repoCondicionPago.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
 
 	@Override
 	public List<CondicionPago> listarPorArrendero(Integer id) {
-		try {
-			Arrendero a = new Arrendero();
-			a.setIdArrendero(id);
-			return repo_condicion_pago.findByArrendero(a);
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero a = new Arrendero();
+		a.setIdArrendero(id);
+		return repoCondicionPago.findByArrendero(a);
 	}
 
 }

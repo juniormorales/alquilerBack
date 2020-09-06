@@ -2,8 +2,6 @@ package com.back.alquiler.service.impl;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,40 +35,26 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 
 	@Autowired
 	UsuarioRepo repoUsuario;
-	
+
 	@Autowired
 	BancoRepo repoBanco;
 
-	private static final Logger LOG = LoggerFactory.getLogger(Exception.class);
-
 	public String insertarDatosModulo(List<Modulo> obj) {
-		try {
-			repoModulo.saveAll(obj);
-			return "Se insertó correctamente los módulos";
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " insertarListaModulos. ERROR : " + e.getMessage());
-			throw e;
-		}
+		repoModulo.saveAll(obj);
+		return "Se insertó correctamente los módulos";
+
 	}
 
 	public String insertarDatosPagina(List<Pagina> obj) {
-		try {
-			repoPagina.saveAll(obj);
-			return "Se insertó correctamente las Paginas";
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " insertarPaginas. ERROR : " + e.getMessage());
-			throw e;
-		}
+		repoPagina.saveAll(obj);
+		return "Se insertó correctamente las Paginas";
+
 	}
 
 	public String insertarDatosPerfil(List<Perfil> obj) {
-		try {
-			repoPerfil.saveAll(obj);
-			return "Se insertó correctamente los perfiles";
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " insertarPerfiles. ERROR : " + e.getMessage());
-			throw e;
-		}
+		repoPerfil.saveAll(obj);
+		return "Se insertó correctamente los perfiles";
+
 	}
 
 	public String insertarDatosPerfilesModulos() {
@@ -116,25 +100,16 @@ public class UtilitarioServiceImpl implements UtilitarioService {
 
 	@Override
 	public String insertarDatosUsuarios(List<Usuario> usuarios) {
-		try {
-			repoUsuario.saveAll(usuarios);
-			return "Se insertó correctamente los usuarios";
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " insertarDatosUsuarios. ERROR : " + e.getMessage());
-			throw e;
-		}
+		repoUsuario.saveAll(usuarios);
+		return "Se insertó correctamente los usuarios";
 
 	}
 
 	@Override
 	public String insertarDatosBancos(List<Banco> bancos) {
-		try {
-			repoBanco.saveAll(bancos);
-			return "Se inserto correctamente los bancos";
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " insertarDatosBancos. ERROR : " + e.getMessage());
-			throw e;
-		}
+		repoBanco.saveAll(bancos);
+		return "Se inserto correctamente los bancos";
+
 	}
 
 }

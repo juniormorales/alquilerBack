@@ -18,91 +18,70 @@ import com.back.alquiler.service.SolicitudPropiedadService;
 
 @Service
 public class SolicitudPropiedadServiceImpl implements SolicitudPropiedadService {
-	
+
 	@Autowired
-	SolicitudPropiedadRepo repo_sol_prop;
-	
+	SolicitudPropiedadRepo repoSolProp;
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SolicitudPropiedad registrar(SolicitudPropiedad obj) {
-		try {
-			obj.setFechaSolicitud(new Date());
-			return repo_sol_prop.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+		obj.setFechaSolicitud(new Date());
+		return repoSolProp.save(obj);
+
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public SolicitudPropiedad modificar(SolicitudPropiedad obj) {
-		try {
-			return repo_sol_prop.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+		return repoSolProp.save(obj);
 
-	@Override
-	public SolicitudPropiedad leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<SolicitudPropiedad> listar() {
-		return repo_sol_prop.findAll();
+		return repoSolProp.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_sol_prop.existsById(id)) {
-			repo_sol_prop.deleteById(id);
+		if (repoSolProp.existsById(id)) {
+			repoSolProp.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
 
 	@Override
 	public List<SolicitudPropiedad> listarSolPendienteyAceptado(Integer id) {
-		try {
-			Arrendero a = new Arrendero();
-			a.setIdArrendero(id);
-			List<SolicitudPropiedad> lsSol = repo_sol_prop.findByArrendero(a);
-			lsSol = lsSol.stream().filter( sol -> sol.getEstado()==1 || sol.getEstado()==2).collect(Collectors.toList());
-			return lsSol;
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero a = new Arrendero();
+		a.setIdArrendero(id);
+		List<SolicitudPropiedad> lsSol = repoSolProp.findByArrendero(a);
+		lsSol = lsSol.stream().filter(sol -> sol.getEstado() == 1 || sol.getEstado() == 2).collect(Collectors.toList());
+		return lsSol;
+
 	}
 
 	@Override
 	public List<SolicitudPropiedad> listarSolArrendatario(Integer id) {
-		try {
-			Arrendatario a = new Arrendatario();
-			a.setIdArrendatario(id);
-			List<SolicitudPropiedad> lsSol = repo_sol_prop.findByArrendatario(a);
-			lsSol = lsSol.stream().filter( sol -> sol.getEstado()!=1).collect(Collectors.toList());
-			return lsSol;
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendatario a = new Arrendatario();
+		a.setIdArrendatario(id);
+		List<SolicitudPropiedad> lsSol = repoSolProp.findByArrendatario(a);
+		lsSol = lsSol.stream().filter(sol -> sol.getEstado() != 1).collect(Collectors.toList());
+		return lsSol;
+
 	}
 
 	@Override
 	public List<SolicitudPropiedad> listarSolAceptadas(Integer id) {
-		try {
-			Arrendatario a = new Arrendatario();
-			a.setIdArrendatario(id);
-			List<SolicitudPropiedad> lsSol = repo_sol_prop.findByArrendatario(a);
-			lsSol = lsSol.stream().filter( sol -> sol.getEstado()==1).collect(Collectors.toList());
-			return lsSol;
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendatario a = new Arrendatario();
+		a.setIdArrendatario(id);
+		List<SolicitudPropiedad> lsSol = repoSolProp.findByArrendatario(a);
+		lsSol = lsSol.stream().filter(sol -> sol.getEstado() == 1).collect(Collectors.toList());
+		return lsSol;
+
 	}
 
 	@Override
@@ -111,19 +90,12 @@ public class SolicitudPropiedadServiceImpl implements SolicitudPropiedadService 
 		Arrendatario arrendatario = new Arrendatario();
 		prop.setIdPropiedad(idPropiedad);
 		arrendatario.setIdArrendatario(idArrendatario);
-		try {
-			SolicitudPropiedad sol =  repo_sol_prop.findByPropiedadAndArrendatario(prop,arrendatario);
-			if(sol!=null) {
-				if(sol.getEstado()==4) {
-					return false;
-				}else {
-					return true;
-				}
-			}else {
-				return false;
-			}
-		} catch (Exception e) {
-			throw e;
+		SolicitudPropiedad sol = repoSolProp.findByPropiedadAndArrendatario(prop, arrendatario);
+		if (sol != null) {
+			return sol.getEstado() != 4;
+		} else {
+			return false;
 		}
+
 	}
 }

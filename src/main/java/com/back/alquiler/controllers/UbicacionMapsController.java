@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.back.alquiler.models.FiltroDTO;
+import com.back.alquiler.dto.JsonGeneral;
 import com.back.alquiler.models.UbicacionMaps;
 import com.back.alquiler.service.UbicacionMapService;
 import com.back.alquiler.utils.Constantes;
@@ -33,37 +33,37 @@ public class UbicacionMapsController {
 			service.registrar(maps);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		}catch(DataAccessException e) {
-			response.put("mensaje", Constantes.msgRegistrarUbicacionMapsError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_UBICACION_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 	}
 	
 	@GetMapping("/listarDisponibles")
-	public ResponseEntity<?> listarDisponibles(){
+	public ResponseEntity<Map<String, Object>> listarDisponibles(){
 		Map<String,Object> response = new HashMap<>();
 		try {
 			List<UbicacionMaps> maps = service.listarPropiedadesDisponibles();
-			response.put("aaData",maps);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+			response.put(Constantes.AADATA_TXT_RESPONSE,maps);
+			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch(DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarPropiedadesDisponiblesError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_PROPDISPONIBLE_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 	}
 	
 	@PostMapping("/filtrarDisponibles")
-	public ResponseEntity<?> filtrarDisponibles(@RequestBody List<FiltroDTO> filtros){
+	public ResponseEntity<Map<String, Object>> filtrarDisponibles(@RequestBody List<JsonGeneral> filtros){
 		Map<String,Object> response = new HashMap<>();
 		try {
 			List<UbicacionMaps> maps = service.filtrarPropiedadesDisponibleS(filtros);
-			response.put("aaData",maps);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+			response.put(Constantes.AADATA_TXT_RESPONSE,maps);
+			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch(DataAccessException e) {
-			response.put("mensaje", Constantes.msgFiltrarPropiedadesError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_FILTRAR_PROP_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 	}
 	

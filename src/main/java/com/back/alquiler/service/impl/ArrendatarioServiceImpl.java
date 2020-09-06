@@ -15,56 +15,42 @@ import com.back.alquiler.service.ArrendatarioService;
 
 @Service
 public class ArrendatarioServiceImpl implements ArrendatarioService {
-	
+
 	@Autowired
-	ArrendatarioRepo repo_arrendatario;
-	
+	ArrendatarioRepo repoArrendatario;
+
 	@Autowired
-	UsuarioRepo repo_usuario;
-	
+	UsuarioRepo repoUsuario;
+
 	@Autowired
 	BCryptPasswordEncoder encoder;
-	
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Arrendatario registrar(Arrendatario obj) {
-		try {
-			return repo_arrendatario.save(obj);
-		}catch(Exception e) {
-			throw e;
-		}
+		return repoArrendatario.save(obj);
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Arrendatario modificar(Arrendatario obj) {
-		try {
-			return repo_arrendatario.save(obj);
-		}catch(Exception e) {
-			throw e;
-		}
+		return repoArrendatario.save(obj);
+
 	}
 
 	@Override
-	@Transactional(readOnly =true)
-	public Arrendatario leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Transactional(readOnly =true)
+	@Transactional(readOnly = true)
 	public List<Arrendatario> listar() {
-		return repo_arrendatario.findAll();
+		return repoArrendatario.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_arrendatario.existsById(id)) {
-			repo_arrendatario.deleteById(id);
+		if (repoArrendatario.existsById(id)) {
+			repoArrendatario.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}

@@ -26,18 +26,17 @@ public class ModuloController {
 	private ModuloService service;
 
 	@PostMapping("/listarPorPerfil")
-	public ResponseEntity<?> listar(@RequestBody Perfil perfil) throws Exception {
+	public ResponseEntity<Map<String,Object>> listar(@RequestBody Perfil perfil) throws Exception {
 		Map<String, Object> response = new HashMap<>();
-
 		try {
-			List<Modulo> res_modulo = service.listarModuloPorPerfil(perfil);
-			response.put("aaData",res_modulo);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			List<Modulo> modulos = service.listarModuloPorPerfil(perfil);
+			response.put(Constantes.AADATA_TXT_RESPONSE,modulos);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 
 		} catch (Exception e) {
-			response.put("mensaje", Constantes.msgListarXPerfilModuloError);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_MODULO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

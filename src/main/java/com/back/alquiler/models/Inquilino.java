@@ -34,7 +34,7 @@ public class Inquilino {
 	private Boolean estadoPago;
 	
 	@Transient
-	private Date fecha_inicio;
+	private Date fechaInicio;
 	
 	@ManyToOne
 	@JoinColumn(name="id_arrendatario",nullable=false)
@@ -112,11 +112,11 @@ public class Inquilino {
 		this.arrendero = arrendero;
 	}
 
-	public Date getFecha_inicio() {
-		return fecha_inicio;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
 
-	public void setFecha_inicio(Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 }

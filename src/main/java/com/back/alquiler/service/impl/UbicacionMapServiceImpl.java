@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.back.alquiler.models.FiltroDTO;
+import com.back.alquiler.dto.JsonGeneral;
 import com.back.alquiler.models.UbicacionMaps;
 import com.back.alquiler.repo.UbicacionMapsRepo;
 import com.back.alquiler.service.UbicacionMapService;
@@ -18,45 +18,33 @@ import com.back.alquiler.utils.Constantes;
 public class UbicacionMapServiceImpl implements UbicacionMapService {
 
 	@Autowired
-	UbicacionMapsRepo repo_ubicacion;
+	UbicacionMapsRepo repoUbicacion;
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public UbicacionMaps registrar(UbicacionMaps obj) {
-		try {
-			return repo_ubicacion.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoUbicacion.save(obj);
+
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public UbicacionMaps modificar(UbicacionMaps obj) {
-		try {
-			return repo_ubicacion.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+		return repoUbicacion.save(obj);
 
-	@Override
-	public UbicacionMaps leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<UbicacionMaps> listar() {
-		return repo_ubicacion.findAll();
+		return repoUbicacion.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if (repo_ubicacion.existsById(id)) {
-			repo_ubicacion.deleteById(id);
+		if (repoUbicacion.existsById(id)) {
+			repoUbicacion.deleteById(id);
 			return true;
 		} else {
 			return false;
@@ -65,18 +53,15 @@ public class UbicacionMapServiceImpl implements UbicacionMapService {
 
 	@Override
 	public List<UbicacionMaps> listarPropiedadesDisponibles() {
-		try {
-			List<UbicacionMaps> lsMaps = repo_ubicacion.findAll();
-			return lsMaps.stream().filter(maps -> maps.getPropiedad().getConfirmado()).collect(Collectors.toList());
-		} catch (Exception e) {
-			throw e;
-		}
+		List<UbicacionMaps> lsMaps = repoUbicacion.findAll();
+		return lsMaps.stream().filter(maps -> maps.getPropiedad().getConfirmado()).collect(Collectors.toList());
+
 	}
 
 	@Override
-	public List<UbicacionMaps> filtrarPropiedadesDisponibleS(List<FiltroDTO> filtros) {
+	public List<UbicacionMaps> filtrarPropiedadesDisponibleS(List<JsonGeneral> filtros) {
 
-		List<UbicacionMaps> lsMaps = repo_ubicacion.findAll().stream()
+		List<UbicacionMaps> lsMaps = repoUbicacion.findAll().stream()
 				.filter(maps -> maps.getPropiedad().getConfirmado()).collect(Collectors.toList());
 
 		if (filtros.get(0) != null) {
@@ -89,15 +74,17 @@ public class UbicacionMapServiceImpl implements UbicacionMapService {
 
 		if (filtros.get(1) != null) {
 			Integer idPiso = filtros.get(1).getId();
-			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getCantidadPisos() >= Constantes.getDatapisos()[idPiso]
-					&& maps.getPropiedad().getCantidadPisos() <= Constantes.getDatapisos()[idPiso +1])
+			lsMaps = lsMaps.stream()
+					.filter(maps -> maps.getPropiedad().getCantidadPisos() >= Constantes.getDatapisos()[idPiso]
+							&& maps.getPropiedad().getCantidadPisos() <= Constantes.getDatapisos()[idPiso + 1])
 					.collect(Collectors.toList());
 		}
 
 		if (filtros.get(2) != null) {
 			Integer idHabitacion = filtros.get(2).getId();
-			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad().getNroHabitaciones() >= Constantes.getDatahabitaciones()[idHabitacion]
-					&& maps.getPropiedad().getNroHabitaciones() <= Constantes.getDatahabitaciones()[idHabitacion +1])
+			lsMaps = lsMaps.stream().filter(maps -> maps.getPropiedad()
+					.getNroHabitaciones() >= Constantes.getDatahabitaciones()[idHabitacion]
+					&& maps.getPropiedad().getNroHabitaciones() <= Constantes.getDatahabitaciones()[idHabitacion + 1])
 					.collect(Collectors.toList());
 
 		}

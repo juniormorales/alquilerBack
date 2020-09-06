@@ -14,78 +14,57 @@ import com.back.alquiler.service.RentaService;
 
 @Service
 public class RentaServiceImpl implements RentaService {
-	
+
 	@Autowired
-	RentaRepo repo_renta;
-	
+	RentaRepo repoRenta;
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Renta registrar(Renta obj) {
-		try {
-			return repo_renta.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoRenta.save(obj);
+
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Renta modificar(Renta obj) {
-		try {
-			return repo_renta.save(obj);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+		return repoRenta.save(obj);
 
-	@Override
-	public Renta leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Renta> listar() {
-		return repo_renta.findAll();
+		return repoRenta.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Boolean eliminar(Integer id) {
-		if(repo_renta.existsById(id)) {
-			repo_renta.deleteById(id);
+		if (repoRenta.existsById(id)) {
+			repoRenta.deleteById(id);
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
 
 	@Override
 	public List<Renta> listarRentasPendientes(Inquilino inquilino) {
-		try {
-			return repo_renta.findByInquilinoAndEstadoOrderByFechaFinRentaAsc(inquilino, 0);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoRenta.findByInquilinoAndEstadoOrderByFechaFinRentaAsc(inquilino, 0);
+
 	}
 
 	@Override
 	public List<Renta> listarRentasCanceladas(Inquilino inquilino) {
-		try {
-			return repo_renta.findByInquilinoAndEstadoOrderByFechaFinRentaAsc(inquilino, 1);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoRenta.findByInquilinoAndEstadoOrderByFechaFinRentaAsc(inquilino, 1);
+
 	}
 
 	@Override
 	public List<Renta> listarDeudasRenta(Inquilino inquilino) {
-		try {
-			return repo_renta.findByInquilinoAndEstadoOrderByFechaFinRentaAsc(inquilino, 2);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoRenta.findByInquilinoAndEstadoOrderByFechaFinRentaAsc(inquilino, 2);
+
 	}
 
 }

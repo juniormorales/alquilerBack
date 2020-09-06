@@ -23,114 +23,85 @@ import com.back.alquiler.service.DashboardService;
 public class DashboardServiceImpl implements DashboardService {
 
 	@Autowired
-	PagoRepo repo_pago;
+	PagoRepo repoPago;
 
 	@Autowired
-	SolicitudPropiedadRepo repo_solicitud;
+	SolicitudPropiedadRepo repoSolicitud;
 
 	@Autowired
-	PropiedadRepo repo_propiedad;
-	
+	PropiedadRepo repoPropiedad;
+
 	@Autowired
-	InquilinoRepo repo_inquilino;
+	InquilinoRepo repoInquilino;
 
 	@Override
 	public List<Map<String, Object>> retornarGananciaAños(Integer id, List<JsonGeneral> anios) {
 		Arrendero arrendero = new Arrendero();
 		arrendero.setIdArrendero(id);
-		try {
-			List<Pago> pagos = repo_pago.findByArrenderoAndEstado(arrendero, true);
-			List<Map<String, Object>> response = new ArrayList<>();
-			anios.forEach(json -> {
-				List<Double> gananciapormes = new ArrayList<>();
-				IntStream.range(0, 12).forEach(mes -> {
-					gananciapormes.add(
-							pagos.stream().filter(pago -> pago.getFechaConfirmado().getYear() + 1900 == json.getId())
-									.filter(pago -> pago.getFechaConfirmado().getMonth() == mes)
-									.mapToDouble(pago -> pago.getMonto()).sum());
-				});
-
-				Map<String, Object> ganancias = new HashMap<>();
-				ganancias.put("anio", json.getItemName());
-				ganancias.put("ganancias", gananciapormes);
-				response.add(ganancias);
+		List<Pago> pagos = repoPago.findByArrenderoAndEstado(arrendero, true);
+		List<Map<String, Object>> response = new ArrayList<>();
+		anios.forEach(json -> {
+			List<Double> gananciapormes = new ArrayList<>();
+			IntStream.range(0, 12).forEach(mes -> {
+				gananciapormes
+						.add(pagos.stream().filter(pago -> pago.getFechaConfirmado().getYear() + 1900 == json.getId())
+								.filter(pago -> pago.getFechaConfirmado().getMonth() == mes)
+								.mapToDouble(pago -> pago.getMonto()).sum());
 			});
-			return response;
-		} catch (Exception e) {
-			throw e;
-		}
+
+			Map<String, Object> ganancias = new HashMap<>();
+			ganancias.put("anio", json.getItemName());
+			ganancias.put("ganancias", gananciapormes);
+			response.add(ganancias);
+		});
+		return response;
 	}
 
 	@Override
 	public List<Map<String, Object>> retornaCantidadSolPropiedad(Integer id) {
 		List<Map<String, Object>> resp = new ArrayList<>();
-		try {
-			Arrendero arrendero = new Arrendero();
-			arrendero.setIdArrendero(id);
-			List<SolicitudPropiedad> listaSolicitudes = repo_solicitud.findByArrendero(arrendero);
-			repo_propiedad.findByArrenderoAndConfirmado(arrendero, true).forEach(propiedad -> {
-				Long cantidad = listaSolicitudes.stream()
-						.filter(sol -> sol.getPropiedad().getIdPropiedad().equals(propiedad.getIdPropiedad()))
-						.map(sol -> sol.getPropiedad())
-						.count();
-				Map<String,Object> response = new HashMap<>();
-				response.put("propiedad",propiedad.getAlias());
-				response.put("nrosol",cantidad);
-				resp.add(response);
-			});
-			return resp;
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero arrendero = new Arrendero();
+		arrendero.setIdArrendero(id);
+		List<SolicitudPropiedad> listaSolicitudes = repoSolicitud.findByArrendero(arrendero);
+		repoPropiedad.findByArrenderoAndConfirmado(arrendero, true).forEach(propiedad -> {
+			Long cantidad = listaSolicitudes.stream()
+					.filter(sol -> sol.getPropiedad().getIdPropiedad().equals(propiedad.getIdPropiedad()))
+					.map(sol -> sol.getPropiedad()).count();
+			Map<String, Object> response = new HashMap<>();
+			response.put("propiedad", propiedad.getAlias());
+			response.put("nrosol", cantidad);
+			resp.add(response);
+		});
+		return resp;
 	}
 
 	@Override
 	public Long cantidadInquilinosAlDia(Integer id) {
-		try {
-			Arrendero arrendero = new Arrendero();
-			arrendero.setIdArrendero(id);
-			return repo_inquilino.findByArrenderoAndEstadoPago(arrendero,true)
-					.stream().count();
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero arrendero = new Arrendero();
+		arrendero.setIdArrendero(id);
+		return repoInquilino.findByArrenderoAndEstadoPago(arrendero, true).stream().count();
 	}
 
 	@Override
 	public Long cantidadInquilinosDeudores(Integer id) {
-		try {
-			Arrendero arrendero = new Arrendero();
-			arrendero.setIdArrendero(id);
-			return repo_inquilino.findByArrenderoAndEstadoPago(arrendero,false)
-					.stream().count();
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero arrendero = new Arrendero();
+		arrendero.setIdArrendero(id);
+		return repoInquilino.findByArrenderoAndEstadoPago(arrendero, false).stream().count();
 	}
 
 	@Override
 	public Long cantidadPagosPorConfirmar(Integer id) {
-		try {
-			Arrendero arrendero = new Arrendero();
-			arrendero.setIdArrendero(id);
-			return repo_pago.findByArrenderoAndEstadoAndRechazado(arrendero, false,false)
-					.stream().count();
-			
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero arrendero = new Arrendero();
+		arrendero.setIdArrendero(id);
+		return repoPago.findByArrenderoAndEstadoAndRechazado(arrendero, false, false).stream().count();
+
 	}
 
 	@Override
 	public Long cantidadSolicitudesPendientes(Integer id) {
-		try {
-			Arrendero arrendero = new Arrendero();
-			arrendero.setIdArrendero(id);
-			return repo_solicitud.findByArrenderoAndEstado(arrendero, 2)
-					.stream().count();
-		} catch (Exception e) {
-			throw e;
-		}
+		Arrendero arrendero = new Arrendero();
+		arrendero.setIdArrendero(id);
+		return repoSolicitud.findByArrenderoAndEstado(arrendero, 2).stream().count();
 	}
 
 }

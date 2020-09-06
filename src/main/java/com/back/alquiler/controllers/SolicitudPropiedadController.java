@@ -25,120 +25,119 @@ import com.back.alquiler.utils.Constantes;
 public class SolicitudPropiedadController {
 
 	@Autowired
-	SolicitudPropiedadService service_sol_prop;
+	SolicitudPropiedadService serviceSolProp;
 	
 	@Autowired
-	InquilinoService service_inquilino;
+	InquilinoService serviceInquilino;
 
 	@PostMapping("/registrarSolicitud")
-	public ResponseEntity<?> registrarSolicitudPropiedad(@RequestBody SolicitudPropiedad sol) {
+	public ResponseEntity<Map<String, Object>> registrarSolicitudPropiedad(@RequestBody SolicitudPropiedad sol) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			service_sol_prop.registrar(sol);
-			response.put("titulo", Constantes.tituloOk);
-			response.put("mensaje", Constantes.msgRegistrarSolPropOk);
-			response.put("tipo", Constantes.success);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			serviceSolProp.registrar(sol);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_SOLICITUD_PROP_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgRegistrarSolPropError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_SOLICITUD_PROP_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/listarParaArrendero/{id}")
-	public ResponseEntity<?> listarPorArrendero(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, Object>> listarPorArrendero(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			List<SolicitudPropiedad> lsSol = service_sol_prop.listarSolPendienteyAceptado(id);
-			response.put("aaData", lsSol);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			List<SolicitudPropiedad> lsSol = serviceSolProp.listarSolPendienteyAceptado(id);
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsSol);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarSolError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_SOLICITUD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/listarParaArrendatario/{id}")
-	public ResponseEntity<?> listarPorArrendatarioHistorial(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, Object>> listarPorArrendatarioHistorial(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			List<SolicitudPropiedad> lsSol = service_sol_prop.listarSolArrendatario(id);
-			response.put("aaData", lsSol);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			List<SolicitudPropiedad> lsSol = serviceSolProp.listarSolArrendatario(id);
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsSol);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarSolError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_SOLICITUD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/listarSolAcep/{id}")
-	public ResponseEntity<?> listarSolAceptadas(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, Object>> listarSolAceptadas(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			List<SolicitudPropiedad> lsSol = service_sol_prop.listarSolAceptadas(id);
-			response.put("aaData", lsSol);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			List<SolicitudPropiedad> lsSol = serviceSolProp.listarSolAceptadas(id);
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsSol);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarSolError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_SOLICITUD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping("/modificar")
-	public ResponseEntity<?> listarPorArrendatarioHistorial(@RequestBody SolicitudPropiedad sol) {
+	public ResponseEntity<Map<String, Object>> listarPorArrendatarioHistorial(@RequestBody SolicitudPropiedad sol) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			service_sol_prop.modificar(sol);
+			serviceSolProp.modificar(sol);
 			if (sol.getEstado() == 4) {
-				response.put("titulo", Constantes.tituloOk);
-				response.put("mensaje", Constantes.msgCancelarSolOk);
-				response.put("tipo", Constantes.success);
+				response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+				response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_CANCELAR_SOLICITUD_OK);
+				response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 			} else {
 				if (sol.getEstado() == 3) {
-					service_inquilino.registrarInquilinoSinContrato(sol);
-					response.put("titulo", Constantes.tituloOk);
-					response.put("mensaje", Constantes.msgAceptarAprobacionOk);
-					response.put("tipo", Constantes.success);
+					serviceInquilino.registrarInquilinoSinContrato(sol);
+					response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+					response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACEPTAR_APROBACION_OK);
+					response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 				} else {
 					if (sol.getEstado() == 0) {
-						response.put("titulo", Constantes.tituloOk);
-						response.put("mensaje", Constantes.msgRechazarSolOk);
-						response.put("tipo", Constantes.success);
+						response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+						response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_RECHAZAR_SOLICITUD_OK);
+						response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 					} else {
-						response.put("titulo", Constantes.tituloOk);
-						response.put("mensaje", Constantes.msgActualizarSolOk);
-						response.put("tipo", Constantes.success);
+						response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+						response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_SOLICITUD_OK);
+						response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 					}
 				}
 			}
-
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgActualizarSolError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_SOLICITUD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/buscarSolicitudExistente/{idPropiedad}/{idArrendatario}")
-	public ResponseEntity<?> buscarSolExistente(@PathVariable("idPropiedad") Integer idPropiedad,@PathVariable("idArrendatario") Integer idArrendatario){
+	public ResponseEntity<Map<String, Object>> buscarSolExistente(@PathVariable("idPropiedad") Integer idPropiedad,@PathVariable("idArrendatario") Integer idArrendatario){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Boolean resp = service_sol_prop.buscarSolExistente(idPropiedad,idArrendatario);
-			response.put("encontro",resp);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			Boolean resp = serviceSolProp.buscarSolExistente(idPropiedad,idArrendatario);
+			response.put(Constantes.ENCONTRO_TXT_RESPONSE,resp);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgBuscarSolExistenteError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_BUSCAR_SOLICITUD_EXISTENTE);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

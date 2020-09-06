@@ -15,46 +15,9 @@ public class ModuloServiceImpl implements ModuloService {
 
 	@Autowired
 	private ModuloRepo repo;
-	
-	@Override
-	public Modulo registrar(Modulo obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 
-	@Override
-	public Modulo modificar(Modulo obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Modulo leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Modulo> listar() {
-	
-			return null;
-			
-	}
-
-	@Override
-	public Boolean eliminar(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public List<Modulo> listarModuloPorPerfil(Perfil perfil) {
-		try {
-			List<Modulo> lsres=repo.listarModuloPorPerfil(perfil.getIdPerfil());
-			return lsres;
-		}catch(Exception e) {
-			return null;
-		}
+		return repo.listarModuloPorPerfil(perfil.getIdPerfil());
 	}
 }

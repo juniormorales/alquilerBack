@@ -31,101 +31,103 @@ import com.back.alquiler.utils.Constantes;
 public class PropiedadController {
 
 	@Autowired
-	PropiedadService service_propiedad;
-	
+	PropiedadService servicePropiedad;
+
 	@Autowired
-	ImagenPropiedadService service_imagen_prop;
-	
+	ImagenPropiedadService serviceImagenProp;
+
 	@Autowired
-	UbicacionMapService service_ubicacion;
-	
+	UbicacionMapService serviceUbicacion;
+
 	@GetMapping("/listar/{id}")
-	public ResponseEntity<?> listarPorArrendero(@PathVariable Integer id){
+	public ResponseEntity<Map<String, Object>> listarPorArrendero(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				List<Propiedad> lsProp = service_propiedad.listarPorArrendero(id);
-				response.put("aaData",lsProp);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			List<Propiedad> lsProp = servicePropiedad.listarPorArrendero(id);
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsProp);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgRegistrarPropiedadError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_PROPIEDAD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,
+					e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@GetMapping("/listarPorAceptar")
-	public ResponseEntity<?> listarUbicacionMapPorAceptar(){
+	public ResponseEntity<Map<String, Object>> listarUbicacionMapPorAceptar() {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				List<UbicacionMaps> lsProp = service_propiedad.listarNoAceptadas();
-				response.put("aaData",lsProp);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			List<UbicacionMaps> lsProp = servicePropiedad.listarNoAceptadas();
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsProp);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgRegistrarPropiedadError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_PROPIEDAD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping("/registrar")
-	public ResponseEntity<?> registrarPropiedad(@RequestBody Propiedad propiedad) {
+	public ResponseEntity<Map<String, Object>> registrarPropiedad(@RequestBody Propiedad propiedad) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				Propiedad resp = service_propiedad.registrar(propiedad);
-				response.put("titulo", Constantes.tituloOk);
-				response.put("mensaje", Constantes.msgRegistrarPropiedadOk);
-				response.put("tipo",Constantes.success);
-				response.put("id",resp.getIdPropiedad());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			Propiedad resp = servicePropiedad.registrar(propiedad);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_PROPIEDAD_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
+			response.put(Constantes.ID_TXT_RESPONSE, resp.getIdPropiedad());
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgRegistrarPropiedadError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_PROPIEDAD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@PutMapping("/modificar")
-	public ResponseEntity<?> modificarPropiedad(@RequestBody Propiedad propiedad) {
+	public ResponseEntity<Map<String, Object>> modificarPropiedad(@RequestBody Propiedad propiedad) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				service_propiedad.modificar(propiedad);
-				response.put("titulo", Constantes.tituloOk);
-				response.put("mensaje", Constantes.msgActualizarPropiedadOk);
-				response.put("tipo",Constantes.success);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			servicePropiedad.modificar(propiedad);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_PROPIEDAD_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgActualizarPropiedadError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_PROPIEDAD_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
+
 	@DeleteMapping("/eliminar/{id}")
-	public ResponseEntity<?> eliminarPropiedad(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, Object>> eliminarPropiedad(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
-		try {	
+		try {
 			try {
-				service_imagen_prop.eliminarTodasLasImagenes(id);
+				serviceImagenProp.eliminarTodasLasImagenes(id);
 			} catch (IOException e) {
-				e.printStackTrace();
+				response.put(Constantes.MENSAJE_TXT_RESPONSE, e.getMessage());
+				response.put(Constantes.ERROR_TXT_RESPONSE, Constantes.MSG_ELIMINAR_ERROR_GRAVE);
+				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			Boolean resp = service_propiedad.eliminar(id);
+			Boolean resp = servicePropiedad.eliminar(id);
 			if (resp) {
-				response.put("titulo", Constantes.tituloOk);
-				response.put("mensaje", Constantes.msgEliminarOk);
-				response.put("tipo",Constantes.success);
+				response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+				response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ELIMINAR_OK);
+				response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 
 			} else {
-				response.put("titulo", Constantes.tituloError);
-				response.put("mensaje", Constantes.msgEliminarError);
-				response.put("tipo",Constantes.error);
+				response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_ERROR);
+				response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ELIMINAR_ERRROR);
+				response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.ERROR);
 			}
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
-		}catch(DataIntegrityViolationException e) {
-			response.put("mensaje", Constantes.msgEliminarErrorGrave);
-			response.put("error", Constantes.msgEliminarErrorGraveDesc);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+		} catch (DataIntegrityViolationException e) {
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ELIMINAR_ERROR_GRAVE);
+			response.put(Constantes.ERROR_TXT_RESPONSE, Constantes.MSG_ELIMINAR_ERROR_GRAVE_DESC);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}	
+	}
 }

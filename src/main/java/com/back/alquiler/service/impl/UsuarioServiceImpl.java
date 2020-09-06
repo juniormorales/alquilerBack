@@ -3,11 +3,8 @@ package com.back.alquiler.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,37 +27,32 @@ import com.back.alquiler.service.UsuarioService;
 @Service
 public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UsuarioServiceImpl.class);
+	@Autowired
+	private UsuarioRepo repoUsuario;
 
 	@Autowired
-	private UsuarioRepo repo;
+	private ArrenderoRepo repoArrendero;
 
 	@Autowired
-	private ArrenderoRepo repo_arrendero;
+	private ArrendatarioRepo repoArrendatario;
 
-	@Autowired
-	private ArrendatarioRepo repo_arrendatario;
-
-	public UsuarioRepo getRepo() {
-		return repo;
+	public UsuarioRepo getRepoUsuario() {
+		return repoUsuario;
 	}
 
-	public void setRepo(UsuarioRepo repo) {
-		this.repo = repo;
+	public void setRepoUsuario(UsuarioRepo repo) {
+		this.repoUsuario = repo;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username){
 
-		Usuario usuario = repo.findByUsername(username);
+		Usuario usuario = repoUsuario.findByUsername(username);
 
 		if (usuario == null) {
-			UsernameNotFoundException ex = new UsernameNotFoundException(
+			throw new UsernameNotFoundException(
 					"¡Error en el login: no existe el usuario '" + username + "' en el sistema!");
-			LOG.error("¡Error en el login: no existe el usuario '" + username + "' en el sistema!",
-					new RuntimeException(ex), "Fallo: " + ex.getStackTrace()[0].getClassName());
-			throw ex;
 		}
 
 		GrantedAuthority rol = new SimpleGrantedAuthority(usuario.getPerfil().getNombres());
@@ -73,155 +65,101 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 
 	@Override
 	public Usuario findbyUsername(String username) {
-		try {
-			return repo.findByUsername(username);
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " buscarPorUsername. ERROR : " + e.getMessage());
-			throw e;
-		}
+		return repoUsuario.findByUsername(username);
+
 	}
 
 	@Override
 	public Usuario findbyPerfil(Perfil perfil) {
-		try {
-			return repo.findByPerfil(perfil);
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " buscarPorPerfil. ERROR : " + e.getMessage());
-			throw e;
-		}
-
+		return repoUsuario.findByPerfil(perfil);
 	}
 
 	@Override
 	public Usuario registrar(Usuario obj) {
-		try {
-			obj.setFechaCreacion(new Date());
-			obj.setEstaInhabilitado(false);
-			return repo.save(obj);
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " registrarUsuario. ERROR : " + e.getMessage());
-			throw e;
-		}
+		obj.setFechaCreacion(new Date());
+		obj.setEstaInhabilitado(false);
+		return repoUsuario.save(obj);
+
 	}
 
 	@Override
 	public Usuario modificar(Usuario obj) {
-		try {
-			return repo.save(obj);
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " actualizarUsuario. ERROR : " + e.getMessage());
-			throw e;
-		}
-	}
+		return repoUsuario.save(obj);
 
-	@Override
-	public Usuario leer(Integer id) {
-		try {
-			Optional<Usuario> op = repo.findById(id);
-			return op.isPresent() ? op.get() : null;
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " leerUsuario. ERROR : " + e.getMessage());
-			throw e;
-		}
 	}
 
 	@Override
 	public List<Usuario> listar() {
-		try {
-			List<Usuario> ls = repo.findAll().stream().filter(usuario -> !usuario.getTipoUsuario().equalsIgnoreCase("ADMINISTRADOR"))
-					.map( usuario -> {
-						usuario.setPassword(null);
-						return usuario;
-					})
-					.collect(Collectors.toList());
-			return ls;
-
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " listarUsuarios. ERROR : " + e.getMessage());
-			throw e;
-		}
+		return repoUsuario.findAll().stream()
+				.filter(usuario -> !usuario.getTipoUsuario().equalsIgnoreCase("ADMINISTRADOR")).map(usuario -> {
+					usuario.setPassword(null);
+					return usuario;
+				}).collect(Collectors.toList());
 	}
 
 	@Override
 	public Boolean eliminar(Integer id) {
-		try {
-			Boolean resp = repo.existsById(id);
-			if (resp) {
-				repo.deleteById(id);
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			LOG.error(this.getClass().getSimpleName() + " eliminarUsuario. ERROR : " + e.getMessage());
-			throw e;
+		Boolean resp = repoUsuario.existsById(id);
+		if (Boolean.TRUE.equals(resp)) {
+			repoUsuario.deleteById(id);
+			return true;
+		} else {
+			return false;
 		}
 
 	}
 
 	@Override
 	public Boolean buscarSiExisteEmail(String email) {
-		return repo.existsByEmail(email);
+		return repoUsuario.existsByEmail(email);
 	}
 
 	@Override
 	public Boolean buscarSiExisteUsername(String username) {
-		return repo.existsByUsername(username);
+		return repoUsuario.existsByUsername(username);
 	}
 
 	@Override
 	public Boolean buscarSiExisteDNI(String dni) {
-		return repo.existsByDni(dni);
+		return repoUsuario.existsByDni(dni);
 	}
 
 	@Override
 	public Usuario inhabilitarCuenta(Usuario usuario) {
 		usuario.setEstado(true);
 		usuario.setEstaInhabilitado(true);
-		return repo.save(usuario);
+		return repoUsuario.save(usuario);
 	}
 
 	@Override
 	public List<Arrendero> listarCuentasNoActivadas() {
-		List<Usuario> lsUsu = repo.findByTipoUsuarioAndEstaInhabilitadoAndEstado("ARRENDERO", false, false);
+		List<Usuario> lsUsu = repoUsuario.findByTipoUsuarioAndEstaInhabilitadoAndEstado("ARRENDERO", false, false);
 		List<Arrendero> lsArrendero = new ArrayList<>();
-		lsUsu.forEach(usuario -> {
-			lsArrendero.add(repo_arrendero.findByUsuario(usuario));
-		});
+		lsUsu.forEach(usuario -> lsArrendero.add(repoArrendero.findByUsuario(usuario)));
 		return lsArrendero;
 	}
 
 	@Override
 	public Usuario activarCuenta(Usuario usuario) {
 		usuario.setEstado(true);
-		return repo.save(usuario);
+		return repoUsuario.save(usuario);
 	}
 
 	@Override
 	public Boolean verificarInhabilitado(Usuario usuario) {
 		Usuario user = findbyUsername(usuario.getUsername());
-		if (user.getEstaInhabilitado()) {
-			return true;
-		} else {
-			return false;
-		}
+		return user.getEstaInhabilitado();
 	}
 
 	@Override
 	public Arrendero retornarArrendero(Usuario usuario) {
-		try {
-			return repo_arrendero.findByUsuario(usuario);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoArrendero.findByUsuario(usuario);
+
 	}
 
 	@Override
 	public Arrendatario retornarArrendatario(Usuario usuario) {
-		try {
-			return repo_arrendatario.findByUsuario(usuario);
-		} catch (Exception e) {
-			throw e;
-		}
+		return repoArrendatario.findByUsuario(usuario);
+
 	}
 }

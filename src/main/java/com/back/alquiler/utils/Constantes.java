@@ -2,6 +2,10 @@ package com.back.alquiler.utils;
 
 
 public class Constantes {
+	
+	private Constantes() {
+		
+	}
 
 	public static final String LLAVE_SECRETA = "alguna.clave.secreta.12345678";
 	public static final String RSA_PRIVADA = "-----BEGIN RSA PRIVATE KEY-----\r\n"
@@ -39,152 +43,153 @@ public class Constantes {
 			+ "QoNg/SszAGbLl84pCszfzPRFeKC9nHxTOycT7yZY812HhcdE/mWVMSpQwnPbzE6E\r\n" + "2QIDAQAB\r\n"
 			+ "-----END PUBLIC KEY-----";
 
-	public static final Integer valTransaccionNoEncontro = 0; // No se encontro registro buscado
-	public static final Integer valTransaccionOk = 1; // Toda la transaccion se realizo correctamente
-	public static final Integer valTransaccionError = 2; // Fallo una parte de la transaccion
+	public static final Integer VAL_TRANSACCION_NO_ENCONTRO = 0; // No se encontro registro buscado
+	public static final Integer VAL_TRANSACCION_OK = 1; // Toda la transaccion se realizo correctamente
+	public static final Integer VAL_TRANSACCION_ERROR = 2; // Fallo una parte de la transaccion
 
 	// Modulo
-	public static final String msgListarXPerfilModuloOk = "Modulos listados correctamente";
-	public static final String msgListarXPerfilModuloError = "Error al listar modulos por perfil";
+	public static final String MSG_LISTAR_MODULO_OK = "Modulos listados correctamente";
+	public static final String MSG_LISTAR_MODULO_ERROR = "Error al listar modulos por perfil";
 
 	// Departamento
-	public static final String msgListarDepartamentoError = "Error al listar departamentos";
-	public static final String msgListarDepartamentoOK = "Departamentos listados correctamente";
+	public static final String MSG_LISTAR_DEP_ERROR = "Error al listar departamentos";
+	public static final String MSG_LISTAR_DEP_OK = "Departamentos listados correctamente";
 
 	// Provincia
-	public static final String msgListarProvinciaError = "Error al listar provincias";
-	public static final String msgListarProvinciaOK = "Provincias listados correctamente";
+	public static final String MSG_LISTAR_PROV_ERROR = "Error al listar provincias";
+	public static final String MSG_LISTAR_PROV_OK = "Provincias listados correctamente";
 
 	// Distrito
-	public static final String msgListarDistritoError = "Error al listar distritos";
-	public static final String msgListarDistritoOK = "Distritos listados correctamente";
+	public static final String MSG_LISTAR_DISTRIT_ERROR = "Error al listar distritos";
+	public static final String MSG_LISTAR_DISTRIT_OK = "Distritos listados correctamente";
 
 	// Tipo Zona
-	public static final String msgListarTipoZonaError = "Error al listar tipos de zona";
-	public static final String msgListarTipoZonaOK = "Tipos de zona listados correctamente";
+	public static final String MSG_LISTAR_TIPZONA_ERROR = "Error al listar tipos de zona";
+	public static final String MSG_LISTAR_TIPZONA_OK = "Tipos de zona listados correctamente";
 
 	// Eliminar
-	public static final String msgEliminarOk = "El registro se ha eliminado correctamente";
-	public static final String msgEliminarError = "El registro que se quiere eliminar no existe o ya ha sido eliminado de la base de datos";
-	public static final String msgEliminarErrorGrave = "No se puede eliminar el registro";
-	public static final String msgEliminarErrorGraveDesc = "Este registro esta siendo usado por otro, verificar que ningun recurso este usando este valor";
+	public static final String MSG_ELIMINAR_OK = "El registro se ha eliminado correctamente";
+	public static final String MSG_ELIMINAR_ERRROR = "El registro que se quiere eliminar no existe o ya ha sido eliminado de la base de datos";
+	public static final String MSG_ELIMINAR_ERROR_GRAVE = "No se puede eliminar el registro";
+	public static final String MSG_ELIMINAR_ERROR_GRAVE_DESC = "Este registro esta siendo usado por otro, verificar que ningun recurso este usando este valor";
 
 	// Usuario
-	public static final String msgRegistrarUsuarioOk = "Se ha registrado exitosamente su cuenta.";
-	public static final String msgRegistrarArrenderoOk = "En menos de 24 horas su cuenta sera revisada por un administrador para su activacion.";
-	public static final String msgRegistrarUsuarioError = "Ocurrio un error al registrar su cuenta en la Base de datos.";
-	public static final String msgYaExisteDNI = "Este DNI ya tiene una cuenta asignada.";
-	public static final String msgYaExisteEmail = "Este email ya tiene registrado una cuenta.";
-	public static final String msgYaExisteUsername = "Este username ya esta en uso, intente con otro.";
+	public static final String MSG_REGISTRAR_USUARIO_OK = "Se ha registrado exitosamente su cuenta.";
+	public static final String MSG_REGISTRAR_ARRENDERO_OK = "En menos de 24 horas su cuenta sera revisada por un administrador para su activacion.";
+	public static final String MSG_REGISTRAR_USUARIO_ERROR = "Ocurrio un error al registrar su cuenta en la Base de datos.";
+	public static final String MSG_EXISTE_DNI = "Este DNI ya tiene una cuenta asignada.";
+	public static final String MSG_EXISTE_EMAIL = "Este email ya tiene registrado una cuenta.";
+	public static final String MSG_EXISTE_USERNAME = "Este username ya esta en uso, intente con otro.";
 
 	// Propiedad
-	public static final String msgRegistrarPropiedadOk = "Se ha registrado correctamente la propiedad. En menos de 24 horas un administrador verificara si el número de partida registral "
+	public static final String MSG_REGISTRAR_PROPIEDAD_OK = "Se ha registrado correctamente la propiedad. En menos de 24 horas un administrador verificara si el número de partida registral "
 			+ "corresponde a la direccion de la propiedad registrada.";
-	public static final String msgRegistrarPropiedadError = "Ocurrio un error al registrar la propiedad en la base de datos.";
-	public static final String msgActualizarPropiedadOk = "Se ha actualizado correctamente la propiedad.";
-	public static final String msgActualizarPropiedadError = "Ocurrio un error al actualizar la propiedad en la base de datos.";
-	public static final String msgRegistrarImagenPropiedadOk = "La imagen se subio correctamente.";
-	public static final String msgRegistrarImagenPropiedadError = "Ocurrio un error al intentar subir la imagen.";
-	public static final String msgEliminarImagenesPropiedadOk = "Las imagenes seleccionadas se han quitado correctamente.";
-	public static final String msgEliminarImagenesPropiedadError = "Ocurrio un error al intentar eliminar las imagenes.";
-	public static final String msgListarImagenesPropiedadError = "Ocurrio un error al leer las imagenes de la propiedad.";
+	public static final String MSG_REGISTRAR_PROPIEDAD_ERROR = "Ocurrio un error al registrar la propiedad en la base de datos.";
+	public static final String MSG_ACTUALIZAR_PROPIEDAD_OK = "Se ha actualizado correctamente la propiedad.";
+	public static final String MSG_ACTUALIZAR_PROPIEDAD_ERROR = "Ocurrio un error al actualizar la propiedad en la base de datos.";
+	public static final String MSG_REGISTRAR_IMAGENPROP_OK = "La imagen se subio correctamente.";
+	public static final String MSG_REGISTRAR_IMAGENPROP_ERROR = "Ocurrio un error al intentar subir la imagen.";
+	public static final String MSG_ELIMINAR_IMAGENPROP_OK = "Las imagenes seleccionadas se han quitado correctamente.";
+	public static final String MSG_ELIMINAR_IMAGENPROP_ERROR = "Ocurrio un error al intentar eliminar las imagenes.";
+	public static final String MSG_LISTAR_IMAGENPROP_ERROR = "Ocurrio un error al leer las imagenes de la propiedad.";
 	
 	//Contrato
-	public static final String msgHabilitarContratoError = "Ocurrio un error al intentar crear el contrato";
-	public static final String msgCrearContratoOk = "El contrato se ha emitido correctamente, pongase "
+	public static final String MSG_HABILITAR_CONTRATO_ERROR = "Ocurrio un error al intentar crear el contrato";
+	public static final String MSG_CREAR_CONTRATO_OK = "El contrato se ha emitido correctamente, pongase "
 			+ "en contacto con su inquilino para coordinar la fecha de la firma si esque aun no lo ha hecho";
-	public static final String msgListarContratoError = "Ocurrio un error al intentar listar los contratos";
+	public static final String MSG_LISTAR_CONTRATO_ERROR = "Ocurrio un error al intentar listar los contratos";
 
 	// Cuentas
-	public static final String msgListarCuentasDesactivadasError = "Ocurrio un error al intentar listar las cuentas desactivadas";
-	public static final String msgListarCuentasError = "Ocurrio un error al intentar listar las cuentas registradas";
-	public static final String msgActivarCuentaError = "Ocurrio un error al intentar activar la cuenta";
-	public static final String msgActicarCuentaOk = "Se le ha habilitado la cuenta a este usuario";
-	public static final String msgInhabilitarCuentaOk = "Se ha inhabilitado la cuenta a este usuario";
-	public static final String msgInhabilitarCuentaError = "Ocurrio un error al intentar inhabilitar la cuenta";
-	public static final String msgCuentaInhabilitada = "Su cuenta ha sido inhabilitada por ingresar datos falsos";
-	public static final String msgBuscarUsuarioError = "Ocurrio un error al buscar al usuario en la base de datos";
+	public static final String MSG_LISTAR_CUENTASDESACT_ERROR = "Ocurrio un error al intentar listar las cuentas desactivadas";
+	public static final String MSG_LISTAR_CUENTA_ERROR = "Ocurrio un error al intentar listar las cuentas registradas";
+	public static final String MSG_ACTIVAR_CUENTA_ERROR = "Ocurrio un error al intentar activar la cuenta";
+	public static final String MSG_ACTIVAR_CUENTA_OK = "Se le ha habilitado la cuenta a este usuario";
+	public static final String MSG_INHABILITAR_CUENTA_OK = "Se ha inhabilitado la cuenta a este usuario";
+	public static final String MSG_INHABILITAR_CUENTA_ERROR = "Ocurrio un error al intentar inhabilitar la cuenta";
+	public static final String MSG_CUENTA_INHABILITADA = "Su cuenta ha sido inhabilitada por ingresar datos falsos";
+	public static final String MSG_BUSCAR_USUARIO_ERROR = "Ocurrio un error al buscar al usuario en la base de datos";
 	
 	//Banco
-	public static final String msgListarBancosError = "Ocurrio un error al intentar listar los bancos";
+	public static final String MSG_LISTAR_BANCO_ERROR = "Ocurrio un error al intentar listar los bancos";
 	
 	//calificacion
-	public static final String msgListarCalificacionesError = "Ocurrio un error al intentar listar las calificaciones";
+	public static final String MSG_LISTAR_CALIFICACION_ERROR = "Ocurrio un error al intentar listar las calificaciones";
+	public static final String MSG_REGISTRAR_CALIFICAICON_ERROR = "Ocurrio un error al intentar registrar la calificacion";
 	
 	// Condicion Pago
-	public static final String msgRegistrarCondicionPagoError = "Ocurrio un error al intentar registrar la condición de pago";
-	public static final String msgRegistrarCondicionPagoOk = "La condicion de pago se ha registrado correctamente";
-	public static final String msgActualizarCondicionPagoOk = "La condicion de pago se ha actualizado correctamente";
-	public static final String msgActualizarCondicionPagoError = "Ocurrio un error al intentar actualizar la condicion de pago";
-	public static final String msgListarCondicionPagoError = "Ocurrio un error al intentar listar las condiciones de pago";
+	public static final String MSG_REGISTRAR_CONDICPAGO_ERROR = "Ocurrio un error al intentar registrar la condición de pago";
+	public static final String MSG_REGISTRAR_CONDICPAGO_OK = "La condicion de pago se ha registrado correctamente";
+	public static final String MSG_ACTUALIZAR_CONDICPAGO_OK = "La condicion de pago se ha actualizado correctamente";
+	public static final String MSG_ACTUALIZAR_CONDICPAGO_ERROR = "Ocurrio un error al intentar actualizar la condicion de pago";
+	public static final String MSG_LISTAR_CONDICPAGO_ERROR = "Ocurrio un error al intentar listar las condiciones de pago";
 
 	// Pago
-	public static final String msgRegistrarPagoError = "Ocurrio un error al intentar registrar el pago";
-	public static final String msgRegistrarPagoParaConfirmarOk = "El voucher se ha enviado correctamente, sera revisado por el dueño para confirmar su pago";
-	public static final String msgConfirmarPagoOk = "El pago se ha confirmado correctamente";
-	public static final String msgRechazarPagoOk ="El pago se ha rechazado correctamente";
-	public static final String msgActualizarPagoError = "Ocurrio un error al intentar procesar el pago";
-	public static final String msgListarPagoError = "Ocurrio un error al intentar listar los pagos";
-	public static final String msgGenerarBoletaError ="Ocurrio un error al intentar generar su boleta de arrendamiento";
+	public static final String MSG_REGISTRAR_PAGO_ERROR = "Ocurrio un error al intentar registrar el pago";
+	public static final String MSG_REGISTRAR_PAGOCONFIRMAR_OK = "El voucher se ha enviado correctamente, sera revisado por el dueño para confirmar su pago";
+	public static final String MSG_CONFIRMAR_PAGO_OK = "El pago se ha confirmado correctamente";
+	public static final String MSG_RECHAZAR_PAGO_OK ="El pago se ha rechazado correctamente";
+	public static final String MSG_ACTUALIZAR_PAGO_ERROR = "Ocurrio un error al intentar procesar el pago";
+	public static final String MSG_LISTAR_PAGO_ERROR = "Ocurrio un error al intentar listar los pagos";
+	public static final String MSG_GENERAR_BOLETA_ERROR ="Ocurrio un error al intentar generar su boleta de arrendamiento";
 
 	// Inquilino
-	public static final String msgListarInquilinosPorArrenderoError = "Ocurrio un error al listar los inquilinos";
-	public static final String msgDarBajaInquilinoOk = "Se dio de baja al inquilino correctamente";
-	public static final String msgDarBajaInquilinoAunNo = "El contrato de este inquilino aun no ha caducado";
-	public static final String msgDarBajaInquilinoError = "Ocurrio un error al intentar dar de baja al inquilino";
+	public static final String MSG_LISTAR_INQUILINO_PORARRENDERO_ERROR = "Ocurrio un error al listar los inquilinos";
+	public static final String MSG_DARBAJA_INQUILINO_OK = "Se dio de baja al inquilino correctamente";
+	public static final String MSG_DARBAJA_INQUILINO_AUNNO = "El contrato de este inquilino aun no ha caducado";
+	public static final String MSG_DARBAJA_INQUILINO_ERROR = "Ocurrio un error al intentar dar de baja al inquilino";
 
 	//Solicitud Propiedad
-	public static final String msgRegistrarSolPropOk = "Su solicitud se ha enviado correctamente, el propietario evaluará su perfil y se le notificara de la respuesta que se haya tomado";
-	public static final String msgRegistrarSolPropError = "Ocurrio un error al registrar su solicitud";
-	public static final String msgBuscarSolExistenteError = "Ocurrio un error al intentar buscar una solicitud para esta propiedad";
+	public static final String MSG_REGISTRAR_SOLICITUD_PROP_OK = "Su solicitud se ha enviado correctamente, el propietario evaluará su perfil y se le notificara de la respuesta que se haya tomado";
+	public static final String MSG_REGISTRAR_SOLICITUD_PROP_ERROR = "Ocurrio un error al registrar su solicitud";
+	public static final String MSG_BUSCAR_SOLICITUD_EXISTENTE = "Ocurrio un error al intentar buscar una solicitud para esta propiedad";
 
-	public static final String msgListarSolError = "Ocurrio un error al listar las solicitudes de propiedad";
-	public static final String msgActualizarSolOk = "La solicitud se envio nuevamente con la nueva propuesta";
-	public static final String msgActualizarSolError = "Ocurrio un error al procesar la solicitud";
-	public static final String msgCancelarSolOk = "Su solicitud a esta propiedad ha sido cancelada";
-	public static final String msgRechazarSolOk = "Se ha rechazado la solicitud correctamente";
-	public static final String msgAceptarAprobacionOk = "¡Felicitaciones!, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
+	public static final String MSG_LISTAR_SOLICITUD_ERROR = "Ocurrio un error al listar las solicitudes de propiedad";
+	public static final String MSG_ACTUALIZAR_SOLICITUD_OK = "La solicitud se envio nuevamente con la nueva propuesta";
+	public static final String MSG_ACTUALIZAR_SOLICITUD_ERROR = "Ocurrio un error al procesar la solicitud";
+	public static final String MSG_CANCELAR_SOLICITUD_OK = "Su solicitud a esta propiedad ha sido cancelada";
+	public static final String MSG_RECHAZAR_SOLICITUD_OK = "Se ha rechazado la solicitud correctamente";
+	public static final String MSG_ACEPTAR_APROBACION_OK = "¡Felicitaciones!, has conseguido una propiedad para alquilarla, el arrendero contratista emitirá un formato "
 			+ "de contrato y se pondrá en contacto contigo a travez de tu email registrado o de uno de tus números telefónicos para completar la firma";
 	
 	//Renta
-	public static final String msgListarRentasInquilinoError = "Ocurrio un error al listar las rentas que posee";
+	public static final String MSG_LISTAR_RENTA_INQUILINO_ERROR = "Ocurrio un error al listar las rentas que posee";
 	
 	//Dashboard
-	public static final String msgMostrarGananciasAnualesDashError = "Error al procesar las ganancias por año";
-	public static final String msgListarCantidadSolicitudesPorPropiedadError = "Error al procesar la cantidad de solicitudes por propiedad";
-	public static final String msgCantidadInquilinosAlDiaError = "Error al procesar la cantidad de inquilinos al dia en sus pagos";
-	public static final String msgCantidadInquilinosDeudoresError = "Error al procesar la cantidad de inquilinos deudores en sus pagos";
-	public static final String msgCantidadPagosPorConfirmarError = "Error al procesar la cantidad de pagos por confirmar";
-	public static final String msgCantidadSolicitudesPendientesError = "Error al procesar la cantidad de solicitudes pendientes";
+	public static final String MSG_GANANCIA_ANUAL_ERROR = "Error al procesar las ganancias por año";
+	public static final String MSG_CANTIDAD_SOL_PROP_ERROR = "Error al procesar la cantidad de solicitudes por propiedad";
+	public static final String MSG_CANTIDAD_INQUILINO_ALDIA_ERROR = "Error al procesar la cantidad de inquilinos al dia en sus pagos";
+	public static final String MSG_CANTIDAD_INQUILINO_DEUDOR_ERROR = "Error al procesar la cantidad de inquilinos deudores en sus pagos";
+	public static final String MSG_CANTIDAD_PAGO_CONFIRMAR_ERROR = "Error al procesar la cantidad de pagos por confirmar";
+	public static final String MSG_CANT_SOL_PENDIENTE_ERROR = "Error al procesar la cantidad de solicitudes pendientes";
 	
 	//Pagos
 	
 	
 	//UbicacionMaps
-	public static final String msgRegistrarUbicacionMapsError = "Ocurrio un error al registrar la ubicacion de la propiedad";
-	public static final String msgListarPropiedadesDisponiblesError = "Ocurrio un error al intentar listar las propiedades disponibles";
-	public static final String msgFiltrarPropiedadesError = "Ocurrio un error al filtrar las propiedades";
+	public static final String MSG_REGISTRAR_UBICACION_ERROR = "Ocurrio un error al registrar la ubicacion de la propiedad";
+	public static final String MSG_LISTAR_PROPDISPONIBLE_ERROR = "Ocurrio un error al intentar listar las propiedades disponibles";
+	public static final String MSG_FILTRAR_PROP_ERROR = "Ocurrio un error al filtrar las propiedades";
 	
 	// sweetalert2
-	public static final String tituloOk = "¡HECHO!";
-	public static final String tituloWarn = "¡ADVERTENCIA!";
-	public static final String tituloError = "¡ERROR!";
-	public static final String tituloInfo = "¡ATENCION!";
-	public static final String success = "success";
-	public static final String error = "error";
-	public static final String warning = "warning";
-	public static final String info = "info";
+	public static final String TITULO_OK = "¡HECHO!";
+	public static final String TITULO_WARN = "¡ADVERTENCIA!";
+	public static final String TITULO_ERROR = "¡ERROR!";
+	public static final String TITULO_INFO = "¡ATENCION!";
+	public static final String SUCCESS = "success";
+	public static final String ERROR = "error";
+	public static final String WARNING = "warning";
+	public static final String INFO = "info";
 
 	// Rutas Imagenes
-	public static final String rutaImagenPropiedad = "src/main/resources/Uploads/imagenesPropiedad";
-	public static final String rutaImagenVoucher = "src/main/resources/Uploads/vouchersPago";
-	public static final String rutaBoleta = "src/main/resources/Boletas";
-	public static final String rutaContrato = "src/main/resources/Contrato";
+	public static final String RUTA_IMAGEN_PROPIEDAD = "src/main/resources/Uploads/imagenesPropiedad";
+	public static final String RUTA_IMAGEN_VOUCHER = "src/main/resources/Uploads/vouchersPago";
+	public static final String RUTA_BOLETA = "src/main/resources/Boletas";
+	public static final String RUTA_CONTRATO = "src/main/resources/Contrato";
 	
 	// Fotos
-	public static final String errorRegistroFoto = "Error al guardar la foto en la Base de Datos";
-	public static final String errorLecturaFoto = "Error al intentar leer la foto";
-	public static final String errorCargarFoto = "No se pudo cargar la imagen o no es legible";
+	public static final String ERROR_REGISTRO_FOTO = "Error al guardar la foto en la Base de Datos";
+	public static final String ERROR_LECTURA_FOTO = "Error al intentar leer la foto";
+	public static final String ERROR_CARGAR_FOTO = "No se pudo cargar la imagen o no es legible";
 	
 	
 	//Datos de Filtro
@@ -203,6 +208,20 @@ public class Constantes {
 	}	
 	
 	//RESPONSEENTITY
-	public static final String mensajeResponse = "mensaje";
-	public static final String errorResponse = "error";
+	public static final String MENSAJE_TXT_RESPONSE = "mensaje";
+	public static final String ERROR_TXT_RESPONSE = "error";
+	public static final String AADATA_TXT_RESPONSE = "aaData";
+	public static final String ESTADO_TXT_RESPONSE = "estado";
+	public static final String TITULO_TXT_RESPONSE = "titulo";
+	public static final String TIPO_TXT_RESPONSE= "tipo";
+	public static final String DATA_TXT_RESPONSE = "data";
+	public static final String DEAFULT_OBJ_TXT_RESPONSE = "defaultObj";
+	public static final String ID_TXT_RESPONSE = "id";
+	public static final String ENCONTRO_TXT_RESPONSE= "encontro";
+	public static final String OBJ_TXT_RESPONSE = "obj";
+	public static final String FOTO_TXT_RESPONSE = "foto";
+	
+	//WORD
+	public static final String ARIAL_FONT = "Arial";
+	
 }

@@ -26,19 +26,16 @@ public class DistritoController {
 	DistritoService service;
 	
 	@PostMapping("/porProvincia")
-	public ResponseEntity<?> listarPorProvincia(@RequestBody Provincia prov) throws Exception {
-		
+	public ResponseEntity<Map<String,Object>> listarPorProvincia(@RequestBody Provincia prov) throws Exception {
 		Map<String,Object> response = new HashMap<>();
-	
 		try {
 			List<Distrito> lsdist = service.listarPorProvincia(prov);			
-			response.put("aaData",lsdist);
-
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsdist);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgListarDistritoError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_LISTAR_DISTRIT_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

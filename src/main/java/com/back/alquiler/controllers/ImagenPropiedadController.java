@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.back.alquiler.dto.ImagenPropiedadDTO;
 import com.back.alquiler.service.ImagenPropiedadService;
 import com.back.alquiler.utils.Constantes;
+import com.back.alquiler.utils.ImagenErrorResponse;
 
 @RestController
 @RequestMapping("/api/img-prop")
@@ -30,65 +31,56 @@ public class ImagenPropiedadController {
 	ImagenPropiedadService service;
 
 	@PostMapping("/uploadImage")
-	public ResponseEntity<?> subirImagen(@RequestParam("archivo") MultipartFile archivo,
+	public ResponseEntity<Map<String, Object>> subirImagen(@RequestParam("archivo") MultipartFile archivo,
 			@RequestParam("id") Integer id) {
 		Map<String, Object> response = new HashMap<>();
-
 		try {
 			service.registrarImagen(id, archivo);
-			response.put("titulo", Constantes.tituloOk);
-			response.put("mensaje", Constantes.msgRegistrarImagenPropiedadOk);
-			response.put("tipo", Constantes.success);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_IMAGENPROP_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.errorRegistroFoto);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ImagenErrorResponse.errorRegistro(e);
 		} catch (IOException e) {
-			response.put("mensaje", Constantes.errorLecturaFoto);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ImagenErrorResponse.errorLectura(e);
 		}
 	}
 
 	@PostMapping("/eliminarImagenes")
-	public ResponseEntity<?> eliminarImagenes(@RequestBody ImagenPropiedadDTO dto) {
+	public ResponseEntity<Map<String, Object>> eliminarImagenes(@RequestBody ImagenPropiedadDTO dto) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
 			service.eliminarImagenes(dto.getLsIds());
-			response.put("titulo", Constantes.tituloOk);
-			response.put("mensaje", Constantes.msgEliminarImagenesPropiedadOk);
-			response.put("tipo", Constantes.success);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ELIMINAR_IMAGENPROP_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgEliminarImagenesPropiedadError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ELIMINAR_IMAGENPROP_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (IOException e) {
-			response.put("mensaje", Constantes.errorLecturaFoto);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ImagenErrorResponse.errorLectura(e);
 		}
 	}
 
 	@GetMapping("/listarImagenes/{id}")
-	public ResponseEntity<?> listarImagenes(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, Object>> listarImagenes(@PathVariable Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			List<Map<String, Object>> lsMaps = service.retornarImagenes(id);
-			response.put("aaData", lsMaps);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsMaps);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarImagenesPropiedadError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_IMAGENPROP_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (IOException e) {
-			response.put("mensaje", Constantes.errorLecturaFoto);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ImagenErrorResponse.errorLectura(e);
 		}
 	}
 }

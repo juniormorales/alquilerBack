@@ -23,47 +23,47 @@ import com.back.alquiler.utils.Constantes;
 public class DashboardController {
 	
 	@Autowired
-	DashboardService service;
+	DashboardService serviceDashboard;
 	
 	@PostMapping("/ganancias/{idarrendero}")
-	public ResponseEntity<?> listarGananciasAlquiler(@PathVariable("idarrendero") Integer idarrendero, @RequestBody List<JsonGeneral> anios){
+	public ResponseEntity<Map<String, Object>> listarGananciasAlquiler(@PathVariable("idarrendero") Integer idarrendero, @RequestBody List<JsonGeneral> anios){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<Map<String, Object>> ganancias = service.retornarGananciaAños(idarrendero, anios);
-			response.put("data",ganancias);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			List<Map<String, Object>> ganancias = serviceDashboard.retornarGananciaAños(idarrendero, anios);
+			response.put(Constantes.DATA_TXT_RESPONSE,ganancias);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgMostrarGananciasAnualesDashError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_GANANCIA_ANUAL_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/solicitudPorPropiedad/{idarrendero}")
-	public ResponseEntity<?> listarCantidadSolPorPropiedad(@PathVariable("idarrendero") Integer idarrendero){
+	public ResponseEntity<Map<String,Object>> listarCantidadSolPorPropiedad(@PathVariable("idarrendero") Integer idarrendero){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<Map<String, Object>> cantidadsol = service.retornaCantidadSolPropiedad(idarrendero);
-			response.put("data",cantidadsol);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			List<Map<String, Object>> cantidadsol = serviceDashboard.retornaCantidadSolPropiedad(idarrendero);
+			response.put(Constantes.DATA_TXT_RESPONSE,cantidadsol);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgListarCantidadSolicitudesPorPropiedadError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_CANTIDAD_SOL_PROP_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/cantidadInquilinosAlDia/{idarrendero}")
-	public ResponseEntity<?> listarCantidadInquilinosAlDia(@PathVariable("idarrendero") Integer idarrendero){
+	public ResponseEntity<Map<String,Object>> listarCantidadInquilinosAlDia(@PathVariable("idarrendero") Integer idarrendero){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Long cantidad = service.cantidadInquilinosAlDia(idarrendero);
-			response.put("data",cantidad);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			Long cantidad = serviceDashboard.cantidadInquilinosAlDia(idarrendero);
+			response.put(Constantes.DATA_TXT_RESPONSE,cantidad);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgCantidadInquilinosAlDiaError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_CANTIDAD_INQUILINO_ALDIA_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -71,41 +71,41 @@ public class DashboardController {
 	public ResponseEntity<?> listarCantidadInquilinosDeudores(@PathVariable("idarrendero") Integer idarrendero){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Long cantidad = service.cantidadInquilinosDeudores(idarrendero);
-			response.put("data",cantidad);
+			Long cantidad = serviceDashboard.cantidadInquilinosDeudores(idarrendero);
+			response.put(Constantes.DATA_TXT_RESPONSE,cantidad);
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgCantidadInquilinosDeudoresError);
-			response.put("error",e.getMessage());
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_CANTIDAD_INQUILINO_DEUDOR_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
 			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/cantidadPagosPorconfirmar/{idarrendero}")
-	public ResponseEntity<?> listarCantidadPagosPorConfirmar(@PathVariable("idarrendero") Integer idarrendero){
+	public ResponseEntity<Map<String,Object>> listarCantidadPagosPorConfirmar(@PathVariable("idarrendero") Integer idarrendero){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Long cantidad = service.cantidadPagosPorConfirmar(idarrendero);
-			response.put("data",cantidad);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			Long cantidad = serviceDashboard.cantidadPagosPorConfirmar(idarrendero);
+			response.put(Constantes.DATA_TXT_RESPONSE,cantidad);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgCantidadPagosPorConfirmarError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_CANTIDAD_PAGO_CONFIRMAR_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/cantidadSolicitudesPendientes/{idarrendero}")
-	public ResponseEntity<?> listarCantidadSolicitudesPendientes(@PathVariable("idarrendero") Integer idarrendero){
+	public ResponseEntity<Map<String,Object>> listarCantidadSolicitudesPendientes(@PathVariable("idarrendero") Integer idarrendero){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Long cantidad = service.cantidadSolicitudesPendientes(idarrendero);
-			response.put("data",cantidad);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			Long cantidad = serviceDashboard.cantidadSolicitudesPendientes(idarrendero);
+			response.put(Constantes.DATA_TXT_RESPONSE,cantidad);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgCantidadSolicitudesPendientesError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_CANT_SOL_PENDIENTE_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

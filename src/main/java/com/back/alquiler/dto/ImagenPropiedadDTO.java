@@ -2,8 +2,6 @@ package com.back.alquiler.dto;
 
 import java.util.List;
 
-import com.back.alquiler.models.ImagenPropiedad;
-
 public class ImagenPropiedadDTO {
 	
 	private List<Integer> lsIds;

@@ -23,61 +23,51 @@ import com.back.alquiler.utils.Constantes;
 @RestController
 @RequestMapping("/api/contrato")
 public class ContratoController {
-	
+
 	@Autowired
-	ContratoService service_contrato;
-	
+	ContratoService serviceContrato;
+
 	@PostMapping("/habilitarContrato")
-	public ResponseEntity<?> registrarContrato(@RequestBody Inquilino inquilino){
-		Map<String,Object> response = new HashMap<>();
+	public ResponseEntity<Map<String, Object>> registrarContrato(@RequestBody Inquilino inquilino) {
+		Map<String, Object> response = new HashMap<>();
 		try {
-			Contrato contrato = service_contrato.habilitarContrato(inquilino);
-			String ruta = service_contrato.crearContrato(contrato.getInquilino());
+			Contrato contrato = serviceContrato.habilitarContrato(inquilino);
+			String ruta = serviceContrato.crearContrato(contrato.getInquilino());
 			contrato.setArchivoContrato(ruta);
-			service_contrato.modificar(contrato);
-			response.put("titulo", Constantes.tituloOk);
-			response.put("mensaje", Constantes.msgCrearContratoOk);
-			response.put("tipo", Constantes.success);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-		}catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgHabilitarContratoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		} catch (Exception e) {
-			response.put("mensaje", Constantes.msgHabilitarContratoError);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/descargarContrato/{id}")
-	public byte[] descargarContrato(@PathVariable("id") Integer id) throws Exception{
-		try {
-				byte[] file = service_contrato.obtenerContrato(id);
-				
-			return file;
+			serviceContrato.modificar(contrato);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_CREAR_CONTRATO_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			throw new Exception(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.MSG_HABILITAR_CONTRATO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,
+					e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		} 
-	}
-	
-	@GetMapping("listarContratosArrendero/{id}")
-	public ResponseEntity<?> listarContratosPorArrendero(@PathVariable("id") Integer id){
-		Map<String,Object> response = new HashMap<>();
-		try {
-			List<Contrato> lsContrato = service_contrato.listarPorArrendero(id);
-			response.put("aaData",lsContrato);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		}catch(Exception e) {
-			response.put("mensaje", Constantes.msgListarContratoError);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.MSG_HABILITAR_CONTRATO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	
-	
-	
+
+	@GetMapping("/descargarContrato/{id}")
+	public byte[] descargarContrato(@PathVariable("id") Integer id) throws Exception {
+		return serviceContrato.obtenerContrato(id);
+	}
+
+	@GetMapping("listarContratosArrendero/{id}")
+	public ResponseEntity<Map<String, Object>> listarContratosPorArrendero(@PathVariable("id") Integer id) {
+		Map<String, Object> response = new HashMap<>();
+		try {
+			List<Contrato> lsContrato = serviceContrato.listarPorArrendero(id);
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsContrato);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_CONTRATO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 }

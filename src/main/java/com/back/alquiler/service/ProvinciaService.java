@@ -6,7 +6,7 @@ import com.back.alquiler.models.Departamento;
 import com.back.alquiler.models.Provincia;
 
 
-public interface ProvinciaService extends ICRUD<Provincia>{
+public interface ProvinciaService{
 	
 	public List<Provincia> listarPorDepartamento(Departamento depa);
 

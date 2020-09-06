@@ -25,19 +25,17 @@ public class DepartamentoController {
 	DepartamentoService service;
 	
 	@GetMapping("/listar")
-	public ResponseEntity<?> listar() throws Exception {
+	public ResponseEntity<Map<String,Object>> listar() throws Exception {
 		Map<String,Object> response = new HashMap<>();
 
 		try {
 			List<Departamento> lsdepa = service.listar();
-			response.put("mensaje",Constantes.msgListarDepartamentoOK);
-			response.put("aaData",lsdepa);
-			
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsdepa);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgListarDepartamentoError);
-			response.put("error",e.getMessage());
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_LISTAR_DEP_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
+			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

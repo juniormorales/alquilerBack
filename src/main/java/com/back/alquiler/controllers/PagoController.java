@@ -24,155 +24,148 @@ import org.springframework.web.multipart.MultipartFile;
 import com.back.alquiler.models.Pago;
 import com.back.alquiler.service.PagoService;
 import com.back.alquiler.utils.Constantes;
+import com.back.alquiler.utils.ImagenErrorResponse;
 
 @RestController
 @RequestMapping("/api/pagos")
 public class PagoController {
 	
 	@Autowired
-	PagoService service_pago;
+	PagoService servicePago;
 
 	
 	@PostMapping("/enviarPagoConfirmacion")
-	public ResponseEntity<?> registrarPago(@RequestBody Pago pago) {
+	public ResponseEntity<Map<String, Object>> registrarPago(@RequestBody Pago pago) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			Integer id = service_pago.registrar(pago).getIdPago();
-			response.put("id",id);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			Integer id = servicePago.registrar(pago).getIdPago();
+			response.put(Constantes.ID_TXT_RESPONSE,id);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgRegistrarPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_PAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@PostMapping("/uploadImageVoucher")
-	public ResponseEntity<?> subirImagenVoucher(@RequestParam("archivo") MultipartFile archivo,
+	public ResponseEntity<Map<String, Object>> subirImagenVoucher(@RequestParam("archivo") MultipartFile archivo,
 			@RequestParam("id") Integer id) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			service_pago.registrarImagenVoucher(archivo,id);
-			response.put("titulo", Constantes.tituloOk);
-			response.put("mensaje", Constantes.msgRegistrarPagoParaConfirmarOk);
-			response.put("tipo", Constantes.success);
+			servicePago.registrarImagenVoucher(archivo,id);
+			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_REGISTRAR_PAGOCONFIRMAR_OK);
+			response.put(Constantes.TIPO_TXT_RESPONSE, Constantes.SUCCESS);
 
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.errorRegistroFoto);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ImagenErrorResponse.errorRegistro(e);
 		}catch (IOException e) {
-			response.put("mensaje", Constantes.errorLecturaFoto);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ImagenErrorResponse.errorLectura(e);
 		}
 	}
 	
 
 	@GetMapping("/listarPagosPorConfirmar/{id}")
-	public ResponseEntity<?> listarPagosPorConfirmar(@PathVariable("id") Integer id) {
+	public ResponseEntity<Map<String, Object>> listarPagosPorConfirmar(@PathVariable("id") Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				List<Pago> lsPagos = service_pago.listarPagosPorConfirmar(id);
-				response.put("aaData",lsPagos);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				List<Pago> lsPagos = servicePago.listarPagosPorConfirmar(id);
+				response.put(Constantes.AADATA_TXT_RESPONSE,lsPagos);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_PAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 
 	@GetMapping("/verVoucher/{id}")
-	public ResponseEntity<?> verFotoVoucher(@PathVariable Integer id) throws Exception{
+	public ResponseEntity<?> verFotoVoucher(@PathVariable Integer id){
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			Resource recurso = service_pago.verFotoVoucher(id);
+			Resource recurso = servicePago.verFotoVoucher(id);
 			HttpHeaders cabecera = new HttpHeaders();
 			cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+recurso.getFilename()+"\"");
-			return new ResponseEntity<Resource>(recurso,cabecera,HttpStatus.OK);
+			return new ResponseEntity<>(recurso,cabecera,HttpStatus.OK);
 
 		} catch (MalformedURLException e) {
-			response.put("mensaje", Constantes.errorLecturaFoto);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}catch (RuntimeException e) {
-			response.put("mensaje", Constantes.errorLecturaFoto);
-			response.put("error", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.ERROR_LECTURA_FOTO);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		} catch (IOException e) {
+			return ImagenErrorResponse.errorLectura(e);
 		}
 	}
 	
 	@PostMapping("/confirmarPago")
-	public ResponseEntity<?> confirmarPago(@RequestBody Pago pago) {
+	public ResponseEntity<Map<String, Object>> confirmarPago(@RequestBody Pago pago) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				Pago resp = service_pago.modificar(pago);
-				response.put("titulo", Constantes.tituloOk);
-				response.put("mensaje", Constantes.msgConfirmarPagoOk);
-				response.put("tipo",Constantes.success);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+				servicePago.modificar(pago);
+				response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+				response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_CONFIRMAR_PAGO_OK);
+				response.put(Constantes.TIPO_TXT_RESPONSE,Constantes.SUCCESS);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgActualizarPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_PAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@PostMapping("/rechazarPago")
-	public ResponseEntity<?> rechazarPago(@RequestBody Pago pago) {
+	public ResponseEntity<Map<String, Object>> rechazarPago(@RequestBody Pago pago) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				service_pago.rechazarPago(pago);
-				response.put("titulo", Constantes.tituloOk);
-				response.put("mensaje", Constantes.msgRechazarPagoOk);
-				response.put("tipo",Constantes.success);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+				servicePago.rechazarPago(pago);
+				response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
+				response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_RECHAZAR_PAGO_OK);
+				response.put(Constantes.TIPO_TXT_RESPONSE,Constantes.SUCCESS);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgActualizarPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTUALIZAR_PAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/listarPagosTotalInquilino/{id}")
-	public ResponseEntity<?> listarPagosTotalInquilino(@PathVariable("id") Integer id) {
+	public ResponseEntity<Map<String, Object>> listarPagosTotalInquilino(@PathVariable("id") Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				List<Pago> lsPagos = service_pago.listarPagosTotalInquilino(id);
-				response.put("aaData",lsPagos);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				List<Pago> lsPagos = servicePago.listarPagosTotalInquilino(id);
+				response.put(Constantes.AADATA_TXT_RESPONSE,lsPagos);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_PAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/listarPagosTotalArrendero/{id}")
-	public ResponseEntity<?> listarPagosTotalArrendero(@PathVariable("id") Integer id) {
+	public ResponseEntity<Map<String, Object>> listarPagosTotalArrendero(@PathVariable("id") Integer id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-				List<Pago> lsPagos = service_pago.listarPagosArrendero(id);
-				response.put("aaData",lsPagos);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+				List<Pago> lsPagos = servicePago.listarPagosArrendero(id);
+				response.put(Constantes.AADATA_TXT_RESPONSE,lsPagos);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarPagoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_PAGO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/descargarBoleta/{id}")
 	public byte[] descargarBoleta(@PathVariable("id") Integer id) throws Exception{
 		try {
-				byte[] file = service_pago.generarBoleta(id);
-				
-			return file;
+			return servicePago.generarBoleta(id);
 		} catch (DataAccessException e) {
 			throw new Exception(e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 		} catch (Exception e) {

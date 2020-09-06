@@ -16,6 +16,6 @@ public interface ImagenPropiedadService extends ICRUD<ImagenPropiedad> {
 	public Boolean eliminarImagenes(List<Integer> ids) throws IOException;
 	
 	public Boolean eliminarTodasLasImagenes(Integer id) throws IOException;
-	
+		
 	public List<Map<String, Object>> retornarImagenes(Integer id) throws IOException;
 }

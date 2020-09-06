@@ -20,18 +20,18 @@ import com.back.alquiler.utils.Constantes;
 public class AdministracionController {
 	
 	@Autowired
-	UsuarioService service_usuario;
+	UsuarioService serviceUsuario;
 	
 	@GetMapping("/listarCuentas")
-	public ResponseEntity<?> listarcuentas(){
+	public ResponseEntity<Map<String, Object>> listarcuentas(){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<Usuario> lsUsu = service_usuario.listar();
-			response.put("aaData", lsUsu);
-			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+			List<Usuario> lsUsu = serviceUsuario.listar();
+			response.put(Constantes.AADATA_TXT_RESPONSE, lsUsu);
+			return new ResponseEntity<>(response,HttpStatus.OK);
 		} catch (Exception e) {
-			response.put("mensaje",Constantes.msgListarCuentasError);
-			response.put("error",e.getMessage());
+			response.put(Constantes.MENSAJE_TXT_RESPONSE,Constantes.MSG_LISTAR_CUENTA_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE,e.getMessage());
 			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

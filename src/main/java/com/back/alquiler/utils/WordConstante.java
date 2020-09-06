@@ -22,7 +22,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subtitulo_antecedente() {
+	public WordData subtituloAntecedente() {
 		WordData titulo = new WordData();
 		titulo.setText1("ANTECEDENTES:");
 		return titulo;
@@ -47,7 +47,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subtitulo_obj_contrato() {
+	public WordData subtituloObjContrato() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("OBJETO DEL CONTRATO:");
 		return parrafo;
@@ -70,7 +70,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subitulo_forma_oportunidad() {
+	public WordData subituloFormaOportunidad() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("RENTA: FORMA Y OPORTUNIDAD DE PAGO:");
 		return parrafo;
@@ -111,7 +111,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subtitulo_plazo_contrato() {
+	public WordData subtituloPlazoContrato() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("PLAZO DEL CONTRATO: ");
 		return parrafo;
@@ -127,7 +127,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subtitulo_obligaciones() {
+	public WordData subtituloObligaciones() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("OBLIGACIONES DE LAS PARTES: ");
 		return parrafo;
@@ -160,7 +160,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData parrafo12_reparacion_arrendatario() {
+	public WordData parrafo12ReparacionArrendatario() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("DECIMA. - EL(LA) ARRENDATARIO(A) ");
 		parrafo.setText2("está obligado a efectuar por cuenta y costo " + 
@@ -169,7 +169,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData parrafo12_reparacion_arrendero() {
+	public WordData parrafo12ReparacionArrendero() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("DECIMA. - EL(LA) ARRENDATARIO(A) ");
 		parrafo.setText2("no está obligado a efectuar por cuenta y costo " + 
@@ -198,7 +198,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subtitulo_clausula_pena() {
+	public WordData subtituloClausulaPena() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("CLAUSULA PENAL:");
 		return parrafo;
@@ -215,7 +215,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subtitulo_clausula_garantia() {
+	public WordData subtituloClausulaGarantia() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("CLAUSULA DE GARANTÍA:");
 		return parrafo;
@@ -232,7 +232,7 @@ public class WordConstante {
 		return parrafo;
 	}
 	
-	public WordData subtitulo_clausula_solucion_conflicto() {
+	public WordData subtituloClausulaSolucionConflicto() {
 		WordData parrafo = new WordData();
 		parrafo.setText1("CLAUSULA DE SOLUCION DE CONFLICTOS:");
 		return parrafo;

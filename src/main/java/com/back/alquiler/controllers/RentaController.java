@@ -23,47 +23,47 @@ import com.back.alquiler.utils.Constantes;
 public class RentaController {
 	
 	@Autowired
-	RentaService service_renta;
+	RentaService serviceRenta;
 	
 	@PostMapping("/listarPendientesPorInquilino")
-	public ResponseEntity<?> listarPendientesPorInquilino(@RequestBody Inquilino inquilino){
+	public ResponseEntity<Map<String,Object>> listarPendientesPorInquilino(@RequestBody Inquilino inquilino){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<Renta> lsRentas = service_renta.listarRentasPendientes(inquilino);
-			response.put("aaData",lsRentas);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+			List<Renta> lsRentas = serviceRenta.listarRentasPendientes(inquilino);
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsRentas);
+			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarRentasInquilinoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_RENTA_INQUILINO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 	}
 	
 	@PostMapping("/listarCanceladosPorInquilino")
-	public ResponseEntity<?> listarCanceladosPorInquilino(@RequestBody Inquilino inquilino){
+	public ResponseEntity<Map<String,Object>> listarCanceladosPorInquilino(@RequestBody Inquilino inquilino){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<Renta> lsRentas = service_renta.listarRentasCanceladas(inquilino);
-			response.put("aaData",lsRentas);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+			List<Renta> lsRentas = serviceRenta.listarRentasCanceladas(inquilino);
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsRentas);
+			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarRentasInquilinoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_RENTA_INQUILINO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 	}
 	
 	@PostMapping("/listardeudasRentaPorInquilino")
-	public ResponseEntity<?> listarDeudasRentaPorInquilino(@RequestBody Inquilino inquilino){
+	public ResponseEntity<Map<String,Object>> listarDeudasRentaPorInquilino(@RequestBody Inquilino inquilino){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			List<Renta> lsRentas = service_renta.listarDeudasRenta(inquilino);
-			response.put("aaData",lsRentas);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
+			List<Renta> lsRentas = serviceRenta.listarDeudasRenta(inquilino);
+			response.put(Constantes.AADATA_TXT_RESPONSE,lsRentas);
+			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch (DataAccessException e) {
-			response.put("mensaje", Constantes.msgListarRentasInquilinoError);
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_LISTAR_RENTA_INQUILINO_ERROR);
+			response.put(Constantes.ERROR_TXT_RESPONSE, e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
 		}
 	}
 	

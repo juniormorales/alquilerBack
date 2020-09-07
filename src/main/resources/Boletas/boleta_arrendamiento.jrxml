@@ -41,11 +41,11 @@ prop.direccion as direccion_propiedad, r.fecha_ini_renta as inicio_renta,r.fecha
 				<reportElement x="10" y="11" width="179" height="125" uuid="db46b5ec-224a-4417-885a-01cafb799575"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="215" y="10" width="331" height="138" uuid="a4327cb2-8037-410c-b55a-4e5143a3130f"/>
+				<reportElement x="215" y="10" width="302" height="126" uuid="a4327cb2-8037-410c-b55a-4e5143a3130f"/>
 				<textElement textAlignment="Center">
 					<font size="45" isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Boleta de Arrendamiento]]></text>
+				<text><![CDATA[Boleta de Pago]]></text>
 			</staticText>
 			<rectangle radius="20">
 				<reportElement x="558" y="11" width="232" height="125" uuid="f5a2cfa0-dfdd-47cd-8aa0-7870b7514712"/>

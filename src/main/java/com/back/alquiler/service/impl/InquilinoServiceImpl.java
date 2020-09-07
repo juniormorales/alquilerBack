@@ -77,8 +77,10 @@ public class InquilinoServiceImpl implements InquilinoService {
 		if (calendar.getTime().compareTo(fechaActual) > 0) {
 			return false;
 		} else {
+			cont.setCaduco(true);
 			inquilino.setEstado(false);
 			repoInquilino.save(inquilino);
+			repoContrato.save(cont);
 			return true;
 		}
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back.alquiler.dto.InquilinoDTO;
 import com.back.alquiler.models.Inquilino;
 import com.back.alquiler.models.Renta;
 import com.back.alquiler.service.RentaService;
@@ -26,10 +27,12 @@ public class RentaController {
 	RentaService serviceRenta;
 	
 	@PostMapping("/listarPendientesPorInquilino")
-	public ResponseEntity<Map<String,Object>> listarPendientesPorInquilino(@RequestBody Inquilino inquilino){
+	public ResponseEntity<Map<String,Object>> listarPendientesPorInquilino(@RequestBody InquilinoDTO inquilino){
 		Map<String,Object> response = new HashMap<>();
+		Inquilino inqui = new Inquilino();
+		inqui.setIdInquilino(inquilino.getIdInquilino());
 		try {
-			List<Renta> lsRentas = serviceRenta.listarRentasPendientes(inquilino);
+			List<Renta> lsRentas = serviceRenta.listarRentasPendientes(inqui);
 			response.put(Constantes.AADATA_TXT_RESPONSE,lsRentas);
 			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch (DataAccessException e) {
@@ -40,10 +43,12 @@ public class RentaController {
 	}
 	
 	@PostMapping("/listarCanceladosPorInquilino")
-	public ResponseEntity<Map<String,Object>> listarCanceladosPorInquilino(@RequestBody Inquilino inquilino){
+	public ResponseEntity<Map<String,Object>> listarCanceladosPorInquilino(@RequestBody InquilinoDTO inquilino){
 		Map<String,Object> response = new HashMap<>();
+		Inquilino inqui = new Inquilino();
+		inqui.setIdInquilino(inquilino.getIdInquilino());
 		try {
-			List<Renta> lsRentas = serviceRenta.listarRentasCanceladas(inquilino);
+			List<Renta> lsRentas = serviceRenta.listarRentasCanceladas(inqui);
 			response.put(Constantes.AADATA_TXT_RESPONSE,lsRentas);
 			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch (DataAccessException e) {
@@ -54,10 +59,12 @@ public class RentaController {
 	}
 	
 	@PostMapping("/listardeudasRentaPorInquilino")
-	public ResponseEntity<Map<String,Object>> listarDeudasRentaPorInquilino(@RequestBody Inquilino inquilino){
+	public ResponseEntity<Map<String,Object>> listarDeudasRentaPorInquilino(@RequestBody InquilinoDTO inquilino){
 		Map<String,Object> response = new HashMap<>();
+		Inquilino inqui = new Inquilino();
+		inqui.setIdInquilino(inquilino.getIdInquilino());
 		try {
-			List<Renta> lsRentas = serviceRenta.listarDeudasRenta(inquilino);
+			List<Renta> lsRentas = serviceRenta.listarDeudasRenta(inqui);
 			response.put(Constantes.AADATA_TXT_RESPONSE,lsRentas);
 			return new ResponseEntity<>(response, HttpStatus.OK);	
 		} catch (DataAccessException e) {

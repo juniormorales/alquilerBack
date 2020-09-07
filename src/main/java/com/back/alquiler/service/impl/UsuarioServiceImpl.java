@@ -3,6 +3,7 @@ package com.back.alquiler.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,9 +127,11 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 
 	@Override
 	public Usuario inhabilitarCuenta(Usuario usuario) {
-		usuario.setEstado(true);
-		usuario.setEstaInhabilitado(true);
-		return repoUsuario.save(usuario);
+		Optional<Usuario> op = repoUsuario.findById(usuario.getIdUsuario());
+		Usuario user = op.isPresent()?op.get() : new Usuario();
+		user.setEstado(true);
+		user.setEstaInhabilitado(true);
+		return repoUsuario.save(user);
 	}
 
 	@Override
@@ -141,8 +144,10 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 
 	@Override
 	public Usuario activarCuenta(Usuario usuario) {
-		usuario.setEstado(true);
-		return repoUsuario.save(usuario);
+		Optional<Usuario> op = repoUsuario.findById(usuario.getIdUsuario());
+		Usuario user = op.isPresent()?op.get() : new Usuario();
+		user.setEstado(true);
+		return repoUsuario.save(user);
 	}
 
 	@Override

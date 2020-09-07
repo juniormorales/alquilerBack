@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back.alquiler.dto.UsuarioDTO;
 import com.back.alquiler.models.Arrendatario;
 import com.back.alquiler.models.Arrendero;
 import com.back.alquiler.models.Usuario;
@@ -42,10 +43,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/activarCuenta")
-	public ResponseEntity<Map<String, Object>> activarCuenta(@RequestBody Usuario usuario){
+	public ResponseEntity<Map<String, Object>> activarCuenta(@RequestBody UsuarioDTO usuario){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			service.activarCuenta(usuario);
+			Usuario user = new Usuario();
+			user.setIdUsuario(usuario.getIdUsuario());
+			service.activarCuenta(user);
 			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
 			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_ACTIVAR_CUENTA_OK);
 			response.put(Constantes.TIPO_TXT_RESPONSE,Constantes.SUCCESS);
@@ -58,10 +61,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/desactivarCuenta")
-	public ResponseEntity<Map<String, Object>> desactivarCuenta(@RequestBody Usuario usuario){
+	public ResponseEntity<Map<String, Object>> desactivarCuenta(@RequestBody UsuarioDTO usuario){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			service.inhabilitarCuenta(usuario);
+			Usuario user = new Usuario();
+			user.setIdUsuario(usuario.getIdUsuario());
+			service.inhabilitarCuenta(user);
 			response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_OK);
 			response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_INHABILITAR_CUENTA_OK);
 			response.put(Constantes.TIPO_TXT_RESPONSE,Constantes.SUCCESS);
@@ -74,10 +79,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/verificarInhabilitado")
-	public ResponseEntity<Map<String, Object>> verificarInhabilitado(@RequestBody Usuario usuario){
+	public ResponseEntity<Map<String, Object>> verificarInhabilitado(@RequestBody UsuarioDTO usuario){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Boolean estaInhabilitado = service.verificarInhabilitado(usuario);
+			Usuario user = new Usuario();
+			user.setUsername(usuario.getUsername());
+			Boolean estaInhabilitado = service.verificarInhabilitado(user);
 			if(estaInhabilitado) {
 				response.put(Constantes.TITULO_TXT_RESPONSE, Constantes.TITULO_ERROR);
 				response.put(Constantes.MENSAJE_TXT_RESPONSE, Constantes.MSG_CUENTA_INHABILITADA);
@@ -93,10 +100,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/retornarArrendero")
-	public ResponseEntity<Map<String, Object>> retornaArrendero(@RequestBody Usuario usuario){
+	public ResponseEntity<Map<String, Object>> retornaArrendero(@RequestBody UsuarioDTO usuario){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Arrendero arrendero = service.retornarArrendero(usuario);
+			Usuario user = new Usuario();
+			user.setIdUsuario(usuario.getIdUsuario());
+			Arrendero arrendero = service.retornarArrendero(user);
 			arrendero.setUsuario(null);
 			response.put(Constantes.OBJ_TXT_RESPONSE,arrendero);
 			return new ResponseEntity<>(response, HttpStatus.ACCEPTED);	
@@ -108,10 +117,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/retornarArrendatario")
-	public ResponseEntity<Map<String, Object>> retornaArrendatario(@RequestBody Usuario usuario){
+	public ResponseEntity<Map<String, Object>> retornaArrendatario(@RequestBody UsuarioDTO usuario){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			Arrendatario arrendatario = service.retornarArrendatario(usuario);
+			Usuario user = new Usuario();
+			user.setIdUsuario(usuario.getIdUsuario());
+			Arrendatario arrendatario = service.retornarArrendatario(user);
 			arrendatario.setUsuario(null);
 			response.put(Constantes.OBJ_TXT_RESPONSE,arrendatario);
 			return new ResponseEntity<>(response, HttpStatus.ACCEPTED);	

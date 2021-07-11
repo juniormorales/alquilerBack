@@ -54,7 +54,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.13.0</version>
+			<version>6.17.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -84,6 +84,12 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>jaspersoft-third-party</id>
+			<url>http://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>

@@ -112,8 +112,8 @@ public class UtilitarioController {
 			messages.add(service.insertarDatosPerfil(tmpPerfil));
 
 			List<Usuario> tmpUsuarios = new ArrayList<>();
-			Usuario user1 = this.crearUsuario("correo1@hotmail.com", true,
-					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "user1", admi, "ADMINISTRADOR",false);
+			Usuario user1 = this.crearUsuario("angel_96vir@hotmail.com", true,
+					"$2a$10$5lQfLdWrdOiZudh3cCNmbOz2TcU3DtgfjqCeFHvGS1HDBHSvlNdu6", "admin", admi, "ADMINISTRADOR",false);
 			tmpUsuarios.add(user1);
 			messages.add(service.insertarDatosUsuarios(tmpUsuarios));
 			
